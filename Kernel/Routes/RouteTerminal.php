@@ -10,23 +10,23 @@
   *
   *
   *
-  *			          ^
-  *			         | |
-  *			       @#####@
-  *			     (###   ###)-.
-  *			   .(###     ###) \
-  *			  /  (###   ###)   )
-  *			 (=-  .@#####@|_--"
-  *			 /\    \_|l|_/ (\
-  *			(=-\     |l|    /
-  *			 \  \.___|l|___/
-  *			 /\      |_|   /
-  *			(=-\._________/\
-  *			 \             /
-  *			   \._________/
-  *			     #  ----  #
-  *			     #   __   #
-  *			     \########/
+  *               ^
+  *              | |
+  *            @#####@
+  *          (###   ###)-.
+  *        .(###     ###) \
+  *       /  (###   ###)   )
+  *      (=-  .@#####@|_--"
+  *      /\    \_|l|_/ (\
+  *     (=-\     |l|    /
+  *      \  \.___|l|___/
+  *      /\      |_|   /
+  *     (=-\._________/\
+  *      \             /
+  *        \._________/
+  *          #  ----  #
+  *          #   __   #
+  *          \########/
   *
   *
   *
@@ -39,72 +39,72 @@
 /* Terminal */
 if( !empty( SV['p'] ) && ROLE === 'Admin' ) {
 
-	$command = null;
+  $command = null;
 
-	if( isset( SV['p']['revolver_command_shell'] ) ) {
+  if( isset( SV['p']['revolver_command_shell'] ) ) {
 
-		if( (bool)SV['p']['revolver_command_shell']['valid'] ) { 
+    if( (bool)SV['p']['revolver_command_shell']['valid'] ) { 
 
-			$command = SV['p']['revolver_command_shell']['value'];
+      $command = SV['p']['revolver_command_shell']['value'];
 
-		}
+    }
 
-	}
+  }
 
-	if( isset(SV['p']['revolver_captcha']) ) {
+  if( isset(SV['p']['revolver_captcha']) ) {
 
-		if( (bool)SV['p']['revolver_captcha']['valid'] ) {
+    if( (bool)SV['p']['revolver_captcha']['valid'] ) {
 
-			if( $captcha::verify( SV['p']['revolver_captcha']['value'] ) ) {
+      if( $captcha::verify( SV['p']['revolver_captcha']['value'] ) ) {
 
-				define('form_pass', 'pass');
+        define('form_pass', 'pass');
 
-			}
+      }
 
-		}
+    }
 
-	}
+  }
 
 }
 
 $result = json_encode([ 
 
-	'command'	=> $command,
-	'output'	=> TRANSLATIONS[ $ipl ]['Security check not pass']
+  'command' => $command,
+  'output'  => TRANSLATIONS[ $ipl ]['Security check not pass']
 
 ]);
 
 if( defined('form_pass') ) {
 
-	if( form_pass === 'pass' ) {
+  if( form_pass === 'pass' ) {
 
-		if( $command ) {
+    if( $command ) {
 
-			print json_encode([ 
+      print json_encode([ 
 
-				'command'	=> $command,
-				'output'	=> shell_exec($command)
+        'command' => $command,
+        'output'  => shell_exec($command)
 
-			]);
+      ]);
  
-		} 
-		else {
+    } 
+    else {
 
-			print $result; 
+      print $result; 
 
-		}
+    }
 
-	} 
-	else {
+  } 
+  else {
 
-		print $result;
+    print $result;
 
-	}
+  }
 
 } 
 else {
 
-	print $result;
+  print $result;
 
 }
 

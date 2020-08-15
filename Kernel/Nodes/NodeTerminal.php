@@ -38,51 +38,49 @@
   */
 
 /* Terminal */
-if( ROLE === 'Admin' ) {
-
-
-}
-
-
 $title = TRANSLATIONS[ $ipl ]['Terminal'];
 
-// User Profile Form Structure
-$form_parameters = [
+if( ROLE === 'Admin' ) {
 
-	// main parameters
-	'id'		=> 'terminal-form',
-	'class'		=> 'revolver__terminal revolver__terminal-fetch',
-	'action'	=> '/terminal-s/',
-	'method'	=> 'post',
-	'encrypt'	=> true,
-	'captcha'	=> true,
-	'submit'	=> 'Send',
+	// User Profile Form Structure
+	$form_parameters = [
 
-	'fieldsets' => [
+		// main parameters
+		'id'		=> 'terminal-form',
+		'class'		=> 'revolver__terminal revolver__terminal-fetch',
+		'action'	=> '/terminal-s/',
+		'method'	=> 'post',
+		'encrypt'	=> true,
+		'captcha'	=> true,
+		'submit'	=> 'Send',
 
-		// fieldset contents parameters
-		'fieldset_1' => [
+		'fieldsets' => [
 
-			'title' => 'Command shell',
+			// fieldset contents parameters
+			'fieldset_1' => [
 
-			// wrap fields into label
-			'labels' => [
+				'title' => 'Command shell',
 
-				'label_1' => [
+				// wrap fields into label
+				'labels' => [
 
-					'title'  => 'Shell session',
-					'access' => 'preferences',
-					'auth'	 => 1,
+					'label_1' => [
 
-					'fields' => [
+						'title'  => 'Shell session',
+						'access' => 'preferences',
+						'auth'	 => 1,
 
-						0 => [
+						'fields' => [
 
-							'type' 			=> 'input:text',
-							'name' 			=> 'revolver_command_shell',
-							'placeholder'	=> 'Type command',
-							'value'			=> $command ? $command : '',
-							'required'		=> true,
+							0 => [
+
+								'type' 			=> 'input:text',
+								'name' 			=> 'revolver_command_shell',
+								'placeholder'	=> 'Type command',
+								'value'			=> $command ? $command : '',
+								'required'		=> true,
+
+							],
 
 						],
 
@@ -92,55 +90,50 @@ $form_parameters = [
 
 			],
 
-		],
+		]
 
-	]
+	];
 
-];
+	$sense = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? 'Windows command line session available' : 'UNIX shell session available';
 
-$sense = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+	$ls = 33;
 
-//$sense = 'Start session with UNIX shell typing commands';
-//$sense = 'Some Moooooooooooooooo for my friends :)';
+	foreach( explode("\n", $sense) as $str ) {
 
-$ls = 33;
+		$c = 0;
 
-foreach( explode("\n", $sense) as $str ) {
+		$xl = str_split($str, 60);
 
-	$c = 0;
+		foreach( $xl as $s ) {
 
-	$xl = str_split($str, 60);
+			if( !(bool)$c ) {
 
-	foreach( $xl as $s ) {
+				$ls = strlen($s);
 
-		if( !(bool)$c ) {
+			}
 
-			$ls = strlen($s);
+			$sense_lines .= '  '. $s;
 
-		}
+			if( $c !== count($xl) - 1 ) {
 
-		$sense_lines .= '  '. $s;
+				$sense_lines .= '-' . "\n" . ' ';
 
-		if( $c !== count($xl) - 1 ) {
+			} 
+			else {
 
-			$sense_lines .= '-' . "\n" . ' ';
+				$sense_lines = ' '. $sense_lines ."\n";
 
-		} 
-		else {
+			}
 
-			$sense_lines = ' '. $sense_lines ."\n";
+			$c++;
 
-		}
+		}	
 
-		$c++;
+	}
 
-	}	
-
-}
-
-$xline  = str_repeat( '_', $ls + 3 );
-$space  = str_repeat( ' ', $ls + 3 );
-$xspace = str_repeat( ' ', $ls - 10 );
+	$xline  = str_repeat( '_', $ls + 3 );
+	$space  = str_repeat( ' ', $ls + 3 );
+	$xspace = str_repeat( ' ', $ls - 10 );
 
 $contents  = '<output class="revolver__terminal-session-store" style="color:#333">';
 $contents .= '<ul>';
@@ -167,6 +160,8 @@ $sense_lines
 
 $contents .= '</ul>'; 
 $contents .= '</output>';
+
+}
 
 $contents .= $form::build( $form_parameters );
 

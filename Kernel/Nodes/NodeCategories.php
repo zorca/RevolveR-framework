@@ -273,7 +273,7 @@ foreach( iterator_to_array(
 
 		$contents .= '<li>';
 		$contents .= '<dl class="revolver__categories-by-country">';
-		$contents .= '<dt>'. TRANSLATIONS[ $ipl ]['Contents country'] .' &#8226; <i class="state-attribution revolver__sa-iso-'. strtolower( $desc[3] ) .'"></i><span class="revolver__stats-country">'. $desc[0] .'</span><span class="revolver__stats-system">[ '. $desc[1] .' :: '. $desc[2] .' ]</span></dt>';
+		$contents .= '<dt>'. TRANSLATIONS[ $ipl ]['Contents country'] .' &#8226; <span class="state-attribution revolver__sa-iso-'. strtolower( $desc[3] ) .'"></span><span class="revolver__stats-country">'. $desc[0] .'</span><span class="revolver__stats-system">[ '. $desc[1] .' :: '. $desc[2] .' ]</span></dt>';
 
 		$contents .= '<dd><ul>';
 

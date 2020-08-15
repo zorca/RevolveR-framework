@@ -610,7 +610,7 @@ if( Auth ) {
 
 			$labels_count++;
 
-			$form_parameters['tabs']['tab_4']['fieldsets']['fieldset_4']['labels']['label_'. $labels_count]['title:html'] = TRANSLATIONS[ $ipl ]['Language'] .' <span class="revolver__stats-system">[ '. $c['code_length_3'] .' :: '. $c['code_length_2'] .' :: '. $c['hreflang'] .' ]</span> <i class="state-attribution laguage-list-item revolver__sa-iso-'. strtolower( $c['code_length_2'] ) .'"></i>'. TRANSLATIONS[ $ipl ]['contents country'] .' <span class="revolver__stats-country">['. $c['name'] .']</span>';
+			$form_parameters['tabs']['tab_4']['fieldsets']['fieldset_4']['labels']['label_'. $labels_count]['title:html'] = TRANSLATIONS[ $ipl ]['Language'] .' <span class="revolver__stats-system">[ '. $c['code_length_3'] .' :: '. $c['code_length_2'] .' :: '. $c['hreflang'] .' ]</span> <span class="state-attribution laguage-list-item revolver__sa-iso-'. strtolower( $c['code_length_2'] ) .'"></span>'. TRANSLATIONS[ $ipl ]['contents country'] .' <span class="revolver__stats-country">['. $c['name'] .']</span>';
 
 			$form_parameters['tabs']['tab_4']['fieldsets']['fieldset_4']['labels']['label_'. $labels_count]['access'] = 'node';
 			$form_parameters['tabs']['tab_4']['fieldsets']['fieldset_4']['labels']['label_'. $labels_count]['auth'] = 1;

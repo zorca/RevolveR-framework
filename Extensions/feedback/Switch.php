@@ -1225,11 +1225,20 @@ if( defined('ROUTE') ) {
 							$contents_feedback .= '<header class="revolver__feedback-header">';
 
 							$contents_feedback .= '<h2>• '. etranslations[ $ipl ]['Feedback request'] .' '. $f['id'] .' '. etranslations[ $ipl ]['by'] .' <span>'. $f['sender_name'] .'</span></h2>';
-							$contents_feedback .= '<time>'. $f['message_time'] .'</time>';
 
 							$contents_feedback .= '</header>';
 
 							$contents_feedback .= '<div class="revolver__article-contents">';
+
+							$contents_feedback .= '<ul>';
+							$contents_feedback .= '<li>Date: '. $f['message_time'] .';</li>';
+							$contents_feedback .= '<li>Name: '. $f['sender_name'] .';</li>';
+							$contents_feedback .= '<li>Email: '. $f['sender_email'] .';</li>';
+							$contents_feedback .= $f['sender_phone'] ? '<li>Telephone: '. $f['sender_phone'] .'.</li>' : '';
+							$contents_feedback .= '</ul>';
+
+
+							$contents_feedback .= '<h2>'. $f['message_title'] .'</h2>';
 
 							$contents_feedback .= $markup::markup(
 

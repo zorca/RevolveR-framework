@@ -81,40 +81,36 @@
 
 }
 
+.revolver__mobile-friendly .revolver__scalable-main .article-id-categories .state-attribution {
 
-.revolver__mobile-friendly .revolver__scalable-main .revolver__categories-by-country i {
+	left: 14.8vw !important;
+	top: 0vw !important;
 
-	margin-left: 8vw !important;
-	margin-top: -.5vw;
-	left: 0;
+}
+
+.article-id-categories .state-attribution {
+
+	left: 8vw !important;
+
+}
+
+.revolver__mobile-friendly .revolver__scalable-main .article-id-dashboard .state-attribution {
+
+	left: 17.6vw !important;
+	top: .3vw !important;
+
+}
+
+.revolver__mobile-friendly .revolver__scalable-main .article-id-create .state-attribution {
+
+	left: 23.2vw !important;
+	top: .3vw !important;
 
 }
 
 .laguage-list-item {
 
 	margin-left: 7.3vw;
-
-}
-
-.revolver__mobile-friendly #fieldset_4 .laguage-list-item {
-
-	margin-left: -1.4vw !important;
-	margin-top: 0vw;
-
-}
-
-.revolver__mobile-friendly .revolver__node-create-form #fieldset_4 .laguage-list-item {
-
-	margin-left: 6.4vw !important;
-	margin-top: -.5vw;
-
-}
-
-.revolver__mobile-friendly .revolver__node-dashboard-form #fieldset_2 .laguage-list-item,
-.revolver__mobile-friendly .revolver__node-dashboard-form #fieldset_3 .laguage-list-item {
-
-	margin-left: 6.5vw !important;
-	margin-top: -.5vw;
 
 }
 

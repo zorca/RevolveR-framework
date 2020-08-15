@@ -570,7 +570,7 @@ final class SecureVariablesDispatcher {
 
 				// UNIX
 				// check binarie mask is correct
-				if( explode(' ', str_replace( ['00000000: '], [''], shell_exec('xxd '. $f[0] .' | head -1')))[0] === self::$file_descriptors[ $f[2][1] ]['identity']['U'] ) { 
+				//if( explode(' ', str_replace( ['00000000: '], [''], shell_exec('xxd '. $f[0] .' | head -1')))[0] === self::$file_descriptors[ $f[2][1] ]['identity']['U'] ) { 
 
 				//if( self::$file_descriptors[ $f[2][1] ]['mime'] === $f[2][0] ) { // check mime type is correct
 
@@ -590,7 +590,7 @@ final class SecureVariablesDispatcher {
 
 					}
 
-				}
+				//}
 
 			}
 

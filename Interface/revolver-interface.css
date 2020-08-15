@@ -1702,6 +1702,12 @@ fieldset legend::before {
 
 		}
 
+		.revolver__mobile-friendly .revolver__scalable-main .revolver__categories dt {
+
+			font-size: calc(.6vw * var(--scale-factor));
+
+		}
+
 		.revolver__categories dd {
 
 			padding: 1vw 0 0;
@@ -1751,6 +1757,14 @@ fieldset legend::before {
 
 				line-height: calc(1.4vw * var(--scale-factor));
 				font-size: calc(1vw * var(--scale-factor));
+
+			}
+
+			.revolver__mobile-friendly .revolver__scalable-main  .revolver__categories dd ul li a {
+
+
+				line-height: calc(.8vw * var(--scale-factor));
+				font-size: calc(.6vw * var(--scale-factor));
 
 			}
 
@@ -1893,6 +1907,7 @@ fieldset legend::before {
 
 			}
 
+
 				.revolver__article-header h2 a,
 				.revolver__comments-header h2 a {
 
@@ -1908,6 +1923,17 @@ fieldset legend::before {
 				.revolver__comments-header h2 a {
 
 					font-size: 1vw;
+
+				}
+
+				/* Mobile */
+				.revolver__mobile-friendly .revolver__scalable-main .revolver__article-header h1,
+				.revolver__mobile-friendly .revolver__scalable-main .revolver__article-header h2,
+				.revolver__mobile-friendly .revolver__scalable-main .revolver__comments-header h2,
+				.revolver__mobile-friendly .revolver__scalable-main .revolver__comments-header h2 a,
+				.revolver__mobile-friendly .revolver__scalable-main .revolver__article-header h2 a {
+
+					font-size: calc(.6vw * var(--scale-factor));
 
 				}
 
@@ -1987,6 +2013,12 @@ fieldset legend::before {
 
 			}
 
+			.revolver__mobile-friendly .revolver__scalable-main .revolver__article-contents h2 {
+
+				font-size: calc(.4vw * var(--scale-factor));				
+
+			}
+
 			.revolver__article-contents h2.revolver_feedaback_heading {
 
 				border-bottom: .1vw dotted #cc6767;
@@ -1998,6 +2030,7 @@ fieldset legend::before {
 				color: #9b5725;
 
 			}
+
 
 			.revolver__article-contents p,
 			.revolver__comments-contents p,
@@ -2017,6 +2050,15 @@ fieldset legend::before {
 
 				font-size: calc(1vw * var(--scale-factor));
 				line-height: calc(1.4vw * var(--scale-factor));
+
+			}
+
+			.revolver__mobile-friendly .revolver__scalable-main .revolver__article-contents p,
+			.revolver__mobile-friendly .revolver__scalable-main .revolver__comments-contents p,
+			.revolver__mobile-friendly .revolver__scalable-main .revolver__comments-contents {
+
+				font-size: calc(.5vw * var(--scale-factor));
+				line-height: calc(.8vw * var(--scale-factor));
 
 			}
 
@@ -2550,6 +2592,12 @@ fieldset legend::before {
 
 		}
 
+		.revolver__mobile-friendly .revolver__scalable-main .revolver__related div h4 {
+
+			font-size: calc(.6vw * var(--scale-factor));
+
+		}
+
 		.revolver__related div ul {
 
 			padding: 1vw .9vw 0;			
@@ -2580,6 +2628,12 @@ fieldset legend::before {
 			font-size: calc(.8vw * var(--scale-factor));
 			line-height: calc(1.25vw * var(--scale-factor));
 
+		}
+
+		.revolver__mobile-friendly .revolver__scalable-main .revolver__related div ul li,
+		.revolver__mobile-friendly .revolver__scalable-main .revolver__related div ul li a {
+			font-size: calc(.5vw * var(--scale-factor));
+			line-height: calc(.7vw * var(--scale-factor));
 		}
 
 		.revolver__related div ul li a:hover {
@@ -2803,7 +2857,7 @@ dl.revolver__stats-list {
 			.revolver__mobile-friendly .revolver__stats-list dd ol li,
 			.revolver__mobile-friendly .revolver__stats-list dd ol li:hover {
 
-				font-size: calc(1vw * var(--scale-factor) / 2);
+				font-size: calc(.8vw * var(--scale-factor) / 2);
 
 			}
 
@@ -2893,7 +2947,7 @@ dl.revolver__stats-list {
 
 				}
 
-		 	.revolver__stats-total-counters {
+			.revolver__stats-total-counters {
 
 				background: repeating-linear-gradient( 25deg, transparent, transparent 1vw, #cccccca6 1vw, #cccccca3 2vw ), linear-gradient( to bottom, #e3e3e3b0, #9999993b );
 				box-shadow: inset 0 .1vw 2vw 0 hsla(0, 0%, 100%, 0.4), 0 0 .5vw .1vw #9f9f9f;
@@ -2907,6 +2961,15 @@ dl.revolver__stats-list {
 				width: 40vw;
 
 				border-radius: .3vw;
+
+			}
+
+			.revolver__mobile-friendly .revolver__scalable-main .revolver__stats-total-counters {
+
+				margin-right: 0;
+				margin-bottom: 1.4vw;
+				height: 14vw;
+				width: 60vw;
 
 			}
 
@@ -3313,6 +3376,13 @@ table.revolver__calendar tfoot th {
 
 }
 
+.revolver__mobile-friendly .revolver__scalable-main table.revolver__calendar thead th,
+.revolver__mobile-friendly .revolver__scalable-main table.revolver__calendar tfoot th {
+
+	font-size: calc(.4vw * var(--scale-factor));
+
+}
+
 table.revolver__calendar tbody tr:last-child td {
 
 	border-bottom: 0;
@@ -3405,8 +3475,6 @@ div.day-number:hover a {
 
 	font-size: 1.4vw;
 	top: -.1vw;
-
-	font-size: calc(1.4vw * var(--scale-factor));
 
 }
 
@@ -3710,9 +3778,9 @@ div.day-future:hover {
 
 }
 
-.revolver__scalable-main.revolver__mobile-friendly .revolver__form-wrapper form fieldset legend {
+.revolver__mobile-friendly .revolver__scalable-main .revolver__form-wrapper form fieldset legend {
 
-	font-size: calc(.6vw * var(--scale-factor));
+	font-size: calc(.4vw * var(--scale-factor));
 
 }
 
@@ -3735,6 +3803,7 @@ div.day-future:hover {
 
 }
 
+
 .revolver__scalable-main .revolver__form-wrapper form fieldset .revolver__messages label,
 .revolver__scalable-main .revolver__form-wrapper form fieldset label {
 
@@ -3749,6 +3818,43 @@ div.day-future:hover {
 	top: .3vw;
 
 	font-size: calc(.9vw * var(--scale-factor));
+
+}
+
+/* Mobile fix */
+.revolver__mobile-friendly .revolver__scalable-main form input[type='text'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='email'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='password'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='date'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='time'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='tel'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='number'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='url'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='search'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='color'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='range'], 
+.revolver__mobile-friendly .revolver__scalable-main form input[type='time'], 
+.revolver__mobile-friendly .revolver__scalable-main form textarea {
+
+	font-size: calc(.6vw * var(--scale-factor)) !important;
+
+}
+
+.revolver__mobile-friendly .revolver__scalable-main .revolver__form-wrapper form fieldset label {
+
+	font-size: calc(.4vw * var(--scale-factor)) !important;
+
+}
+
+.revolver__mobile-friendly .revolver__scalable-main .revolver__editor_buttons i {
+
+	font-size: calc(.4vw * var(--scale-factor)) !important;
+
+}
+
+.revolver__mobile-friendly .styled-select .revolver__form-options-container .revolver__form-option-replacer {
+
+	font-size: calc(.6vw * var(--scale-factor)) !important;
 
 }
 
