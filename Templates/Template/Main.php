@@ -29,6 +29,25 @@ if( defined('ROUTE') ) {
 
 		}
 
+		// Forums edit
+		if( ROUTE['node'] === '#forum' && (bool)ROUTE['edit'] && PASS[ 3 ] === 'edit' && empty( PASS[ 4 ] ) ) {
+
+			require_once('./Templates/'. TEMPLATE .'/Forms/forum-edit.php');
+
+			$mainWrap = null;
+
+		}
+
+		if( ROUTE['node'] === '#forum' && (bool)ROUTE['edit'] && is_numeric(PASS[ 2 ]) && is_numeric(PASS[ 3 ]) && is_numeric(PASS[ 5 ]) ) {
+
+			//var_dump('TESTING');
+
+			require_once('./Templates/'. TEMPLATE .'/Forms/comments-forum-edit.php');
+
+			$mainWrap = null;
+
+		}
+
 	}
 
 }
@@ -160,7 +179,23 @@ if( !defined('ROUTE') ) {
 							include('./Templates/'. TEMPLATE .'/Views/comments-view.php');
 
 							/* Comments add */
-							require_once('./Templates/'. TEMPLATE .'/Forms/comments-add.php');
+							if( PASS[ 1 ] !== 'forum' ) {
+
+								require_once('./Templates/'. TEMPLATE .'/Forms/comments-add.php');
+
+							}
+							else {
+
+								/* Comments views */
+								include('./Templates/'. TEMPLATE .'/Views/comments-forum-view.php');
+
+								if( Auth ) {
+
+									require_once('./Templates/'. TEMPLATE .'/Forms/comments-forum-add.php');
+
+								}
+
+							}
 
 						}
 
@@ -173,11 +208,39 @@ if( !defined('ROUTE') ) {
 
 				}
 
+				/* Forum */
+
+				if( defined('ROUTE') ) {
+
+					if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) || is_numeric( PASS[ 3 ] ) ) {
+
+						if( PASS[ 3 ] !== 'edit' && empty( PASS[ 3 ] ) ) {
+
+							include('./Templates/'. TEMPLATE .'/Views/forum-view.php');
+
+						}
+
+					}
+
+				}
+
 			}
 			else {
 
-				/* Node edit */
-				RQST !== $n['route'] . 'edit/' ?: require_once('./Templates/'. TEMPLATE .'/Forms/node-edit.php');
+				
+				if( PASS[ 4 ] === 'edit' && RQST === $n['route'] . 'edit/' ) {
+
+					/* Forum topic edit */
+					require_once('./Templates/'. TEMPLATE .'/Forms/forum-room-edit.php');
+
+				}
+				else if( PASS[ 4 ] !== 'edit' && RQST === $n['route'] . 'edit/' ) {
+
+					/* Node edit */
+					require_once('./Templates/'. TEMPLATE .'/Forms/node-edit.php');
+
+				}
+
 
 			}
 
@@ -186,11 +249,6 @@ if( !defined('ROUTE') ) {
 		} /* end foreach */ 
 
 	}
-	//else {
-
-		//header('Location: '. site_host .'/?notification=nothing-to-show');
-
-	//}
 
 endif;
 

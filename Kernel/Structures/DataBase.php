@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Data Base schema
   *
-  * v.1.9.0
+  * v.1.9.2
   *
   *
   *
@@ -178,6 +178,35 @@ $STRUCT_FILES = [
 
 ];
 
+$STRUCT_FROOM_FILES = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // bigint
+		'auto'	 => true,
+		'length' => 255,
+		'fill'   => true
+
+	],
+
+	'field_name' => [
+
+		'type'   => 'text', // varchar
+		'length' => 255,
+		'fill'   => true
+
+	],
+
+	'field_froom' => [
+
+		'type'   => 'bignum', // varchar
+		'length' => 255,
+		'fill'   => true
+
+	]
+
+];
+
 $STRUCT_MESSAGES_FILES = [
 
 	'field_id' => [
@@ -246,6 +275,125 @@ $STRUCT_CATEGORIES = [
 	]
 
 ];
+
+$STRUCT_FORUMS = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // varchar
+		'auto'	 => true,
+		'length' => 255,
+		'fill'   => true
+
+	],
+
+	'field_title' => [
+
+		'type'   => 'text', // varchar
+		'length' => 500,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'full'
+
+		]
+
+	],
+
+	'field_description' => [
+
+		'type'   => 'text', // varchar
+		'length' => 2500,
+		'fill'   => true
+	]
+
+];
+
+$STRUCT_FORUM_ROOMS = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // big int
+		'auto'   => true,     // auto increment
+		'length' => 255
+
+	],
+
+	'field_title' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 150,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'full'
+
+		]
+
+	],
+
+	'field_description' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 5000,
+		'fill'   => true
+
+	],
+
+	'field_content' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 5000,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'full'
+
+		]
+
+	],
+
+	'field_user' => [
+
+		'type'   => 'text', // varchar
+		'length' => 50,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_time' => [
+
+		'type'   => 'text', // varchar
+		'length' => 100,
+		'fill'	 => true
+
+	],
+
+	'field_forum_id' => [
+
+		'type'	 => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+];
+
 
 $STRUCT_USER = [
 
@@ -635,6 +783,69 @@ $STRUCT_COMMENTS = [
 
 ];
 
+$STRUCT_FORUM_COMMENTS = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // big int
+		'auto'   => true,     // auto increment
+		'length' => 255
+
+	],
+
+	'field_froom_id' => [
+
+		'type'   => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_user_id' => [
+
+		'type'   => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+	],
+
+	'field_content' => [
+
+		'type'   => 'text', // varchar
+		'length' => 5000,
+		'fill'   => true
+
+	],
+
+	'field_time' => [
+
+		'type'   => 'text', // varchar
+		'length' => 100,
+		'fill'	 => true
+
+	],
+
+	'field_published' => [
+
+		'type' 	 => 'num', // int
+		'length' => 1,
+		'fill'	 => null
+
+	]
+
+];
+
 $STRUCT_SUBSCRIPTIONS = [
 
 	'field_id' => [
@@ -757,14 +968,6 @@ $STRUCT_STATISTICS = [
 		'length' => 255,
 		'fill'	 => true,
 
-/*
-		'index'	 => [
-
-			'type' => 'simple'
-
-		]
-*/
-
 	],
 
 	'field_ip' => [
@@ -847,11 +1050,15 @@ $DBX_KERNEL_SCHEMA = [
 	'extensions'	 => $STRUCT_EXTENSIONS,
 	'statistics'	 => $STRUCT_STATISTICS,
 	'categories'	 => $STRUCT_CATEGORIES,
+	'forums'		 => $STRUCT_FORUMS,
+	'forum_rooms'	 => $STRUCT_FORUM_ROOMS,
+	'froom_comments' => $STRUCT_FORUM_COMMENTS,
 	'nodes'			 => $STRUCT_NODES,
 	'comments'		 => $STRUCT_COMMENTS,
 	'users'			 => $STRUCT_USER,
 	'messages'		 => $STRUCT_MESSAGES,
 	'files'			 => $STRUCT_FILES,
+	'froom_files'	 => $STRUCT_FROOM_FILES, 
 	'messages_files' => $STRUCT_MESSAGES_FILES,
 	'subscriptions'	 => $STRUCT_SUBSCRIPTIONS,
 	'roles'			 => $STRUCT_ROLES,

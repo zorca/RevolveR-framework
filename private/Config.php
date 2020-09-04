@@ -4,7 +4,7 @@
   * 
   * RevolveR Kernel configuration
   *
-  * v.1.9.0
+  * v.1.9.2
   *
   *
   *
@@ -372,6 +372,25 @@ define('main_nodes', array_merge([
 
 		],
 
+		// Forum
+		TRANSLATIONS[ $ipl ]['Forum'] => [
+
+			'title' => TRANSLATIONS[ $ipl ]['Forum'],
+			'descr'	=> 'Forum',
+
+			'param_check' => [
+
+				'menu'      => 1,
+
+			],
+
+			'route'	=> '/forum/',
+			'node' 	=> '#forum',
+			'type'	=> 'node',
+			'id'   	=> 'forum'
+
+		],
+
 		// Privacy notes
 		TRANSLATIONS[ $ipl ]['Privacy notes'] => [
 
@@ -456,6 +475,25 @@ define('main_nodes', array_merge([
 
 		],
 
+		// Comments forum dispatch
+		'forum-comments-d' => [
+
+			'title' => 'Forum comment dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/forum-comments-d/',
+			'node'   => '#forum-comments-d',
+			'type'	 => 'service',
+			'id'	 => 'forum-comments-d',
+
+		],
+
 		// Contents dispatch
 		'contents-d' => [
 
@@ -472,6 +510,25 @@ define('main_nodes', array_merge([
 			'node'   => '#contents-d',
 			'type'	 => 'service',
 			'id'	 => 'contents-d',
+
+		],
+
+		// Contents dispatch
+		'topic-d' => [
+
+			'title' => 'Forum topic dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/topic-d/',
+			'node'   => '#topic-d',
+			'type'	 => 'service',
+			'id'	 => 'topic-d',
 
 		],
 
@@ -493,6 +550,45 @@ define('main_nodes', array_merge([
 			'id'	 => 'category-d',
 
 		],
+
+		// Forum containers dispatch
+		'forum-d' => [
+
+			'title' => 'Forum dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/forum-d/',
+			'node'   => '#forum-d',
+			'type'	 => 'service',
+			'id'	 => 'forum-d',
+
+		],
+
+		// Forum rooms dispatch
+		'forum-room-d' => [
+
+			'title' => 'Forum rooms dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/forum-room-d/',
+			'node'   => '#forum-room-d',
+			'type'	 => 'service',
+			'id'	 => 'forum-room-d',
+
+		],
+
 
 		// Category dispatch
 		'user-d' => [

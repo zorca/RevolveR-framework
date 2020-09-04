@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Setup
   *
-  * v.1.9.0
+  * v.1.9.2
   *
   *
   *
@@ -500,6 +500,10 @@ if( !empty(SV['p']) ) {
 			// Create table files
 			$dbx::query('c', 'revolver__files', $STRUCT_FILES);
 
+
+			// Create table forum topics files
+			$dbx::query('c', 'revolver__froom_files', $STRUCT_FROOM_FILES);
+
 			// Create table messages files
 			$dbx::query('c', 'revolver__messages_files', $STRUCT_MESSAGES_FILES);
 			
@@ -548,6 +552,21 @@ if( !empty(SV['p']) ) {
 
 			]);
 
+			// Create table categories
+			$dbx::query('c', 'revolver__forums', $STRUCT_FORUMS);
+
+			// Create table forum rooms
+			$dbx::query('c', 'revolver__forum_rooms', $STRUCT_FORUM_ROOMS);
+
+			$dbx::query('c', 'revolver__froom_comments', $STRUCT_FORUM_COMMENTS);
+
+			$model::set('forums', [
+
+				'title'			=> 'Welcome forum',
+				'description'	=> 'Welcome! Forum enabled.'
+
+			]);
+
 			// Create table settings
 			$dbx::query('c', 'revolver__settings', $STRUCT_SITE);
 
@@ -574,21 +593,21 @@ if( !empty(SV['p']) ) {
 
 			$model::set('roles', [
 
-				'access'	=> 'preferences|node|comment|messages|categories|profile',
+				'access'	=> 'preferences|node|comment|messages|categories|profile|forum|topic',
 				'name'		=> 'Admin',
 
 			]);
 
 			$model::set('roles', [
 
-				'access'	=> 'comment|messages|profile',
+				'access'	=> 'comment|messages|profile|topic',
 				'name'		=> 'User'
 
 			]);
 
 			$model::set('roles', [
 
-				'access'	=> 'node|comment|messages|categories|profile',
+				'access'	=> 'node|comment|messages|categories|profile|forum|topic',
 				'name'		=> 'Writer'
 
 			]);

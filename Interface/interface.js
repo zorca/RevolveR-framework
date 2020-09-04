@@ -597,6 +597,8 @@ R.fetchRoute = ( intro ) => {
 	// Fetch Submit
 	R.fetchSubmit('form.revolver__new-fetch', 'text', function() {
 
+		console.log( this );
+
 		// Prevent search box fetching
 		if( !self.searchAction ) {
 

@@ -3,7 +3,7 @@
  /*
   * RevolveR CMF Kernel
   *
-  * v.1.9.0
+  * v.1.9.2
   *
   *			          ^
   *			         | |
@@ -32,7 +32,7 @@
   */
  
 // Kernel version
-define('rr_version', '1.9.0');
+define('rr_version', '1.9.2');
 
 // X64 guest number
 define('BigNumericX64', 9223372036854775806);
@@ -684,32 +684,37 @@ if( !defined('Auth') ) {
 
 }
 
-if( CONTENTS_FLAG && INSTALLED ) {
 
-	$prefetched = null;
+if( defined('CONTENTS_FLAG') ) {
 
-	foreach( $all_nodes as $xnode ) {
+	if( CONTENTS_FLAG && INSTALLED ) {
 
-		// Hide GET parameters for interface and store it
-		$xuri_segment = explode('?', $xnode['route']);
+		$prefetched = null;
 
-		$xuri = 'contents_'. (!isset( $xuri_segment[ 1 ] ) ? '' : '-'. str_replace( '=', '-', $xuri_segment[ 1 ] ));
+		foreach( $all_nodes as $xnode ) {
 
-		$payload = TCache . $xuri . rtrim( str_replace( '/', '_', $xnode['route'] ), '_' ) .'-'. md5( $xuri ) .'.tpreload';
+			// Hide GET parameters for interface and store it
+			$xuri_segment = explode('?', $xnode['route']);
 
-		if( is_readable( $payload ) ) {
+			$xuri = 'contents_'. (!isset( $xuri_segment[ 1 ] ) ? '' : '-'. str_replace( '=', '-', $xuri_segment[ 1 ] ));
 
-			$prefetches .= str_ireplace(['Link: ', 'preload'], ['', 'prefetch'], file_get_contents($payload)) .', ';
+			$payload = TCache . $xuri . rtrim( str_replace( '/', '_', $xnode['route'] ), '_' ) .'-'. md5( $xuri ) .'.tpreload';
 
-			$prefetched = true;
+			if( is_readable( $payload ) ) {
+
+				$prefetches .= str_ireplace(['Link: ', 'preload'], ['', 'prefetch'], file_get_contents($payload)) .', ';
+
+				$prefetched = true;
+
+			}
 
 		}
 
-	}
+		if( $prefetched ) {
 
-	if( $prefetched ) {
+			define('PrefetchesList', $prefetches);
 
-		define('PrefetchesList', $prefetches);
+		}
 
 	}
 
@@ -960,6 +965,24 @@ if( SV ) {
 				break;
 
 		}
+
+	}
+
+}
+
+if( !defined('ROUTE') ) {
+
+	/* Forum routes */
+	if( PASS[ 1 ] === 'forum' ) {
+
+		define('ROUTE', [
+
+			'route' => '/forum/',
+			'node'	=> '#forum',
+			'type'	=> 'node',
+			'ext'	=> null
+
+		]);
 
 	}
 

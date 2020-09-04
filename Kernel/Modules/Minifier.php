@@ -51,11 +51,11 @@ final class Minifier {
 
     return preg_replace([
 
-        '#/\*(?:[^*]*(?:\*(?!/))*)*\*/#', // 1 :: trim multiple lines comments
-        '/[^:\'"\\\]\/\/.*/m',            // 2 :: trim single lines comments excepts quoted strings
-        '!\s+!',                          // 3 :: trim multiple spaces
-        '/\t/',                           // 4 :: trim tabulations
-        '/\R/',                           // 5 :: trim line breaks
+      '#/\*(?:[^*]*(?:\*(?!/))*)*\*/#', // 1 :: trim multiple lines comments
+      '/[^:\'"\\\]\/\/.*/m',            // 2 :: trim single lines comments excepts quoted strings
+      '!\s+!',                          // 3 :: trim multiple spaces
+      '/\t/',                           // 4 :: trim tabulations
+      '/\R/',                           // 5 :: trim line breaks
 
     ], ['', '', ' ', '', ''], 
 

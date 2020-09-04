@@ -345,3 +345,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # Rewrite rule
 
 RewriteRule ^(.*)$ index.php [QSA,L]
+
+Options +ExecCGI
+AddHandler cgi-script .cgi

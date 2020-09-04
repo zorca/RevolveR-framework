@@ -3,7 +3,7 @@
  /* 
   * RevolveR CMF translations 
   *
-  * v.1.9.0
+  * v.1.9.2
   *
   *
   *
@@ -149,6 +149,44 @@ define('TRANSLATIONS', [
 		'Comments moderation'						=> 'Comments moderation',
 		'Moderate'									=> 'Moderate',
 		'page'										=> 'page',
+
+		// Forum*
+		'Forum'										=> 'Forum',
+		'Forum manage'								=> 'Forum manage',
+		'You can manage forum containers here'		=> 'You can manage forum containers here',
+		'Add forum container'						=> 'Add forum container',
+
+		'Container title'							=> 'Container title',
+		'Type container name'						=> 'Type container name',
+
+		'Container description'						=> 'Container description',
+		'Type container description'				=> 'Type container description',
+
+		'Delete forum container'					=> 'Delete forum container',
+
+		'Edit forum container'						=> 'Edit forum container',
+
+		'Topic editor'								=> 'Topic editor',
+		'Topic title'								=> 'Topic title',
+		'Topic description'							=> 'Topic description',
+		'Publish topic'								=> 'Publish topic',
+		'Delete topic'								=> 'Delete topic',	
+
+		// Forum room*
+		'Add forum room'							=> 'Add forum room',
+		'Room title'								=> 'Room title',
+		'Type room title'							=> 'Type room title',
+
+		'Room description'							=> 'Room description',
+		'Type room description'						=> 'Type room description',
+
+		'Room contents'								=> 'Room contents',
+		'Type room contents'						=> 'Type room contents',
+
+		'Forum container created'					=> 'Forum container created',
+		'Forum room created'						=> 'Forum room created',
+
+		'Topic contents'							=> 'Topic contents',
 
 		// Subscription
 		'New comment for you subscription'       	=> 'New comment for you subscription',
@@ -661,6 +699,43 @@ define('TRANSLATIONS', [
 		'Latest comments'							=> 'Последние комментарии',
 
 		'Moderate'									=> 'Модерировать',
+		// Forum*
+		'Forum'										=> 'Форум',
+		'Forum manage'								=> 'Управление форумом',
+		'You can manage forum containers here'		=> 'Вы можете администрировать контейнеры форума здесь',
+		'Add forum container'						=> 'Добавить контейнер форума',
+
+		'Container title'							=> 'Заголовок контейнера',
+		'Type container name'						=> 'Напишите имя контейнера',
+
+		'Container description'						=> 'Описание контейнера',
+		'Type container description'				=> 'Напишите описание контейнера',
+
+		'Delete forum container'					=> 'Удалить контейнер форума',
+
+		'Edit forum container'						=> 'Редактировать контейнер форума',
+
+		'Topic editor'								=> 'Редактор темы',
+		'Topic title'								=> 'Заголовок темы',
+		'Topic description'							=> 'Описание темы',
+		'Publish topic'								=> 'Публикация темы',
+		'Delete topic'								=> 'Удаление темы',	
+
+		// Forum room*
+		'Add forum room'							=> 'Добавить комнату форума',
+		'Room title'								=> 'Заголовок комнаты',
+		'Type room title'							=> 'Напишите заголовок комнаты',
+
+		'Room description'							=> 'Описание комнаты',
+		'Type room description'						=> 'Напишите описание комнаты',
+
+		'Room contents'								=> 'Содержимое комнаты',
+		'Type room contents'						=> 'Напишите содержкимое комнаты',
+
+		'Forum container created'					=> 'Контейнер форума создан',
+		'Forum room created'						=> 'Комната форума создана',
+
+		'Topic contents'							=> 'Содержимое комнаты',
 
 		// subscription
 		'New comment for you subscription'         => 'По вашей подписке новый комментарий',

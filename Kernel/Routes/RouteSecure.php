@@ -4,7 +4,7 @@
   * 
   * Secure Route :: Generates Captcha
   * 
-  * v.1.9.0
+  * v.1.9.2
   *
   *
   *
@@ -63,6 +63,18 @@ if( isset( SV['g']['route'] ) ) {
       if( $psw[ 1 ] === 'categories' && is_numeric( $psw[ count($psw) - 3 ] ) ) {
 
         $dsp = '/category-d/';
+
+      }
+
+      if( $psw[ 1 ] === 'forum' && is_numeric( $psw[ count($psw) - 3 ] ) ) {
+
+        $dsp = '/forum-d/';
+
+      }
+
+      if( $psw[ 1 ] === 'forum' && is_numeric( $psw[ 2 ] ) ) {
+
+        $dsp = '/forum-room-d/';
 
       }
 

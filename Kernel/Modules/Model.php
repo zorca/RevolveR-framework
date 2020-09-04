@@ -4,7 +4,7 @@
   * 
   * RevolveR Kernel Models
   *
-  * v.1.8.0
+  * v.1.9.2
   *
   *
   *
@@ -162,6 +162,12 @@ final class Model {
       case 'user->role':
 
         $istack = self::userRole($p);
+
+        break;
+
+      case 'forum-container':
+
+        $istack = self::forumContainer($p);
 
         break;
 

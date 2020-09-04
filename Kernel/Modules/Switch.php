@@ -3,7 +3,7 @@
  /* 
   * RevolveR primary routing switch
   *
-  * v.1.9.0
+  * v.1.9.2
   *
   *
   *
@@ -67,6 +67,15 @@ if( defined('ROUTE') ) {
 				require_once('./Kernel/Nodes/Node.php');
 
 			}
+
+			break;
+
+		/* Forum */
+		case '#forum':
+
+			ob_start();
+
+			require_once('./Kernel/Nodes/NodeForum.php');
 
 			break;
 
@@ -266,6 +275,15 @@ if( defined('ROUTE') ) {
 
 			break;
 
+		case '#forum-comments-d':
+
+			ob_start('ob_gzhandler');
+
+			// Comments dispatch
+			require_once('./Kernel/Routes/RouteForumComments.php');
+
+			break;
+
 		case '#contents-d':
 
 			ob_start('ob_gzhandler');
@@ -279,6 +297,19 @@ if( defined('ROUTE') ) {
 
 			break;
 
+		case '#topic-d':
+
+			ob_start('ob_gzhandler');
+
+			if( Auth ) {
+
+				// Contents dispatch
+				require_once('./Kernel/Routes/RouteTopic.php');
+
+			}
+
+			break;
+
 		case '#category-d':
 
 			ob_start('ob_gzhandler');
@@ -287,6 +318,32 @@ if( defined('ROUTE') ) {
 
 				// Category dispatch
 				require_once('./Kernel/Routes/RouteCategoriesEdit.php');
+
+			}
+
+			break;
+
+		case '#forum-d':
+
+			ob_start('ob_gzhandler');
+
+			if( Auth ) {
+
+				// Category dispatch
+				require_once('./Kernel/Routes/RouteForumsEdit.php');
+
+			}
+
+			break;
+
+		case '#forum-room-d':
+
+			ob_start('ob_gzhandler');
+
+			if( Auth ) {
+
+				// Category dispatch
+				require_once('./Kernel/Routes/RouteForumRooms.php');
 
 			}
 

@@ -1193,7 +1193,7 @@ final class DBX {
 		$storeResult = null;
 
 		/* Log MySQL */
-		// file_put_contents( $_SERVER['DOCUMENT_ROOT'] .'/private/SQL_log.txt', $sql ."\n\n", FILE_APPEND );
+		file_put_contents( $_SERVER['DOCUMENT_ROOT'] .'/private/SQL_log.txt', $sql ."\n\n", FILE_APPEND );
 
 		// Establish connection with Data Base server host
 		self::connect();

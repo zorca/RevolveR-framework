@@ -6,7 +6,7 @@
   *
   * make exit and frees resources
   *
-  * v.1.9.0
+  * v.1.9.2
   *
   *                   ^
   *                  | |
@@ -258,7 +258,7 @@ final class Conclude {
 	/* Template futures */
 	public static function Template( string $type = 'text/html' ): string {
 
-		header('Content-Type: '. $type .'; charset=utf-8');
+		#header('Content-Type: '. $type .'; charset=utf-8');
 
 		$R = 'Null'; $dir = './Templates/'. TEMPLATE .'/';
 
@@ -270,12 +270,21 @@ final class Conclude {
 
 			}
 
+			if( PASS[ 1 ] === 'forum' ) {
+
+				$R = 'Template';
+
+			}
+
 		}
 		else {
 
 			$R = 'Template';
 
 		}
+
+		//var_dump(ROUTE);
+		//var_dump( $dir . $R .'.php' );
 
 		return $dir . $R .'.php';
 
@@ -418,7 +427,7 @@ final class Conclude {
 		// Exclude URI's from caches
 		if( defined('ROUTE') ) {
 
-			if( in_array( ltrim( ROUTE['node'], '#' ), [ 'search', 'secure', 'setup', 'user', 'user-d', 'category-d', 'contents-d', 'comments-d', 'terminal' ] ) ) {
+			if( in_array( ltrim( ROUTE['node'], '#' ), [ 'search', 'secure', 'setup', 'user', 'user-d', 'category-d', 'contents-d', 'comments-d', 'forum-d', 'forum-room-d', 'terminal' ] ) ) {
 
 				return null;
 
@@ -555,7 +564,7 @@ final class Conclude {
 		}
 
 		// Compress exceptions
-		if( $type === 'text/html' && !in_array( PASS[ 1 ], [ 'search', 'user-d', 'category-d', 'contents-d', 'comments-d' ] ) ) {
+		if( $type === 'text/html' && !in_array( PASS[ 1 ], [ 'search', 'user-d', 'category-d', 'contents-d', 'comments-d', 'forum-d', 'forum-room-d' ] ) ) {
 
 			if( !Auth ) {
 
