@@ -115,7 +115,7 @@ else {
 
 }
 
-if( $room_title && $room_description && $room_content && $id ) {
+if( $room_title && $room_description && $room_content && $id && form_pass ) {
 
 		$model::set('forum_rooms', [
 

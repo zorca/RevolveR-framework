@@ -124,6 +124,9 @@ if( in_array(session_status(), [ PHP_SESSION_DISABLED, PHP_SESSION_NONE ], true)
 // Data Base X cache chunks config
 define('dbx_cache_chunks_size', 5);
 
+// Data Base X SQL queries logging to file
+define('dbx_logging', 0);
+
 // Register extensions 
 $extensionsTranslations = [];
 $extensionsScripts = []; 
@@ -1087,7 +1090,9 @@ if( !(bool)$TCache ) {
 	// Add pagination index to title
 	if( isset($uri_segment[1]) ) {
 
-		$title .= ' '. TRANSLATIONS[ $ipl ]['page'] .' '. str_replace('page=', '', $uri_segment[1] );
+		$page_number = explode('page=', $uri_segment[1] );
+
+		$title .= isset( $page_number[1] ) ? ' '. TRANSLATIONS[ $ipl ]['page'] .' '. $page_number[1] : '';
 
 	}
 

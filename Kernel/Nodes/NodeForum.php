@@ -322,6 +322,7 @@ if( $forums ) {
 
 		}
 
+
 		$contents .= '</ul></dd>';
 
 	}
@@ -345,7 +346,7 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			'method'	=> 'post',
 			'action'	=> '/forum-room-d/',
 			'encrypt'	=> true,
-			'captcha'	=> null,
+			'captcha'	=> true,
 			'submit'	=> 'Submit',
 
 			// included fieldsets
@@ -574,8 +575,9 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 
 		if( $forum_rooms ) {
 
+			$room_time 		  = $forum_rooms[ 0 ]['time'];
 			$room_id 	      = $forum_rooms[ 0 ]['id'];
-			$room_title       = $room_id .': '. $forum_rooms[ 0 ]['title'] .' by '. $forum_rooms[ 0 ]['user'] .' at '. $forum_rooms[ 0 ]['time'];
+			$room_title       = $room_id .': '. $forum_rooms[ 0 ]['title'] .' '. TRANSLATIONS[ $ipl ]['by'] .' '. $forum_rooms[ 0 ]['user'];
 			$room_description = $forum_rooms[ 0 ]['description'];
 			$room_content 	  = html_entity_decode(
 
@@ -590,10 +592,11 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 		$node_data[] = [
 
 			'title'		  => $room_title,
-			'description' => $node['description'],
+			'description' => $room_description,
 			'contents'	  => $room_content,
 			'id'		  => 'forum-room-inner',
 			'route'		  => '/forum/'. $forum['id'] .'/'. $room_id .'/',
+			'time'		  => $room_time,
 			'teaser'	  => false,
 			'footer'	  => true,
 			'published'	  => 1,
@@ -672,7 +675,7 @@ else {
 	$node_data[] = [
 
 		'title'		=> $title,
-		'contents'  => '<p>'. TRANSLATIONS[ $ipl ]['You can manage forum containers here'] .'.</p>' . $contents,
+		'contents'  => $contents,
 		'id'	    => 'forum-manage',
 		'route'     => '/forum/',
 		'teaser'    => false,

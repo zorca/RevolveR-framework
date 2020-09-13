@@ -34,7 +34,7 @@ if( PASS[ 4 ] === 'comment' && PASS[ 6 ] === 'edit' ) {
 			'action'	=> '/forum-comments-d/',
 			'method'	=> 'post',
 			'encrypt'	=> true,
-			'captcha'	=> null,	
+			'captcha'	=> true,	
 			'submit'	=> 'Submit',
 
 			// included fieldsets
@@ -130,6 +130,14 @@ if( PASS[ 4 ] === 'comment' && PASS[ 6 ] === 'edit' ) {
 								],
 
 								5 => [
+
+									'type' 			=> 'input:hidden',
+									'name' 			=> 'revolver_forum_id',
+									'value'			=> PASS[ 2 ]
+
+								],
+
+								6 => [
 
 									'type' 			=> 'input:hidden',
 									'name' 			=> 'revolver_comments_action_edit',

@@ -8,7 +8,7 @@ $form_parameters = [
 	'action'  => '/forum-comments-d/',
 	'method'  => 'post',
 	'encrypt' => true,
-	'captcha' => null,
+	'captcha' => true,
 	'submit'  => 'Submit',
 
 	// Include fieldsets
@@ -40,12 +40,20 @@ $form_parameters = [
 						2 => [
 
 							'type' 			=> 'input:hidden',
+							'name' 			=> 'revolver_forum_id',
+							'value'			=> PASS[ 2 ]
+
+						],
+
+						3 => [
+
+							'type' 			=> 'input:hidden',
 							'name' 			=> 'revolver_comment_user_id',
 							'value'			=> USER['id']
 
 						],
 
-						3 => [
+						4 => [
 
 							'type' 			=> 'input:hidden',
 							'name' 			=> 'revolver_comment_time',

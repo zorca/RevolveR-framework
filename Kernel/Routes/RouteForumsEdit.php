@@ -126,6 +126,13 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) ) {
 
 				]);
 
+				// Delete from database
+				$model::erase('forum_rooms', [
+
+					'criterion' => 'forum_id::'. $id
+
+				]);
+
 				//header('Location: '. site_host .'/categories/?notification=category-erased^'. $id);
 
 				header('Location: '. site_host .'/forum/');

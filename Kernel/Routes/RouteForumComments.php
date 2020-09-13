@@ -137,6 +137,16 @@ if( in_array(ROLE, ['Admin', 'Writer', 'User'], true) ) {
 
 		}
 
+		if( isset(SV['p']['revolver_forum_id']) ) {
+
+			if( (bool)SV['p']['revolver_forum_id']['valid'] ) {
+
+				$forum_id = SV['p']['revolver_forum_id']['value'];
+
+			}
+
+		}
+
 	}
 
 	if( $action === 'edit' ) {
@@ -150,7 +160,7 @@ if( in_array(ROLE, ['Admin', 'Writer', 'User'], true) ) {
 
 			]);
 
-			header('Location: '. site_host . '/forum/' . '?notification=comment-erased^'. $comment_id);
+			header('Location: '. site_host . '/forum/'. $forum_id .'/'. $node_id .'/?notification=comment-erased^'. $comment_id);
 
 		}
 		else {
@@ -170,7 +180,7 @@ if( in_array(ROLE, ['Admin', 'Writer', 'User'], true) ) {
 
 				]);
 
-				header('Location: '. site_host . '/forum/' .'?notification=comment-updated^'. $comment_id .'#comment-'. $comment_id );
+				header('Location: '. site_host . '/forum/'. $forum_id .'/'. $node_id .'/?notification=comment-updated^'. $comment_id .'#comment-'. $comment_id );
 
 			}
 			else {
@@ -194,7 +204,7 @@ if( in_array(ROLE, ['Admin', 'Writer', 'User'], true) ) {
 
 		]);
 
-		header( 'Location: '. site_host . '/forum/' .'?notification=comment-added^' . 'not-subscribed');
+		header( 'Location: '. site_host . '/forum/'. $forum_id .'/'. $node_id .'/?notification=comment-added^' . 'not-subscribed');
 
 	}
 

@@ -4,7 +4,7 @@
   * 
   * MySQLi Data Base X Class
   * 
-  * v.2.9.0
+  * v.2.9.2
   *
   * `Strict` mode supported
   *
@@ -64,6 +64,9 @@ final class DBX {
 	// Number of partitions( cache chunks ); 
 	// 0 - one static file for every query
 	protected static $sql_cache_segments = dbx_cache_chunks_size;
+
+	// Logging to file
+	protected static $logging = dbx_logging;
 
 	// Cache directory path
 	protected static $cache_directory_path;
@@ -1193,7 +1196,11 @@ final class DBX {
 		$storeResult = null;
 
 		/* Log MySQL */
-		file_put_contents( $_SERVER['DOCUMENT_ROOT'] .'/private/SQL_log.txt', $sql ."\n\n", FILE_APPEND );
+		if( (bool)self::$logging ) {
+
+			file_put_contents( $_SERVER['DOCUMENT_ROOT'] .'/private/SQL_log.txt', $sql ."\n\n", FILE_APPEND );
+
+		}
 
 		// Establish connection with Data Base server host
 		self::connect();
@@ -1601,13 +1608,13 @@ final class DBX {
 
 						break;
 
-					/*
-					case $prefix .'messages':
+					case $prefix .'forums':
+					case $prefix .'forum_rooms':
+					case $prefix .'froom_comments':
 
-						$cacheFilesMask = 'messages';
+						$cacheFilesMask = 'forum';
 
 						break;
-					*/
 
 					case $prefix .'subscriptions':
 
@@ -2279,9 +2286,9 @@ final class DBX {
 
 				str_replace(
 
-					['--+', '"', "\x1a", '%', 'qq ', '--', '/*!', '*/'],  
+					['#', '+--', '--+', '"', "\x1a", '%', 'qq ', '--', '/*!', '*/'],  
 
-					[';', '&quot;', '\\Z', "\%", '&#45;&#45;', '&#47;&#42;&#33;', '&#42;&#47;'], 
+					['&sharp;', '', ';', '&quot;', '\\Z', "\%", '&#45;&#45;', '&#47;&#42;&#33;', '&#42;&#47;'], 
 
 					trim($s)
 
@@ -2297,9 +2304,9 @@ final class DBX {
 		// Secure stage means that inner SQL clauses fixed to be secure
 		$secureStage = str_ireplace(
 
-			[' OR ', '||', ' AND ', '&&', ' ON ', "'", '--+', 'qq', '"', '--', '%', '/*!', '*/'], 
+			['ASCII', 'UNION', ' OR ', '||', ' AND ', '&&', ' ON ', "'", '+--', '--+', 'qq', '"', '--', '%', '/*!', '*/'], 
 
-			[' &#111;&#114; ', ' &#124;&#124; ', ' &#97;&#110;&#100; ', ' &amp;&amp; ', ' &#111;&#110; ', '\'', ';', '', '&quot;', '&#45;&#45;', '&percnt;', '&#47;&#42;&#33;', '&#42;&#47;'],
+			['', '', '&#111;&#114; ', ' &#124;&#124; ', ' &#97;&#110;&#100; ', ' &amp;&amp; ', ' &#111;&#110; ', '\'', '', ';', '', '&quot;', '&#45;&#45;', '&percnt;', '&#47;&#42;&#33;', '&#42;&#47;'],
 
 			addslashes(
 

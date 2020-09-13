@@ -40,7 +40,7 @@ $keys = json_encode(['key' => base64_encode('0*A-0:0:0|A-0:00:0|A-0:0:0|A-0:0:0|
 
 if( isset( SV['g']['route'] ) ) {
 
-  if( !empty($_SERVER['HTTP_REFERER']) && ( $_SERVER['HTTP_HOST'] === parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) ) ) {
+  if( !empty($_SERVER['HTTP_REFERER']) && ( $_SERVER['HTTP_HOST'] === parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST)) ) {
 
     $dsp = null;
 
@@ -72,9 +72,15 @@ if( isset( SV['g']['route'] ) ) {
 
       }
 
-      if( $psw[ 1 ] === 'forum' && is_numeric( $psw[ 2 ] ) ) {
+      if( $psw[ 1 ] === 'forum' && is_numeric( $psw[ 2 ] ) && empty( $psw[ 3 ] ) ) {
 
         $dsp = '/forum-room-d/';
+
+      }
+
+      if( $psw[ 1 ] === 'forum' && is_numeric( $psw[ 2 ] ) && is_numeric( $psw[ 3 ] ) ) {
+
+        $dsp = '/forum-comments-d/';
 
       }
 

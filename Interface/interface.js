@@ -2,7 +2,7 @@
  /* 
   * RevolveR Front-end :: main interface
   *
-  * v.1.9.0
+  * v.1.9.2
   *
   *			          ^
   *			         | |
@@ -343,6 +343,13 @@ R.fetchRoute = ( intro ) => {
 				let cform = R.sel('#comment-add-form');
 
 				let route = cform ? cform[0].action.replace( document.location.origin, '' ) : document.location.pathname;
+
+
+				if( route === '/forum-comments-d/' ) {
+
+					route = document.location.pathname;
+
+				}
 
 				if( route !== '/' && route !== '/logout/' ) {
 

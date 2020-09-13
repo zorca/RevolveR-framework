@@ -150,9 +150,9 @@ body {
 #RevolverRoot {
 
 	position: relative;
-	margin: 0 auto;
 	width: 1440px;
 	z-index: 1000;
+	margin: 3vw auto 0;
 
 }
 
@@ -1316,6 +1316,15 @@ fieldset legend::before {
 		vertical-align: top;
 		text-align: left;
 		padding-top: .3vw;
+		position: fixed;
+		top: 0;
+		display: table;
+		width: 95vw;
+		padding: 1vw 1vw 1vw 0;
+		text-align: right;
+		background: linear-gradient(to right, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 1) 100%);
+		border-bottom-right-radius: 1vw;
+		border-top: .08vw dashed #fff;
 
 	}
 
@@ -3633,7 +3642,7 @@ div.day-future:hover {
 .revolver__footer {
 
 	display: table;
-	height: 10vw;
+	height: 4vw;
 	width: 100%;
 
 }
@@ -3651,8 +3660,16 @@ div.day-future:hover {
 
 	.revolver__footer .revolver__main-menu {
 
-		display: table-cell;
-		height: 100%;
+		padding-top: .3vw;
+		position: fixed;
+		bottom: .4vw;
+		display: table;
+		width: 95vw;
+		padding: 1vw 1vw 1vw 0;
+		text-align: right;
+		background: linear-gradient(to right, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 1) 100%);
+		border-top-right-radius: 1vw;
+		right: 1vw;
 
 	}
 

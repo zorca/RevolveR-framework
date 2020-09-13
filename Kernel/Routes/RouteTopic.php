@@ -241,7 +241,7 @@ if( Auth ) {
         header( 'Location: '. site_host . $froom_route );
 
       }
-      else if( $action === 'delete' && form_pass === 'pass' ) {
+      else if( $action === 'delete' ) {
 
         $files = iterator_to_array(
 
@@ -272,6 +272,12 @@ if( Auth ) {
 
         }
 
+        $model::erase('froom_comments', [
+
+          'criterion' => 'froom_id::'. $froom_id
+
+        ]); 
+
         // Delete from database
         $model::erase('forum_rooms', [
 
@@ -279,7 +285,7 @@ if( Auth ) {
 
         ]);
 
-        header( 'Location: '. site_host .'?notification=node-erased^'. $froom_id );
+        header( 'Location: '. site_host .'/forum/?notification=node-erased^'. $froom_id );
 
       }
 

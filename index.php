@@ -51,50 +51,212 @@ define('StartTime', microtime(true));
 
 define('MemoryStart', memory_get_usage());
 
-// Countries and languages
-require_once('./private/Countries.php');
-require_once('./private/Translations.php');
+//if( is_readable('./kernel.php') ) {
 
-// Structures
-require_once('./Kernel/Structures/DataBase.php');
+  //require_once('./kernel.php');
 
-// Helpers
-require_once('./Kernel/Modules/HTMLFormBuilder.php');
-require_once('./Kernel/Modules/Calendar.php');
-require_once('./Kernel/Modules/DetectUserAgent.php');
+//}
 
-// Modules
-require_once('./Kernel/Modules/Notifications.php');
-require_once('./Kernel/Modules/Parse.php');
-require_once('./Kernel/Modules/Markup.php');
-require_once('./Kernel/Modules/Minifier.php');
+define('KERNEL_CONFIG', [
 
-require_once('./Kernel/Modules/Language.php');
-require_once('./Kernel/Modules/Captcha.php');
-require_once('./Kernel/Modules/DataBaseX.php');
-require_once('./Kernel/Modules/Cipher.php');
+  'Parts' => [
 
-require_once('./Kernel/Modules/Auth.php');
-require_once('./Kernel/Modules/Menu.php');
-require_once('./Kernel/Modules/Route.php');
-require_once('./Kernel/Modules/Node.php');
-require_once('./Kernel/Modules/Vars.php');
-require_once('./Kernel/Modules/Mail.php');
+    'Kernel#0' => [
 
-// Models
-require_once('./Kernel/Modules/Model.php');
+      'Countries list' => [
 
-// Attendance write
-require_once('./Kernel/Modules/Statistics.php');
+        'directory' => './private/',
+        'file'    => 'Countries',
 
-// MMDB support
-require_once('./Kernel/Modules/Extra/MMDBDecoder.php');
-require_once('./Kernel/Modules/Extra/MMDBReader.php');
+      ],
 
-// Conclude
-require_once('./Kernel/Modules/Conclude.php');
+      'Translations of interface' => [
 
-// Kernel Initialize :: [ Run Framework with Strict ]
-require_once('./Kernel/Kernel.php');
+        'directory' => './private/',
+        'file'    => 'Translations',
+
+      ],
+
+      'Structures of DataBase' => [
+
+        'directory' => './Kernel/Structures/',
+        'file'    => 'DataBase',
+
+      ],
+
+      'Kernel HTML Forms API' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'HTMLFormBuilder',
+
+      ],
+
+      'Kernel Calendar' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Calendar',
+
+      ],
+
+      'Kernel User Agent Detection' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'DetectUserAgent',
+
+      ],
+
+      'Kernel Notifications' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Notifications',
+
+      ],
+
+      'Kernel Parser' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Parse',
+
+      ],
+
+      'Kernel Markup' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Markup',
+
+      ],
+
+      'Kernel Optimizers' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Minifier',
+
+      ],
+
+      'Kernel Language' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Language',
+
+      ],
+
+      'Kernel Captcha' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Captcha',
+
+      ],
+
+      'Kernel Data Base API' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'DataBaseX',
+
+      ],
+
+      'Kernel Cipher' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Cipher',
+
+      ],
+
+      'Kernel Auth' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Auth',
+
+      ],
+
+      'Kernel Menu' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Menu',
+
+      ],
+
+      'Kernel Route' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Route',
+
+      ],
+
+      'Kernel Node' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Node',
+
+      ],
+
+      'Kernel Variables' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Vars',
+
+      ],
+
+      'Kernel Mail' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Mail',
+
+      ],
+
+      'Kernel Models' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Model',
+
+      ],
+
+      'Kernel Statistics' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Statistics',
+
+      ],
+
+      'Kernel Extra MMDB Decoder' => [
+
+        'directory' => './Kernel/Modules/Extra/',
+        'file'    => 'MMDBDecoder',
+
+      ],
+
+      'Kernel Extra MMDB Reader' => [
+
+        'directory' => './Kernel/Modules/Extra/',
+        'file'    => 'MMDBReader',
+
+      ],
+
+      'Kernel Resolve' => [
+
+        'directory' => './Kernel/Modules/',
+        'file'    => 'Conclude',
+
+      ],
+
+      'Kernel Core' => [
+
+        'directory' => './Kernel/',
+        'file'    => 'Kernel',
+
+      ],
+
+    ]
+
+  ]
+
+]);
+
+
+# READ KERNEL CONFIG
+foreach( KERNEL_CONFIG['Parts']['Kernel#0'] as $KPart ) {
+
+  	require_once( $KPart['directory'] . $KPart['file'] .'.php' );
+
+}
 
 ?>
