@@ -276,6 +276,12 @@ final class Conclude {
 
 			}
 
+			if( PASS[ 1 ] === 'blog' ) {
+
+				$R = 'Template';
+
+			}
+
 		}
 		else {
 
@@ -427,7 +433,7 @@ final class Conclude {
 		// Exclude URI's from caches
 		if( defined('ROUTE') ) {
 
-			if( in_array( ltrim( ROUTE['node'], '#' ), [ 'search', 'secure', 'setup', 'user', 'user-d', 'category-d', 'contents-d', 'comments-d', 'forum-d', 'forum-room-d', 'terminal' ] ) ) {
+			if( in_array( ltrim( ROUTE['node'], '#' ), [ 'search', 'secure', 'setup', 'user', 'user-d', 'category-d', 'contents-d', 'comments-d', 'forum-d', 'forum-room-d', 'blog-d', 'blog-comments-d', 'terminal' ] ) ) {
 
 				return null;
 
@@ -564,7 +570,7 @@ final class Conclude {
 		}
 
 		// Compress exceptions
-		if( $type === 'text/html' && !in_array( PASS[ 1 ], [ 'search', 'user-d', 'category-d', 'contents-d', 'comments-d', 'forum-d', 'forum-room-d' ] ) ) {
+		if( $type === 'text/html' && !in_array( PASS[ 1 ], [ 'search', 'user-d', 'category-d', 'contents-d', 'comments-d', 'forum-d', 'forum-room-d',  'blog-d', 'blog-comments-d' ] ) ) {
 
 			if( !Auth ) {
 
@@ -639,6 +645,17 @@ final class Conclude {
 		#######################################################
 
 		session_write_close();
+
+		if( defined('NF') ) {
+
+			if( NF ) {
+
+				header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+				header('Status: 404 Not Found');
+
+			}
+
+		}
 
 		exit( $output );
 

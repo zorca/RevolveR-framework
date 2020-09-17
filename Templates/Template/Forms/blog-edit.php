@@ -1,6 +1,25 @@
 <?php
 
-if( USER['name'] === $n['author'] ) {
+if( in_array(ACCESS['role'], ['Admin', 'Writer', 'User'], true) ) { 
+
+	$blog_node = iterator_to_array(
+
+		$model::get( 'blog_nodes', [
+
+			'criterion' => 'route::'. explode('/edit/', RQST)[0] .'/',
+
+			'bound'		=> [
+
+				1
+
+			],
+
+			'course'	=> 'backward',
+			'sort' 		=> 'id'
+
+		])
+
+	)['model::blog_nodes'][0];
 
 	$form_parameters_html_help  = '<ul class="revolver__allowed-files-description-table">';
 	$form_parameters_html_help .= '<li class="revolver__table-header">';
@@ -31,10 +50,10 @@ if( USER['name'] === $n['author'] ) {
 	$form_parameters = [
 
 		// main parameters
-		'id' 	  => 'node-edit-topic-form',
-		'class'	  => 'revolver__node-edit-topic-form revolver__new-fetch',
+		'id' 	  => 'node-edit-blog-form',
+		'class'	  => 'revolver__node-edit-blog-form revolver__new-fetch',
 		'enctype' => 'multipart/form-data',
-		'action'  => '/topic-d/',
+		'action'  => '/blog-d/',
 		'method'  => 'post',
 		'encrypt' => true,
 		'captcha' => null,
@@ -46,7 +65,7 @@ if( USER['name'] === $n['author'] ) {
 			'tab_1' => [
 
 				// tab title
-				'title'  => 'Topic editor',
+				'title'  => 'Blog item editor',
 				'active' => true,
 
 				// included fieldsets
@@ -55,15 +74,15 @@ if( USER['name'] === $n['author'] ) {
 					// fieldset contents parameters
 					'fieldset_1' => [
 
-						'title:html' => TRANSLATIONS[ $ipl ]['Editor'] .' &#8226; topic '. PASS[ 3 ],
+						'title:html' => TRANSLATIONS[ $ipl ]['Editor'] .' &#8226; '. $blog_node['id'],
 
 						// wrap fields into label
 						'labels' => [
 
 							'label_1' => [
 
-								'title'  => 'Topic title',
-								'access' => 'topic',
+								'title'  => 'Blog item title',
+								'access' => 'blog',
 								'auth'   => 1,
 
 								'fields' => [
@@ -71,10 +90,10 @@ if( USER['name'] === $n['author'] ) {
 									0 => [
 
 										'type' 			=> 'input:text',
-										'name' 			=> 'revolver_froom_edit_title',
-										'placeholder'	=> 'Topic title',
+										'name' 			=> 'revolver_blog_edit_title',
+										'placeholder'	=> 'Blog item title',
 										'required'		=> true,
-										'value'			=> $n['title']
+										'value'			=> $blog_node['title']
 
 									],
 
@@ -84,8 +103,8 @@ if( USER['name'] === $n['author'] ) {
 
 							'label_2' => [
 
-								'title'  => 'Topic description',
-								'access' => 'topic',
+								'title'  => 'Blog item description',
+								'access' => 'blog',
 								'auth'   => 1,
 
 								'fields' => [
@@ -93,10 +112,10 @@ if( USER['name'] === $n['author'] ) {
 									0 => [
 
 										'type' 			=> 'input:text',
-										'name' 			=> 'revolver_froom_edit_description',
-										'placeholder'   => 'Topic description',
+										'name' 			=> 'revolver_blog_edit_description',
+										'placeholder'   => 'Blog item description',
 										'required'		=> true,
-										'value'			=> $n['description']
+										'value'			=> $blog_node['description']
 
 									],
 
@@ -106,8 +125,8 @@ if( USER['name'] === $n['author'] ) {
 
 							'label_4' => [
 
-								'title'  => 'Topic contents',
-								'access' => 'topic',
+								'title'  => 'Blog item contents',
+								'access' => 'blog',
 								'auth'   => 1,
 
 								'fields' => [
@@ -115,8 +134,8 @@ if( USER['name'] === $n['author'] ) {
 									0 => [
 
 										'type' 			=> 'textarea:text',
-										'name' 			=> 'revolver_froom_edit_content',
-										'placeholder'	=> 'Topic contents',
+										'name' 			=> 'revolver_blog_edit_content',
+										'placeholder'	=> 'Blog item contents',
 										'required'		=> true,
 										'rows'			=> 20,
 										'value:html'	=> $markup::Markup(
@@ -125,7 +144,7 @@ if( USER['name'] === $n['author'] ) {
 
 												htmlspecialchars_decode(
 
-													$n['contents']
+													$blog_node['content']
 
 												)
 
@@ -142,7 +161,7 @@ if( USER['name'] === $n['author'] ) {
 							'label_hiddens_0' => [
 
 								'no-label' => true,
-								'access' => 'topic',
+								'access' => 'blog',
 								'auth' => 1,
 
 								'fields' => [
@@ -150,20 +169,50 @@ if( USER['name'] === $n['author'] ) {
 									0 => [
 
 										'type' 			=> 'input:hidden',
-										'name' 			=> 'revolver_froom_edit_id',
+										'name' 			=> 'revolver_node_edit_id',
 										'required'		=> true,
 										'readonly'		=> true,
-										'value'			=> PASS[ 3 ]
+										'value'			=> $blog_node['id']
 
 									],
 
 									1 => [
 
 										'type' 			=> 'input:hidden',
-										'name' 			=> 'revolver_froom_route',
+										'name' 			=> 'revolver_node_route',
 										'required'		=> true,
 										'readonly'		=> true,
-										'value'			=> '/forum/'. PASS[ 2 ] .'/'. PASS[ 3 ] .'/'
+										'value'			=> $blog_node['route']
+
+									],
+
+									2 => [
+
+										'type' 			=> 'input:hidden',
+										'name' 			=> 'revolver_node_user',
+										'required'		=> true,
+										'readonly'		=> true,
+										'value'			=> $blog_node['user']
+
+									],
+
+								],
+
+							],
+
+							'label_chechboxes_1' => [
+
+								'title'  => 'Publish node',
+								'access' => 'blog',
+								'auth'   => 1,
+
+								'fields' => [
+
+									0 => [
+
+										'type' 			=> 'input:checkbox:'. ((bool)$blog_node['published'] ? 'checked' : 'unchecked'),
+										'name' 			=> 'revolver_node_published',
+										'value'			=> 1
 
 									],
 
@@ -173,7 +222,7 @@ if( USER['name'] === $n['author'] ) {
 
 							'label_chechboxes_2' => [
 
-								'title'  => 'Delete topic',
+								'title'  => 'Delete blog item',
 								'access' => 'topic',
 								'auth'   => 1,
 
@@ -182,8 +231,8 @@ if( USER['name'] === $n['author'] ) {
 									0 => [
 
 										'type' 			=> 'input:checkbox:unchecked',
-										'name' 			=> 'revolver_froom_edit_delete',
-										'value'			=> 'delete'
+										'name' 			=> 'revolver_blog_edit_delete',
+										'value'			=> 'delete',
 
 									],
 
@@ -270,21 +319,21 @@ if( USER['name'] === $n['author'] ) {
 
 	$files_list = iterator_to_array(
 
-			$model::get('froom_files', [
+			$model::get('blog_files', [
 
-				'criterion' => 'froom::'. PASS[ 3 ],
+				'criterion' => 'node::'. $blog_node['route'],
 				'course'	=> 'forward',
 				'sort' 		=> 'id'
 
 			])
 
-		)['model::froom_files'];
+		)['model::blog_files'];
 
 	if( $files_list ) {
 
 		foreach( $files_list as $file ) {
 
-			$attached_file = '/public/tfiles/'. $file['name'];
+			$attached_file = '/public/bfiles/'. $file['name'];
 
 			foreach( $D::$file_descriptors as $attachement ) {
 
@@ -324,14 +373,8 @@ if( USER['name'] === $n['author'] ) {
 	$render_node  = '';
 	$render_node .= '<article class="revolver__article article-id-'. $n['id'] .'-edit">';
 	$render_node .= '<header class="revolver__article-header">'; 
-	$render_node .= '<h2>'. $n['title'] .'</h2>';
+	$render_node .= '<h2>'. $title .'</h2>';
 	$render_node .= '</header>';
-
-	if( isset($n['warning']) ) {
-
-		$render_node .= $n['warning'];	
-
-	}
 
 	$render_node .= $form::build( $form_parameters, true );
 

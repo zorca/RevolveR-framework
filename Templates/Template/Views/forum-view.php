@@ -60,11 +60,6 @@
 			$render_node .= '<li><a title="'. $n['title'] .' '. TRANSLATIONS[ $ipl ]['edit'] .'" href="'. $n['route'] .'edit/' .'">'. TRANSLATIONS[ $ipl ]['Edit'] .'</a></li>';
 
 		}
-		else {
-
-			$render_node .= '<li><a hreflang="'. $n['language']['hreflang'] .'" title="'. $n['title'] .'" href="'. $n['route'] .'">'. TRANSLATIONS[ $ipl ]['Read More'] .' &rArr;</a></li>';
-
-		}
 
 		$render_node .= '</ul></nav></footer>';
 

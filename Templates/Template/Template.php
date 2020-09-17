@@ -11,7 +11,7 @@
 
 <main id="RevolverRoot" class="<?php print $main_class; ?>">
 
-<?php 
+<?php
 
     include('Header.php');
 

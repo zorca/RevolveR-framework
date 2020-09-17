@@ -461,7 +461,15 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 
 			])
 
-		)['model::forums'][0];
+		)['model::forums'];
+
+		if( !$forum ) {
+
+			define('NF', true);
+
+		}
+
+		$forum = $forum[0];
 
 		$forum_rooms = iterator_to_array(
 
@@ -534,7 +542,7 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 		$node_data[] = [
 
 			'title'		=> '#'. $forum['id'] .' :: '. $forum['title'],
-			'contents'  => '<p>'. $forum['description'] .'.</p>' . $forum_room_contents,
+			'contents'  => '<p>'. $forum['description'] .'</p>' . $forum_room_contents,
 			'id'		=> 'forum-room-container',
 			'route'		=> '/forum/',
 			'teaser'	=> false,
@@ -559,7 +567,15 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 
 			])
 
-		)['model::forums'][0];
+		)['model::forums'];
+
+		if( !$forum ) {
+
+			define('NF', true);
+
+		}
+
+		$forum = $forum[0];
 
 		$forum_rooms = iterator_to_array(
 
@@ -575,9 +591,22 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 
 		if( $forum_rooms ) {
 
+			$not_found = true;
+
+			foreach( $forum_rooms as $fr ) {
+
+				if( (int)$fr['id'] === (int)PASS[ 3 ] ) {
+
+					$not_found = null;
+
+				}
+
+			}
+
+			$room_user		  = $forum_rooms[ 0 ]['user'];
 			$room_time 		  = $forum_rooms[ 0 ]['time'];
 			$room_id 	      = $forum_rooms[ 0 ]['id'];
-			$room_title       = $room_id .': '. $forum_rooms[ 0 ]['title'] .' '. TRANSLATIONS[ $ipl ]['by'] .' '. $forum_rooms[ 0 ]['user'];
+			$room_title       = $room_id .': '. $forum_rooms[ 0 ]['title'] .' '. TRANSLATIONS[ $ipl ]['by'] .' '. $room_user;
 			$room_description = $forum_rooms[ 0 ]['description'];
 			$room_content 	  = html_entity_decode(
 
@@ -587,6 +616,16 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 
 									)
 								);
+
+			define('NF', $not_found);
+
+		} 
+		else {
+
+			define('NF', true);
+
+			header('Location: '. site_host .'/forum/');
+
 		}
 
 		$node_data[] = [
@@ -598,9 +637,10 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			'route'		  => '/forum/'. $forum['id'] .'/'. $room_id .'/',
 			'time'		  => $room_time,
 			'teaser'	  => false,
-			'footer'	  => true,
+			'footer'	  => USER['name'] === $room_user || in_array(ROLE, ['Admin', 'Writer']) ? true : null,
 			'published'	  => 1,
-			'editor'	  => true,
+			'editor'	  => USER['name'] === $room_user || in_array(ROLE, ['Admin', 'Writer']) ? true : null,
+			'author'	  => $room_user,
 			'editor_mode' => false,
 
 		];
@@ -645,6 +685,7 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 
 									)
 								);
+			$room_user		  = $forum_rooms[ 0 ]['user']; 
 		}
 
 		$title = $room_title;
@@ -660,6 +701,7 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			'teaser'	  => false,
 			'footer'	  => true,
 			'published'	  => 1,
+			'author'	  => $room_user,
 			'editor'	  => true,
 			'editor_mode' => true,
 

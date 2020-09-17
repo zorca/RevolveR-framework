@@ -391,6 +391,25 @@ define('main_nodes', array_merge([
 
 		],
 
+		// Forum
+		TRANSLATIONS[ $ipl ]['Blog'] => [
+
+			'title' => TRANSLATIONS[ $ipl ]['Blog'],
+			'descr'	=> 'Blog',
+
+			'param_check' => [
+
+				'menu'      => 1,
+
+			],
+
+			'route'	=> '/blog/',
+			'node' 	=> '#blog',
+			'type'	=> 'node',
+			'id'   	=> 'blog'
+
+		],
+
 		// Privacy notes
 		TRANSLATIONS[ $ipl ]['Privacy notes'] => [
 
@@ -494,6 +513,25 @@ define('main_nodes', array_merge([
 
 		],
 
+		// Comments blog dispatch
+		'blog-comments-d' => [
+
+			'title' => 'Blog comment dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/blog-comments-d/',
+			'node'   => '#blog-comments-d',
+			'type'	 => 'service',
+			'id'	 => 'blog-comments-d',
+
+		],
+
 		// Contents dispatch
 		'contents-d' => [
 
@@ -529,6 +567,25 @@ define('main_nodes', array_merge([
 			'node'   => '#topic-d',
 			'type'	 => 'service',
 			'id'	 => 'topic-d',
+
+		],
+
+		// Contents dispatch
+		'blog-d' => [
+
+			'title' => 'Blog item dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/blog-d/',
+			'node'   => '#blog-d',
+			'type'	 => 'service',
+			'id'	 => 'blog-d',
 
 		],
 

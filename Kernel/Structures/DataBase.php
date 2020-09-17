@@ -242,6 +242,41 @@ $STRUCT_MESSAGES_FILES = [
 
 ];
 
+$STRUCT_BLOG_FILES = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // bigint
+		'auto'	 => true,
+		'length' => 255,
+		'fill'   => true
+
+	],
+
+	'field_node' => [
+
+		'type'   => 'text', // varchar
+		'length' => 255,
+		'fill'   => true,
+
+	],
+
+	'field_name' => [
+
+		'type'   => 'text', // varchar
+		'length' => 255,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+];
+
 $STRUCT_CATEGORIES = [
 
 	'field_id' => [
@@ -698,6 +733,86 @@ $STRUCT_NODES = [
 
 ];
 
+$STRUCT_BLOG_NODES = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // big int
+		'auto'   => true,     // auto increment
+		'length' => 255
+
+	],
+
+	'field_title' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 150,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'full'
+
+		]
+
+	],
+
+	'field_description' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 5000,
+		'fill'   => true
+
+	],
+
+	'field_content' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 5000,
+		'fill'   => true
+
+	],
+
+	'field_user' => [
+
+		'type'   => 'text', // varchar
+		'length' => 50,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_route' => [
+
+		'type'   => 'text', // varchar
+		'length' => 1000,
+		'fill'	 => true
+
+	],
+
+	'field_time' => [
+
+		'type'   => 'text', // varchar
+		'length' => 100,
+		'fill'	 => true
+
+	],
+
+	'field_published' => [
+
+		'type'   => 'num', // int
+		'length' => 1,
+		'fill'   => null
+
+	]
+
+];
+
 $STRUCT_COMMENTS = [
 
 	'field_id' => [
@@ -755,6 +870,69 @@ $STRUCT_COMMENTS = [
 
 		]
 
+	],
+
+	'field_content' => [
+
+		'type'   => 'text', // varchar
+		'length' => 5000,
+		'fill'   => true
+
+	],
+
+	'field_time' => [
+
+		'type'   => 'text', // varchar
+		'length' => 100,
+		'fill'	 => true
+
+	],
+
+	'field_published' => [
+
+		'type' 	 => 'num', // int
+		'length' => 1,
+		'fill'	 => null
+
+	]
+
+];
+
+$STRUCT_BLOG_COMMENTS = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // big int
+		'auto'   => true,     // auto increment
+		'length' => 255
+
+	],
+
+	'field_node_id' => [
+
+		'type'   => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_user_id' => [
+
+		'type'   => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
 	],
 
 	'field_content' => [
@@ -999,69 +1177,35 @@ $STRUCT_STATISTICS = [
 
 ];
 
-/*
-$STRUCT_PROBE = [
-
-	'field_id' => [
-
-		'type'   => 'bignum', // big int
-		'auto'   => true,  	  // auto increment
-		'length' => 255
-
-	],
-
-	'field_name' => [
-
-		'type'   => 'text', // text
-		'fill'   => true,
-		'length' => 255,
-
-		'index'	 => [
-
-			'type' => 'simple'
-
-		]
-
-	],
-
-	'field_probe_DONE_ALTER' => [
-
-		'type'   => 'text', // text
-		'fill'   => true,
-		'length' => 255
-
-	],
-
-	'field_probe_test' => [
-
-		'type'   => 'text', // text
-		'fill'   => true,
-		'length' => 255
-
-	]
-
-];
-*/
-
 // Compare DBX Schema
 $DBX_KERNEL_SCHEMA = [
 
 	'settings'		 => $STRUCT_SITE,
 	'extensions'	 => $STRUCT_EXTENSIONS,
+
 	'statistics'	 => $STRUCT_STATISTICS,
-	'categories'	 => $STRUCT_CATEGORIES,
+
 	'forums'		 => $STRUCT_FORUMS,
 	'forum_rooms'	 => $STRUCT_FORUM_ROOMS,
+	'froom_files'	 => $STRUCT_FROOM_FILES,
 	'froom_comments' => $STRUCT_FORUM_COMMENTS,
+
+	'categories'	 => $STRUCT_CATEGORIES,
 	'nodes'			 => $STRUCT_NODES,
-	'comments'		 => $STRUCT_COMMENTS,
-	'users'			 => $STRUCT_USER,
-	'messages'		 => $STRUCT_MESSAGES,
 	'files'			 => $STRUCT_FILES,
-	'froom_files'	 => $STRUCT_FROOM_FILES, 
-	'messages_files' => $STRUCT_MESSAGES_FILES,
+	'comments'		 => $STRUCT_COMMENTS,
 	'subscriptions'	 => $STRUCT_SUBSCRIPTIONS,
+
+	'blog_nodes'	 => $STRUCT_BLOG_NODES,
+	'blog_files'	 => $STRUCT_BLOG_FILES,
+	'blog_comments'	 => $STRUCT_BLOG_COMMENTS,
+
+	'users'			 => $STRUCT_USER,
 	'roles'			 => $STRUCT_ROLES,
+
+	'messages'		 => $STRUCT_MESSAGES,
+	'messages_files' => $STRUCT_MESSAGES_FILES,
+
 	//'probe'			 => $STRUCT_PROBE
 
 ];

@@ -79,6 +79,15 @@ if( defined('ROUTE') ) {
 
 			break;
 
+		/* Blog */
+		case '#blog':
+
+			ob_start();
+
+			require_once('./Kernel/Nodes/NodeBlog.php');
+
+			break;
+
 		case '#create':
 
 			ob_start();
@@ -284,6 +293,17 @@ if( defined('ROUTE') ) {
 
 			break;
 
+
+		case '#blog-comments-d':
+
+			ob_start('ob_gzhandler');
+
+			// Comments dispatch
+			require_once('./Kernel/Routes/RouteBlogComments.php');
+
+			break;
+
+
 		case '#contents-d':
 
 			ob_start('ob_gzhandler');
@@ -309,6 +329,20 @@ if( defined('ROUTE') ) {
 			}
 
 			break;
+
+		case '#blog-d':
+
+			ob_start('ob_gzhandler');
+
+			if( Auth ) {
+
+				// Contents dispatch
+				require_once('./Kernel/Routes/RouteBlog.php');
+
+			}
+
+			break;
+
 
 		case '#category-d':
 

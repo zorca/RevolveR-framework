@@ -188,6 +188,17 @@ define('TRANSLATIONS', [
 
 		'Topic contents'							=> 'Topic contents',
 
+		// Blog*
+		'Blog'										=> 'Blog',
+		'Welcome blogs'								=> 'Welcome blogs',
+		'Add blog item'								=> 'Add blog item',
+		'Blog manage'								=> 'Blog manage',
+		'Blog item editor'							=> 'Blog item editor',
+		'Blog item title'							=> 'Blog item title',
+		'Blog item description'						=> 'Blog item description',
+		'Blog item contents'						=> 'Blog item contents',
+		'Delete blog item'							=> 'Delete blog item',
+
 		// Subscription
 		'New comment for you subscription'       	=> 'New comment for you subscription',
 
@@ -736,6 +747,18 @@ define('TRANSLATIONS', [
 		'Forum room created'						=> 'Комната форума создана',
 
 		'Topic contents'							=> 'Содержимое комнаты',
+
+
+		// Blog*
+		'Blog'										=> 'Блог',
+		'Welcome blogs'								=> 'Добро пожаловать в блоги',
+		'Add blog item'								=> 'Добавить записть блога',
+		'Blog manage'								=> 'Управление блогом',
+		'Blog item editor'							=> 'Редактор записи блога',
+		'Blog item title'							=> 'Заголовок записи блога',
+		'Blog item description'						=> 'Описание записи блога',
+		'Blog item contents'						=> 'Содержимое записи блога',
+		'Delete blog item'							=> 'Удаление записи блога',
 
 		// subscription
 		'New comment for you subscription'         => 'По вашей подписке новый комментарий',

@@ -38,9 +38,26 @@ if( defined('ROUTE') ) {
 
 		}
 
-		if( ROUTE['node'] === '#forum' && (bool)ROUTE['edit'] && is_numeric(PASS[ 2 ]) && is_numeric(PASS[ 3 ]) && is_numeric(PASS[ 5 ]) ) {
+		// Blog edit
+		if( ROUTE['node'] === '#blog' && (bool)ROUTE['edit'] && PASS[ count(PASS) - 2 ] === 'edit' && !is_numeric(PASS[ count(PASS) - 3 ]) ) {
 
-			//var_dump('TESTING');
+			require_once('./Templates/'. TEMPLATE .'/Forms/blog-edit.php');
+
+			$mainWrap = null;
+
+		}
+
+		// Blog comments edit
+		if( ROUTE['node'] === '#blog' && (bool)ROUTE['edit'] && is_numeric(PASS[ count(PASS) - 3 ]) && PASS[ count(PASS) - 2 ] === 'edit' ) {
+
+			require_once('./Templates/'. TEMPLATE .'/Forms/comments-blog-edit.php');
+
+			$mainWrap = null;
+
+		}
+
+		// Forums comments edit
+		if( ROUTE['node'] === '#forum' && (bool)ROUTE['edit'] && is_numeric(PASS[ 2 ]) && is_numeric(PASS[ 3 ]) && is_numeric(PASS[ 5 ]) ) {
 
 			require_once('./Templates/'. TEMPLATE .'/Forms/comments-forum-edit.php');
 
@@ -70,6 +87,7 @@ if( !defined('ROUTE') ) {
 }
 
 ?>
+
 
 <?php if( $mainWrap ): 
 
@@ -144,9 +162,13 @@ if( !defined('ROUTE') ) {
 
 				$class = 'unpublished';
 
-				if( in_array( ACCESS['role'], ['none', 'User'], true ) || ACCESS === 'none' ) {
+				if( isset( ACCESS['role'] ) ) {
 
-					continue;
+					if( in_array( ACCESS['role'], ['none', 'User'], true ) || ACCESS === 'none' ) {
+
+						continue;
+
+					}
 
 				}
 
@@ -179,12 +201,12 @@ if( !defined('ROUTE') ) {
 							include('./Templates/'. TEMPLATE .'/Views/comments-view.php');
 
 							/* Comments add */
-							if( PASS[ 1 ] !== 'forum' ) {
+							if( PASS[ 1 ] !== 'forum' && PASS[ 1 ] !== 'blog' ) {
 
 								require_once('./Templates/'. TEMPLATE .'/Forms/comments-add.php');
 
 							}
-							else {
+							else if( PASS[ 1 ] === 'forum' ) {
 
 								/* Comments views */
 								include('./Templates/'. TEMPLATE .'/Views/comments-forum-view.php');
@@ -192,6 +214,18 @@ if( !defined('ROUTE') ) {
 								if( Auth ) {
 
 									require_once('./Templates/'. TEMPLATE .'/Forms/comments-forum-add.php');
+
+								}
+
+							} 
+							else if( PASS[ 1 ] === 'blog' ) {
+
+								/* Comments views */
+								include('./Templates/'. TEMPLATE .'/Views/blog-main-view.php');
+
+								if( Auth ) {
+
+									require_once('./Templates/'. TEMPLATE .'/Forms/comments-blog-add.php');
 
 								}
 
@@ -209,7 +243,6 @@ if( !defined('ROUTE') ) {
 				}
 
 				/* Forum */
-
 				if( defined('ROUTE') ) {
 
 					if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) || is_numeric( PASS[ 3 ] ) ) {
@@ -224,9 +257,28 @@ if( !defined('ROUTE') ) {
 
 				}
 
+				/* Forum */
+				if( defined('ROUTE') ) {
+
+					if( ROUTE['node'] === '#blog' ) {
+
+						if( PASS[ 1 ] === 'blog' && PASS[ 3 ] !== 'edit' ) {
+
+							if( $counter > 0 ) {
+
+								include('./Templates/'. TEMPLATE .'/Views/blog-view.php');
+
+							}
+
+						}
+
+					}
+
+				}
+
+
 			}
 			else {
-
 				
 				if( PASS[ 4 ] === 'edit' && RQST === $n['route'] . 'edit/' ) {
 

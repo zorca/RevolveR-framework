@@ -1616,6 +1616,14 @@ final class DBX {
 
 						break;
 
+					case $prefix .'blog_nodes':
+					case $prefix .'blog_comments':
+					case $prefix .'blog_files':
+
+						$cacheFilesMask = 'blog';
+
+						break;
+
 					case $prefix .'subscriptions':
 
 						$cacheFilesMask = 'contents';

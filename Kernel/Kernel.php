@@ -3,7 +3,7 @@
  /*
   * RevolveR CMF Kernel
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *			          ^
   *			         | |
@@ -32,7 +32,7 @@
   */
  
 // Kernel version
-define('rr_version', '1.9.2');
+define('rr_version', '1.9.3');
 
 // X64 guest number
 define('BigNumericX64', 9223372036854775806);
@@ -455,7 +455,11 @@ if( (bool)strlen( $db_config ) ) {
 
 	}
 
-	define('ROLE', isset( ACCESS['role'] ) ? ACCESS['role'] : 'none' );
+	if( defined('ACCESS') ) {
+
+		define('ROLE', isset( ACCESS['role'] ) ? ACCESS['role'] : 'none' );
+
+	}
 
 	// Show only contents for choosen contents language in preferences
 	define('main_language', $primary_language);
@@ -989,6 +993,21 @@ if( !defined('ROUTE') ) {
 
 	}
 
+	/* Blog routes */
+	if( PASS[ 1 ] === 'blog' ) {
+
+		define('ROUTE', [
+
+			'route' => '/blog/',
+			'node'	=> '#blog',
+			'type'	=> 'node',
+			'ext'	=> null
+
+		]);
+
+	}
+
+
 }
 
 if( !(bool)$TCache ) {
@@ -1084,6 +1103,29 @@ if( !(bool)$TCache ) {
 	if( RQST === '/' ) {
 
 		$title = !empty(TITLE) ? TITLE : $title;
+
+	} 
+	else if( PASS[1] === 'blog' && !empty(PASS[ 2 ]) ) {
+
+		$title = iterator_to_array(
+
+			$model::get( 'blog_nodes', [
+
+				'criterion' => 'route::'. rtrim(explode('/edit/', RQST)[0], '/') .'/',
+
+				'bound'		=> [
+
+					1
+
+				],
+
+				'course'	=> 'backward',
+				'sort' 		=> 'id'
+
+			])
+
+		)['model::blog_nodes'][0]['title'];
+
 
 	}
 

@@ -283,7 +283,7 @@ if( Auth ) {
 
 		$form_parameters_html_help .= '</ul>';
 
-		// User Profile Form Structure
+		// Node create Form Structure
 		$form_parameters = [
 
 			// main parameters

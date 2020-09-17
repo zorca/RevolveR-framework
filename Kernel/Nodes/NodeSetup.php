@@ -588,26 +588,35 @@ if( !empty(SV['p']) ) {
 			// Create table subscriptions
 			$dbx::query('c', 'revolver__subscriptions', $STRUCT_SUBSCRIPTIONS);
 
+			// Create table blog nodes
+			$dbx::query('c', 'revolver__blog_nodes', $STRUCT_BLOG_NODES);
+			
+			// Create table blog files
+			$dbx::query('c', 'revolver__blog_files', $STRUCT_BLOG_FILES);
+			
+			// Create table blog comments
+			$dbx::query('c', 'revolver__blog_comments', $STRUCT_BLOG_COMMENTS);
+
 			// Create table roles
 			$dbx::query('c', 'revolver__roles', $STRUCT_ROLES);
 
 			$model::set('roles', [
 
-				'access'	=> 'preferences|node|comment|messages|categories|profile|forum|topic',
+				'access'	=> 'preferences|node|comment|messages|categories|profile|forum|topic|blog',
 				'name'		=> 'Admin',
 
 			]);
 
 			$model::set('roles', [
 
-				'access'	=> 'comment|messages|profile|topic',
+				'access'	=> 'comment|messages|profile|topic|blog',
 				'name'		=> 'User'
 
 			]);
 
 			$model::set('roles', [
 
-				'access'	=> 'node|comment|messages|categories|profile|forum|topic',
+				'access'	=> 'node|comment|messages|categories|profile|forum|topic|blog',
 				'name'		=> 'Writer'
 
 			]);

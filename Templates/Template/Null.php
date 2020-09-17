@@ -1,32 +1,36 @@
 
-    <?php 
+<?php 
 
-        header('Status: 404 Not Found'); 
+    header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
 
-        if( N ) {
+    header('Status: 404 Not Found');
 
-            // Title for 404
-            $title = 'This URL not found on this host :: 404';
 
-            // Brand for 404
-            $brand = '!_found ';
+    if( N ) {
 
-            // Website description
-            $descr = 'Requested URL is not accesible on this host for now.';    
+        // Title for 404
+        $title = 'This URL not found on this host :: 404';
 
-        }
+        // Brand for 404
+        $brand = '!_found ';
 
-    ?>
+        // Website description
+        $descr = 'Requested URL is not accesible on this host for now.';    
 
-    <!-- RevolveR :: head -->
-    <?php include('Head.php'); ?>
+    }
 
-    <?php // Scalable design class
 
-        $main_class = 'revolver__scalable-main';
-        $auth_class = $authFlag ? 'revolver__authorized' : 'revolver__not-authorized';
+?>
 
-    ?>
+<!-- RevolveR :: head -->
+<?php include('Head.php'); ?>
+
+<?php // Scalable design class
+
+    $main_class = 'revolver__scalable-main';
+    $auth_class = $authFlag ? 'revolver__authorized' : 'revolver__not-authorized';
+
+?>
 
     <body>
 
