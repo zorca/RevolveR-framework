@@ -3,7 +3,7 @@
   *
   * RevolveR CMF interface :: ECMA Script 7
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   * RevolveR ECMA Script is a fast, simple and
   *
@@ -377,6 +377,8 @@
 			var eMode = evt;
 			var eLock = null;
 
+			var eventsHahses = [];
+
 			if(e) {
 
 				for( let i of e ) {
@@ -439,9 +441,13 @@
 
 						console.log( 'Event created: '+ eventIdMD5 );
 
+						eventsHahses.push([i, eMode, eventIdMD5]);
+
 					}
 
 				}
+
+				return eventsHahses;
 
 			}
 

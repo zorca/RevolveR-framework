@@ -36,6 +36,8 @@ if( !self.run ) {
 
 	self.run = true;
 
+	R.menuPosition = 0;
+
 }
 
 self.searchAction = null;
@@ -280,6 +282,12 @@ R.lazyLoad = () => {
 // Make interface
 R.fetchRoute = ( intro ) => {
 
+	R.menuMove = null;
+
+	R.mainMenues = R.sel('.revolver__main-menu ul');
+
+	R.styleApply(R.mainMenues, ['left:'+ R.menuPosition + 'px']);
+
 	// Privacy policy
 	R.fetch('/secure/?policy=get', 'get', 'json', null, function() {
 
@@ -454,8 +462,6 @@ R.fetchRoute = ( intro ) => {
 
 	});
 
-
-
 	// Intro
 	if( intro ) {
 
@@ -510,6 +516,103 @@ R.fetchRoute = ( intro ) => {
 		}
 
 	}
+
+	R.event(R.mainMenues, 'mousedown', function(e) {
+
+		e.preventDefault();
+
+		if( !R.menuMove ) {
+
+			R.menuLeft = RR.curxy[0];
+
+			R.MenuMoveObserver = R.event('body', 'mousemove', function(e) {
+
+				e.preventDefault();
+
+				R.menuMove = true;
+
+				R.menuPosition = ( R.menuLeft - RR.curxy[0] ) *-1; 
+
+				R.styleApply(R.mainMenues, ['left:'+ R.menuPosition +'px']);
+
+				R.event('body', 'mouseup', function(e) {
+
+					e.preventDefault();
+
+					for( i of R.MenuMoveObserver ) {
+
+						R.detachEvent(i[ 2 ]);
+
+					}
+
+					setTimeout(() => { 
+
+						R.menuMove = null;
+
+
+					}, 50);
+
+				});
+
+			});
+
+		}
+
+	});
+
+	R.event(R.mainMenues, 'touchstart', function(e) {
+
+		e.preventDefault();
+
+		if( !R.menuMove ) {
+
+			R.touchFreeze = null;
+
+			R.menuLeft = e.changedTouches[0].screenX;
+
+			R.MenuMoveObserver = R.event('body', 'touchmove', function(e) {
+
+				e.preventDefault();
+
+				R.menuMove = true;
+
+				R.menuPosition = ( R.menuLeft - e.changedTouches[0].screenX ) *-1; 
+
+				R.styleApply(R.mainMenues, ['left:'+ R.menuPosition +'px']);
+
+				R.event('body', 'touchend', function(e) {
+
+					let target = e.changedTouches[0].target;
+
+					e.preventDefault();
+
+					for( i of R.MenuMoveObserver ) {
+
+						R.detachEvent(i[ 2 ]);
+
+					}
+
+					setTimeout(() => {
+
+						if( target.tagName === 'A' && !R.touchFreeze ) {
+
+							R.loadURI(target.href, target.title);
+
+							R.touchFreeze = true;
+
+							R.menuMove = null;
+
+						}
+
+					}, 150);
+
+				});
+
+			});
+
+		}
+
+	});
 
 	// Forms styles
 	R.formBeautifier();
@@ -603,8 +706,6 @@ R.fetchRoute = ( intro ) => {
 
 	// Fetch Submit
 	R.fetchSubmit('form.revolver__new-fetch', 'text', function() {
-
-		console.log( this );
 
 		// Prevent search box fetching
 		if( !self.searchAction ) {
