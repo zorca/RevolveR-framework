@@ -535,7 +535,7 @@ if( $blog_items ) {
 					'footer'      => true,
 					'editor'      => $editor,
 					'editor_mode' => false,
-					'published'   => $bi['published'],
+					'published'   => 1,
 
 				];
 
@@ -560,7 +560,7 @@ if( $blog_items ) {
 						'footer'      => true,
 						'editor'      => $editor,
 						'editor_mode' => false,
-						'published'   => $bi['published'],
+						'published'   => 1,
 
 					];
 
