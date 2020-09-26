@@ -1,2 +1,2 @@
 # RevolveR-framework
-RevolveR contents management framework v.1.9.1
+RevolveR contents management framework v.1.9.3
