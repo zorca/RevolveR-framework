@@ -69,9 +69,50 @@ if( INSTALLED ) {
 
 		}
 
-		print $related;
+	}
+
+	$blogNodes = iterator_to_array(
+
+		$model::get( 'blog_nodes', [
+
+			'criterion' => 'id::*',
+
+			'bound'		=> [
+
+				10
+
+			],
+
+			'course'	=> 'backward',
+			'sort' 		=> 'id'
+
+		])
+
+	)['model::blog_nodes'];
+
+	if( $blogNodes ) {
+
+		$related .= '<div class="revolver__related-group-category-blog">';
+		$related .= '<h4>'. TRANSLATIONS[ $ipl ]['Blog']  .'</h4>';
+
+		$related .= '<ul>';		
+
+		foreach( $blogNodes as $n ) {
+
+			if( (bool)$n['published'] ) {
+
+				$related .= '<li><a title="'. $n['description'] .'" href="'. $n['route'] .'">'. $n['title'] .'</a></li>';
+
+			}
+
+		}
+
+		$related .= '</ul>';
+		$related .= '</div>';
 
 	}
+
+	print $related;
 
 	$comments = iterator_to_array(
 

@@ -6,7 +6,7 @@
   *
   * Makes markup valid and secure
   *
-  * v.1.9.0
+  * v.1.9.3
   *
   *
   *
@@ -557,7 +557,7 @@ final class Markup {
 		$default = [
 
 			'length' => 0,
-			'xhash'  => 1,
+			'xhash'	 => 1,
 			'lazy'	 => 0
 
 		];
@@ -1064,7 +1064,7 @@ final class Markup {
 
 														if( $aname === 'src' ) {
 
-															$tagAttrs .= /*$aname .'="'. $acont ."*/' data-'. $aname .'="'. $acont .'" ';
+															$tagAttrs .= $aname .'="/Interface/preloader.svg" data-'. $aname .'="'. $acont .'" ';
 
 															self::$lazyList[] = $acont;
 

@@ -4,7 +4,7 @@
   * 
   * RevolveR Kernel configuration
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *
   *
@@ -157,6 +157,24 @@ define('main_nodes', array_merge([
 				'menu'     => 1,
 				'isAdmin'  => 1,
 				'isWriter' => 1
+
+			],
+
+			'type'	=> 'node',
+
+		],
+
+		// Create node
+		TRANSLATIONS[ $ipl ]['Create Wiki Node'] => [
+
+			'title' => TRANSLATIONS[ $ipl ]['Create Wiki Node'],
+			'route' => '/wiki/create/',
+			'node'  => '#wiki_create',
+			'id'	=> 'wiki_create',
+
+			'param_check' => [
+
+				'menu'     => 0,
 
 			],
 
@@ -372,6 +390,44 @@ define('main_nodes', array_merge([
 
 		],
 
+		// WIKI
+		TRANSLATIONS[ $ipl ]['Wiki'] => [
+
+			'title' => TRANSLATIONS[ $ipl ]['Wiki'],
+			'descr'	=> 'Wiki',
+
+			'param_check' => [
+
+				'menu'      => 1,
+
+			],
+
+			'route'	=> '/wiki/',
+			'node' 	=> '#wiki',
+			'type'	=> 'node',
+			'id'   	=> 'wiki'
+
+		],
+
+		// Blog
+		TRANSLATIONS[ $ipl ]['Blog'] => [
+
+			'title' => TRANSLATIONS[ $ipl ]['Blog'],
+			'descr'	=> 'Blog',
+
+			'param_check' => [
+
+				'menu'      => 1,
+
+			],
+
+			'route'	=> '/blog/',
+			'node' 	=> '#blog',
+			'type'	=> 'node',
+			'id'   	=> 'blog'
+
+		],
+
 		// Forum
 		TRANSLATIONS[ $ipl ]['Forum'] => [
 
@@ -388,25 +444,6 @@ define('main_nodes', array_merge([
 			'node' 	=> '#forum',
 			'type'	=> 'node',
 			'id'   	=> 'forum'
-
-		],
-
-		// Forum
-		TRANSLATIONS[ $ipl ]['Blog'] => [
-
-			'title' => TRANSLATIONS[ $ipl ]['Blog'],
-			'descr'	=> 'Blog',
-
-			'param_check' => [
-
-				'menu'      => 1,
-
-			],
-
-			'route'	=> '/blog/',
-			'node' 	=> '#blog',
-			'type'	=> 'node',
-			'id'   	=> 'blog'
 
 		],
 
@@ -663,6 +700,44 @@ define('main_nodes', array_merge([
 			'node'   => '#user-d',
 			'type'	 => 'service',
 			'id'	 => 'user-d',
+
+		],
+
+		// Category dispatch
+		'wiki-d' => [
+
+			'title' => 'Wiki dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/wiki-d/',
+			'node'   => '#wiki-d',
+			'type'	 => 'service',
+			'id'	 => 'wiki-d',
+
+		],
+
+		// Category dispatch
+		'wiki-node-d' => [
+
+			'title' => 'Wiki node dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/wiki-node-d/',
+			'node'   => '#wiki-node-d',
+			'type'	 => 'service',
+			'id'	 => 'wiki-node-d',
 
 		],
 

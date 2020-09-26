@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Data Base schema
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *
   *
@@ -733,6 +733,108 @@ $STRUCT_NODES = [
 
 ];
 
+$STRUCT_WIKI_NODES = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // big int
+		'auto'   => true,     // auto increment
+		'length' => 255
+
+	],
+
+	'field_title' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 150,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'full'
+
+		]
+
+	],
+
+	'field_description' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 5000,
+		'fill'   => true
+
+	],
+
+	'field_content' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 5000,
+		'fill'   => true
+
+	],
+
+	'field_country' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 3,
+		'fill'   => true
+
+	],
+
+	'field_user' => [
+
+		'type'   => 'text', // varchar
+		'length' => 50,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_time' => [
+
+		'type'   => 'text', // varchar
+		'length' => 100,
+		'fill'	 => true
+
+	],
+
+	'field_route' => [
+
+		'type'   => 'text', // varchar
+		'length' => 1000,
+		'fill'	 => true
+
+	],
+
+	'field_category' => [
+
+		'type'	 => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_published' => [
+
+		'type'   => 'num', // int
+		'length' => 1,
+		'fill'   => null
+
+	]
+
+];
+
 $STRUCT_BLOG_NODES = [
 
 	'field_id' => [
@@ -1180,31 +1282,35 @@ $STRUCT_STATISTICS = [
 // Compare DBX Schema
 $DBX_KERNEL_SCHEMA = [
 
-	'settings'		 => $STRUCT_SITE,
-	'extensions'	 => $STRUCT_EXTENSIONS,
+	'settings'		  => $STRUCT_SITE,
+	'extensions'	  => $STRUCT_EXTENSIONS,
 
-	'statistics'	 => $STRUCT_STATISTICS,
+	'statistics'	  => $STRUCT_STATISTICS,
 
-	'forums'		 => $STRUCT_FORUMS,
-	'forum_rooms'	 => $STRUCT_FORUM_ROOMS,
-	'froom_files'	 => $STRUCT_FROOM_FILES,
-	'froom_comments' => $STRUCT_FORUM_COMMENTS,
+	'forums'		  => $STRUCT_FORUMS,
+	'forum_rooms'	  => $STRUCT_FORUM_ROOMS,
+	'froom_files'	  => $STRUCT_FROOM_FILES,
+	'froom_comments'  => $STRUCT_FORUM_COMMENTS,
 
-	'categories'	 => $STRUCT_CATEGORIES,
-	'nodes'			 => $STRUCT_NODES,
-	'files'			 => $STRUCT_FILES,
-	'comments'		 => $STRUCT_COMMENTS,
-	'subscriptions'	 => $STRUCT_SUBSCRIPTIONS,
+	'categories'	  => $STRUCT_CATEGORIES,
+	'nodes'			  => $STRUCT_NODES,
+	'files'			  => $STRUCT_FILES,
+	'comments'		  => $STRUCT_COMMENTS,
+	'subscriptions'	  => $STRUCT_SUBSCRIPTIONS,
 
-	'blog_nodes'	 => $STRUCT_BLOG_NODES,
-	'blog_files'	 => $STRUCT_BLOG_FILES,
-	'blog_comments'	 => $STRUCT_BLOG_COMMENTS,
+	'blog_nodes'	  => $STRUCT_BLOG_NODES,
+	'blog_files'	  => $STRUCT_BLOG_FILES,
+	'blog_comments'	  => $STRUCT_BLOG_COMMENTS,
 
-	'users'			 => $STRUCT_USER,
-	'roles'			 => $STRUCT_ROLES,
+	'wiki_categories' => $STRUCT_CATEGORIES,
+	'wiki_nodes'	  => $STRUCT_WIKI_NODES,
+	'wiki_files'	  => $STRUCT_FILES,
 
-	'messages'		 => $STRUCT_MESSAGES,
-	'messages_files' => $STRUCT_MESSAGES_FILES,
+	'users'			  => $STRUCT_USER,
+	'roles'			  => $STRUCT_ROLES,
+
+	'messages'		  => $STRUCT_MESSAGES,
+	'messages_files'  => $STRUCT_MESSAGES_FILES,
 
 	//'probe'			 => $STRUCT_PROBE
 

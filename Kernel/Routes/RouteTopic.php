@@ -4,7 +4,7 @@
   * 
   * RevolveR Route Contents Dispatch
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *
   *
@@ -120,6 +120,16 @@ if( Auth ) {
 
       }
 
+      if( isset(SV['p']['revolver_node_edit_forum']) ) {
+
+        if( (bool)SV['p']['revolver_node_edit_forum']['valid'] ) {
+
+          $forum_id = SV['p']['revolver_node_edit_forum']['value'][0];
+
+        }
+
+      }
+
       if( isset(SV['p']['revolver_froom_edit_delete']) ) {
 
         if( (bool)SV['p']['revolver_froom_edit_delete']['valid'] ) {
@@ -177,6 +187,7 @@ if( Auth ) {
           'title'       => $froom_title,
           'content'     => $froom_content,
           'description' => $froom_description,
+          'forum_id'    => (int)$forum_id,
           'criterion'   => 'id'
 
         ]);
@@ -238,7 +249,7 @@ if( Auth ) {
 
         }
 
-        header( 'Location: '. site_host . $froom_route );
+        header( 'Location: '. site_host . '/forum/'. $forum_id .'/'. $froom_id.'/' );
 
       }
       else if( $action === 'delete' ) {

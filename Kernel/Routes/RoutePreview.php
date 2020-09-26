@@ -4,7 +4,7 @@
   * 
   * Preview Route
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *
   *
@@ -153,6 +153,438 @@ if( !empty( SV['p'] ) ) {
 							])
 
 						)['model::nodes'];
+
+					}
+					else {
+
+						$node = null;
+
+					}
+
+					if( $node ) {
+
+						$notify::set('notice', 'Node with defined route already exist');
+
+						$notify::set('active', '<div><a href="'. $node[0]['route'] .'" title="'. $node[0]['description'] .'">'. $node[0]['title'] .'</a></div>', null);
+
+					}
+					else {
+
+						$notify::set('active', 'Sense allowed for this node');
+
+						$render .= '<article class="revolver__article revolver__article-preview">';
+
+						$render .= '<header class="revolver__article-header">'; 
+
+						$render .= '<h2>'. $node_title .'</h2>';
+
+						$render .= '<time>'. date('Y.m.d h:i') .'</time>';
+
+						$render .= '</header>';
+
+						$render .= '<div class="revolver__article-contents">'. $markup::Markup( $node_content, [ 'xhash' => 1 ] ) .'</div>';
+
+						$render .= '</article>';
+
+					}
+
+					print $notify::Conclude() . $render;
+
+					break;
+
+				case 'topic':
+
+					ob_start();
+
+					$node_id = 0;
+
+					$render = '';
+
+					if( isset(SV['p']['revolver_node_edit_id']) ) {
+
+						if( (bool)SV['p']['revolver_node_edit_id']['valid'] ) {
+
+							$node_id = SV['p']['revolver_node_edit_id']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_forum_room_title']) ) {
+
+						if( (bool)SV['p']['revolver_forum_room_title']['valid'] ) {
+
+							$node_title = SV['p']['revolver_forum_room_title']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_forum_room_description']) ) {
+
+						if( (bool)SV['p']['revolver_forum_room_description']['valid'] ) {
+
+							$node_description = SV['p']['revolver_forum_room_description']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_forum_room_content']) ) {
+
+						if( (bool)SV['p']['revolver_forum_room_content']['valid'] ) {
+
+							$node_content = SV['p']['revolver_forum_room_content']['value'];
+
+						}
+
+					}
+
+					$notify::set('active', 'Sense allowed for this node');
+
+					$render .= '<article class="revolver__article revolver__article-preview">';
+
+					$render .= '<header class="revolver__article-header">'; 
+
+					$render .= '<h2>'. $node_title .'</h2>';
+
+					$render .= '<time>'. date('Y.m.d h:i') .'</time>';
+
+					$render .= '</header>';
+
+					$render .= '<div class="revolver__article-contents">'. $markup::Markup( $node_content, [ 'xhash' => 1 ] ) .'</div>';
+
+					$render .= '</article>';
+
+					print $notify::Conclude() . $render;
+
+					break;
+
+				case 'topic_edit':
+
+					ob_start();
+
+					$node_id = 0;
+
+					$render = '';
+
+					if( isset(SV['p']['revolver_froom_edit_id']) ) {
+
+						if( (bool)SV['p']['revolver_froom_edit_id']['valid'] ) {
+
+							$node_id = SV['p']['revolver_froom_edit_id']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_froom_edit_title']) ) {
+
+						if( (bool)SV['p']['revolver_froom_edit_title']['valid'] ) {
+
+							$node_title = SV['p']['revolver_froom_edit_title']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_froom_edit_description']) ) {
+
+						if( (bool)SV['p']['revolver_froom_edit_description']['valid'] ) {
+
+							$node_description = SV['p']['revolver_froom_edit_description']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_froom_edit_content']) ) {
+
+						if( (bool)SV['p']['revolver_froom_edit_content']['valid'] ) {
+
+							$node_content = SV['p']['revolver_froom_edit_content']['value'];
+
+						}
+
+					}
+
+					$notify::set('active', 'Sense allowed for this node');
+
+					$render .= '<article class="revolver__article revolver__article-preview">';
+
+					$render .= '<header class="revolver__article-header">'; 
+
+					$render .= '<h2>'. $node_title .'</h2>';
+
+					$render .= '<time>'. date('Y.m.d h:i') .'</time>';
+
+					$render .= '</header>';
+
+					$render .= '<div class="revolver__article-contents">'. $markup::Markup( $node_content, [ 'xhash' => 1 ] ) .'</div>';
+
+					$render .= '</article>';
+
+					print $notify::Conclude() . $render;
+
+					break;
+
+				case 'blog':
+
+					ob_start();
+
+					$node_id = 0;
+
+					$node_route = '';
+
+					$render = '';
+
+					if( isset(SV['p']['revolver_node_edit_id']) ) {
+
+						if( (bool)SV['p']['revolver_node_edit_id']['valid'] ) {
+
+							$node_id = SV['p']['revolver_node_edit_id']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_node_edit_title']) ) {
+
+						if( (bool)SV['p']['revolver_node_edit_title']['valid'] ) {
+
+							$node_title = SV['p']['revolver_node_edit_title']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_node_edit_description']) ) {
+
+						if( (bool)SV['p']['revolver_node_edit_description']['valid'] ) {
+
+							$node_description = SV['p']['revolver_node_edit_description']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_node_edit_route']) ) {
+
+						if( (bool)SV['p']['revolver_node_edit_route']['valid'] ) {
+
+							$node_route = strip_tags(preg_replace("/\/+/", '/', preg_replace("/ +/", '-', trim( SV['p']['revolver_node_edit_route']['value'] ))));
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_node_edit_content']) ) {
+
+						if( (bool)SV['p']['revolver_node_edit_content']['valid'] ) {
+
+							$node_content = SV['p']['revolver_node_edit_content']['value'];
+
+						}
+
+					}
+
+					if( !(bool)$node_id ) {
+
+						foreach( main_nodes as $k => $v ) {
+
+							if( trim($v['route']) === trim($node_route) ) {
+
+								$notify::set('notice', 'Route allready defined for system');
+
+								break;
+
+							}
+
+						}
+
+						if( strlen( $node_route ) !== strlen( utf8_decode( $node_route ) ) ) {
+
+							$notify::set('notice', 'Route not allow to use non english letters');
+
+						}
+
+						$route_fix = ltrim(
+
+							rtrim(
+
+								$node_route, '/'
+
+							), '/'
+
+						);
+
+						$node = iterator_to_array(
+
+							$model::get('blog_nodes', [
+
+								'criterion' => 'route::'.'\/'. str_replace( ['.', '/'], ['\.', '\/'], $route_fix ) .'\/',
+
+								'bound'		=> [
+
+									1
+
+								],
+
+								'course'	=> 'backward',
+								'sort' 		=> 'id',
+								'expert'	=> true
+
+							])
+
+						)['model::blog_nodes'];
+
+					}
+					else {
+
+						$node = null;
+
+					}
+
+					if( $node ) {
+
+						$notify::set('notice', 'Node with defined route already exist');
+
+						$notify::set('active', '<div><a href="'. $node[0]['route'] .'" title="'. $node[0]['description'] .'">'. $node[0]['title'] .'</a></div>', null);
+
+					}
+					else {
+
+						$notify::set('active', 'Sense allowed for this node');
+
+						$render .= '<article class="revolver__article revolver__article-preview">';
+
+						$render .= '<header class="revolver__article-header">'; 
+
+						$render .= '<h2>'. $node_title .'</h2>';
+
+						$render .= '<time>'. date('Y.m.d h:i') .'</time>';
+
+						$render .= '</header>';
+
+						$render .= '<div class="revolver__article-contents">'. $markup::Markup( $node_content, [ 'xhash' => 1 ] ) .'</div>';
+
+						$render .= '</article>';
+
+					}
+
+					print $notify::Conclude() . $render;
+
+					break;
+
+				case 'blog_edit':
+
+					ob_start();
+
+					$node_id = 0;
+
+					$node_route = '';
+
+					$render = '';
+
+					if( isset(SV['p']['revolver_node_edit_id']) ) {
+
+						if( (bool)SV['p']['revolver_node_edit_id']['valid'] ) {
+
+							$node_id = SV['p']['revolver_node_edit_id']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_blog_edit_title']) ) {
+
+						if( (bool)SV['p']['revolver_blog_edit_title']['valid'] ) {
+
+							$node_title = SV['p']['revolver_blog_edit_title']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_blog_edit_description']) ) {
+
+						if( (bool)SV['p']['revolver_blog_edit_description']['valid'] ) {
+
+							$node_description = SV['p']['revolver_blog_edit_description']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_node_edit_route']) ) {
+
+						if( (bool)SV['p']['revolver_node_edit_route']['valid'] ) {
+
+							$node_route = strip_tags(preg_replace("/\/+/", '/', preg_replace("/ +/", '-', trim( SV['p']['revolver_node_edit_route']['value'] ))));
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_blog_edit_content']) ) {
+
+						if( (bool)SV['p']['revolver_blog_edit_content']['valid'] ) {
+
+							$node_content = SV['p']['revolver_blog_edit_content']['value'];
+
+						}
+
+					}
+
+					if( !(bool)$node_id ) {
+
+						foreach( main_nodes as $k => $v ) {
+
+							if( trim($v['route']) === trim($node_route) ) {
+
+								$notify::set('notice', 'Route allready defined for system');
+
+								break;
+
+							}
+
+						}
+
+						if( strlen( $node_route ) !== strlen( utf8_decode( $node_route ) ) ) {
+
+							$notify::set('notice', 'Route not allow to use non english letters');
+
+						}
+
+						$route_fix = ltrim(
+
+							rtrim(
+
+								$node_route, '/'
+
+							), '/'
+
+						);
+
+						$node = iterator_to_array(
+
+							$model::get('blog_nodes', [
+
+								'criterion' => 'route::'.'\/'. str_replace( ['.', '/'], ['\.', '\/'], $route_fix ) .'\/',
+
+								'bound'		=> [
+
+									1
+
+								],
+
+								'course'	=> 'backward',
+								'sort' 		=> 'id',
+								'expert'	=> true
+
+							])
+
+						)['model::blog_nodes'];
 
 					}
 					else {
@@ -367,7 +799,135 @@ if( !empty( SV['p'] ) ) {
 
 					print $notify::Conclude() . $render;
 
-				break;
+					break;
+
+				case 'blog_comment':
+
+					ob_start();
+
+					$users = iterator_to_array(
+
+						$model::get('users', [
+
+							'criterion'	=> 'id::*',
+							'course'	=> 'forward',
+							'sort'		=> 'id'
+
+						])
+
+					)['model::users'];
+
+					$src = '/public/avatars/default.png';
+
+					$comment_time = date('Y.m.d h:i');
+
+					$edit = null;
+
+					$comment_id = 0;
+
+					if( isset(SV['p']['revolver_comments_action_edit']) ) {
+
+						if( (bool)SV['p']['revolver_comments_action_edit']['valid'] ) {
+
+							$edit = true;
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_comment_user_id']) ) {
+
+						if( (bool)SV['p']['revolver_comment_user_id']['valid'] ) {
+
+							if( (int)SV['p']['revolver_comment_user_id']['value'] !== (int)BigNumericX64 ) {
+
+								$user = iterator_to_array(
+
+									$model::get('users', [
+
+										'criterion'	=> 'id::'. (int)SV['p']['revolver_comment_user_id']['value'],
+										'course'	=> 'forward',
+										'sort'		=> 'id'
+
+									])
+
+								)['model::users'];
+
+								if( $user ) {
+
+									$src = $user[0]['avatar'] === 'default' ? '/public/avatars/default.png' : $user[0]['avatar'];
+									$comment_user_name = $user[0]['nickname'];
+
+								}
+
+								$notify::set('active', 'Sense allowed for this comment');
+
+							}
+							else {
+
+								$notify::set('inactive', 'Sense for this comment awaiting moderation');
+
+							}
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_node_route']) ) {
+
+						if( (bool)SV['p']['revolver_node_route']['valid'] ) {
+
+							$comment_route = SV['p']['revolver_comment_node_route']['value']; 
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_comment_content']) ) {
+
+						if( (bool)SV['p']['revolver_comment_content']['valid'] ) {
+
+							$comment_contents = SV['p']['revolver_comment_content']['value'];
+
+						}
+
+					}
+
+					if( isset(SV['p']['revolver_comment_id']) ) {
+
+						if( (bool)SV['p']['revolver_comment_id']['valid'] ) {
+
+							$comment_id = SV['p']['revolver_comment_id']['value']; 
+
+						}
+
+					}
+
+					$cid = !(bool)$comment_id ? 'comment preview' : $comment_id;
+
+					$render .= '<article id="comment-'. $comment_id .'" class="revolver__article-preview revolver__comments comments-'. $comment_id .' published">';
+
+					$render .= '<header class="revolver__comments-header">'; 
+
+					$render .= '<h2><a href="'. $comment_route .'#comment-'. $comment_id .'">&#8226; '. $cid .'</a> '. TRANSLATIONS[ $ipl ]['by'] .' <span>'. $comment_user_name .'</span></h2>';
+
+					$render .= '<time datetime="'. $calendar::formatTime( $comment_time ) .'">'. $comment_time .'</time>';
+
+					$render .= '</header>';
+
+					$render .= '<figure class="revolver__comments-avatar">';
+
+					$render .= '<img src="'. $src .'" alt="'. $comment_user_name .'" />';
+
+					$render .= '</figure>';
+
+					$render .= '<div class="revolver__comments-contents">'. $markup::Markup( $comment_contents, [ 'xhash' => 1 ] ) .'</div>';
+
+					$render .= '</article>';
+
+					print $notify::Conclude() . $render;
+
+					break;
 
 				case 'message':
 
@@ -474,7 +1034,7 @@ if( !empty( SV['p'] ) ) {
 
 					print $notify::Conclude() . $render;
 
-				break;
+					break;
 
 			}
 

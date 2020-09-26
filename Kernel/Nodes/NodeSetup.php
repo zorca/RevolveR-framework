@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Setup
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *
   *
@@ -641,6 +641,15 @@ if( !empty(SV['p']) ) {
 				'message'	=> '<p>Welcome, '. $user_data_name .'! Now you join into administartion group and have full access to manage this website!</p>'
 
 			]);
+
+			// Create table wiki categories
+			$dbx::query('c', 'revolver__wiki_categories', $STRUCT_CATEGORIES);
+
+			// Create table wiki nodes
+			$dbx::query('c', 'revolver__wiki_nodes', $STRUCT_WIKI_NODES);
+
+			// Create table wiki files
+			$dbx::query('c', 'revolver__wiki_files', $STRUCT_FILES);
 
 			header( 'Location: '. site_host );
 

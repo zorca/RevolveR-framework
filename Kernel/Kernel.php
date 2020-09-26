@@ -628,9 +628,6 @@ else {
 // Register extensions settings 
 define('EXTENSIONS_SETTINGS', !$esettings ? [[null, null, null]] : $esettings);
 
-// 404
-define('N', $not_found);
-
 /* Authorization */
 if( INSTALLED ) {
 
@@ -1007,8 +1004,26 @@ if( !defined('ROUTE') ) {
 
 	}
 
+	/* Wiki routes */
+	if( PASS[ 1 ] === 'wiki' ) {
+
+		define('ROUTE', [
+
+			'route' => '/wiki/',
+			'node'	=> '#wiki',
+			'type'	=> 'node',
+			'ext'	=> null
+
+		]);
+
+		$not_found = null;
+
+	}
 
 }
+
+// 404
+define('N', $not_found);
 
 if( !(bool)$TCache ) {
 

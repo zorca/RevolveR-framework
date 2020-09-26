@@ -50,7 +50,48 @@
 
 		if( $flag_main_node ) {
 
-			$render_node .= '<div class="revolver__article-contents">'. $n['contents'] .'</div>';	
+			if( PASS[ 1 ] === 'forum' && is_numeric(PASS[ 2 ]) && is_numeric(PASS[ 3 ]) ) {
+
+				$topic_author = iterator_to_array(
+
+						$model::get('users', [
+
+							'criterion' => 'nickname::'. $n['author'],
+							'course'	=> 'forward',
+							'sort'		=> 'id'
+
+						])
+
+					)['model::users'][0];
+
+				$render_node .= '<figure class="revolver__comments-avatar" style="text-align:center">';
+
+				if( $topic_author['avatar'] === 'default') {
+
+					$src = '/public/avatars/default.png';
+
+				}
+				else {
+
+					$src = $topic_author['avatar'];
+
+				}
+
+				$render_node .= '<img src="'. $src .'" alt="'. $topic_author['nickname'] .'" />';
+
+				$render_node .= '<figcaption>'. $topic_author['nickname'] .'</figcaption><br />';
+
+				$render_node .= '</figure>';
+
+				$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'xhash' => 1, 'lazy' => 1 ] ) .'</div><br /><br /><br />';	
+
+			} 
+			else {
+
+				$render_node .= '<div class="revolver__article-contents">'. $n['contents'] .'</div>';	
+
+			}
+
 
 		}
 		else {

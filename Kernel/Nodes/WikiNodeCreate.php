@@ -163,9 +163,9 @@ if( Auth ) {
 
 			$nodes = iterator_to_array(
 
-				$model::get( 'nodes', [
+				$model::get( 'wiki_nodes', [
 
-					'criterion' => 'route::'. '/'. $hreflang .'/'. $route_fix .'/',
+					'criterion' => 'route::'. '/wiki/'. $hreflang .'/'. $route_fix .'/',
 
 					'bound'		=> [
 
@@ -178,7 +178,7 @@ if( Auth ) {
 
 				])
 
-			)['model::nodes'];
+			)['model::wiki_nodes'];
 
 			if( $nodes ) {
 
@@ -190,9 +190,9 @@ if( Auth ) {
 
 				if( $passed && form_pass === 'pass' && (bool)SV['p']['identity']['validity'] ) {
 
-					$node_route = '/'. $hreflang .'/'. urlencode( $route_fix ) .'/';
+					$node_route = '/wiki/'. $hreflang .'/'. urlencode( $route_fix ) .'/';
 
-					$model::set('nodes', [
+					$model::set('wiki_nodes', [
 
 						'title'			=> $node_title,
 						'content'		=> $node_content,
@@ -202,8 +202,7 @@ if( Auth ) {
 						'user'			=> USER['name'],
 						'time'			=> date('d.m.Y h:i'),
 						'country'		=> $index_language,
-						'published'		=> 0,
-						'mainpage'		=> 0
+						'published'		=> 0
 
 					]);
 
@@ -215,7 +214,7 @@ if( Auth ) {
 
 								$upload_allow = null;
 
-								if( !is_readable($_SERVER['DOCUMENT_ROOT'] .'/public/uploads/'. $f['name']) ) {
+								if( !is_readable($_SERVER['DOCUMENT_ROOT'] .'/public/wfiles/'. $f['name']) ) {
 
 									if( (bool)$f['valid'] ) {
 
@@ -227,14 +226,14 @@ if( Auth ) {
 
 								if( $upload_allow ) {
 
-									$model::set('files', [
+									$model::set('wiki_files', [
 
 										'node'			=> $node_route,
 										'name'			=> $f['name']
 
 									]);
 
-									move_uploaded_file( $f['temp'], $_SERVER['DOCUMENT_ROOT'] .'/public/uploads/'. $f['name'] );
+									move_uploaded_file( $f['temp'], $_SERVER['DOCUMENT_ROOT'] .'/public/wfiles/'. $f['name'] );
 
 								}
 
@@ -262,7 +261,7 @@ if( Auth ) {
 
 		}
 
-		$title = TRANSLATIONS[ $ipl ]['Create Node'];
+		$title = TRANSLATIONS[ $ipl ]['Create Wiki Node'];
 
 		$form_parameters_html_help .= '<ul class="revolver__allowed-files-description-table">';
 		$form_parameters_html_help .= '<li class="revolver__table-header">';
@@ -289,7 +288,7 @@ if( Auth ) {
 			// main parameters
 			'id'		=> 'node-create-form',
 			'class'		=> 'revolver__node-create-form revolver__new-fetch',
-			'action'	=> '/node/create/',
+			'action'	=> '/wiki/create/',
 			'method'	=> 'post',
 			'encrypt'	=> true,
 			'captcha'	=> true,
@@ -572,7 +571,7 @@ if( Auth ) {
 
 		foreach( iterator_to_array(
 
-				$model::get('categories', [
+				$model::get('wiki_categories', [
 
 					'criterion' => 'id::*',
 					'course'	=> 'forward',
@@ -580,7 +579,7 @@ if( Auth ) {
 
 				])
 
-			)['model::categories'] as $k => $v ) {
+			)['model::wiki_categories'] as $k => $v ) {
 
 			if( !(bool)$c && !(bool)$node_category ) {
 
@@ -627,7 +626,7 @@ if( Auth ) {
 
 			'title'		=> $title,
 			'id'		=> 'create',
-			'route'		=> '/node/create/',
+			'route'		=> '/wiki/create/',
 			'contents'	=> $contents,
 			'teaser'	=> null,
 			'footer'	=> null,

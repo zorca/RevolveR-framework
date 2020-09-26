@@ -20,6 +20,24 @@ if( defined('ROUTE') ) {
 
 		}
 
+		// Wiki category edit
+		if( ROUTE['node'] === '#wiki' && ROUTE['edit'] && PASS[ 3 ] === 'edit' ) {
+
+			require_once('./Templates/'. TEMPLATE .'/Forms/wiki-edit.php');
+
+			$mainWrap = null;
+
+		}
+
+		// Wiki node edit
+		if( ROUTE['node'] === '#wiki' && ROUTE['edit'] && PASS[ 4 ] === 'edit' ) {
+
+			require_once('./Templates/'. TEMPLATE .'/Forms/wiki-node-edit.php');
+
+			$mainWrap = null;
+
+		}
+
 		// Profile edit
 		if( ROUTE['node'] === '#user' && ROUTE['edit'] ) {
 
@@ -62,6 +80,15 @@ if( defined('ROUTE') ) {
 			require_once('./Templates/'. TEMPLATE .'/Forms/comments-forum-edit.php');
 
 			$mainWrap = null;
+
+		}
+
+	} 
+	else {
+
+		if( PASS[ 1 ] === 'wiki' && count(PASS) > 3 ) {
+
+			require_once('./Templates/'. TEMPLATE .'/Views/wiki-view.php');
 
 		}
 
@@ -197,12 +224,12 @@ if( !defined('ROUTE') ) {
 
 						if( !$resolve::isAllowed( RQST ) && !(bool)pagination['offset'] ) {
 
-							/* Comments views */
-							include('./Templates/'. TEMPLATE .'/Views/comments-view.php');
+							if( PASS[ 1 ] !== 'forum' && PASS[ 1 ] !== 'blog' &&  PASS[ 1 ] !== 'wiki' ) {
+							
+								/* Comments views */
+								include('./Templates/'. TEMPLATE .'/Views/comments-view.php');
 
-							/* Comments add */
-							if( PASS[ 1 ] !== 'forum' && PASS[ 1 ] !== 'blog' ) {
-
+								/* Comments add */
 								require_once('./Templates/'. TEMPLATE .'/Forms/comments-add.php');
 
 							}

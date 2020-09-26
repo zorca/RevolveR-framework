@@ -6,7 +6,7 @@
   *
   * make exit and frees resources
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *                   ^
   *                  | |
@@ -406,7 +406,19 @@ final class Conclude {
 
 		}
 
-		return '<meter>' . "\n". implode( "\n", $datum ) ."\n" . '</meter>';
+		$output = '<meter>' . "\n". implode( "\n", $datum ) ."\n" . '</meter>';
+
+		if( defined('ROUTE') ) {
+
+			if( in_array(ROUTE['route'], ['/sitemap/', '/aggregator/']) ) {
+
+				$output = "\n". implode( "\n", $datum ) ."\n";
+
+			}
+
+		}
+
+		return $output;
 
 	}
 
@@ -433,7 +445,27 @@ final class Conclude {
 		// Exclude URI's from caches
 		if( defined('ROUTE') ) {
 
-			if( in_array( ltrim( ROUTE['node'], '#' ), [ 'search', 'secure', 'setup', 'user', 'user-d', 'category-d', 'contents-d', 'comments-d', 'forum-d', 'forum-room-d', 'blog-d', 'blog-comments-d', 'terminal' ] ) ) {
+			if( in_array( ltrim( ROUTE['node'], '#' ), [ 
+
+				'search', 
+				'secure', 
+				'setup', 
+				'blog', 
+				'wiki', 
+				'user', 
+				'user-d', 
+				'category-d', 
+				'contents-d', 
+				'comments-d', 
+				'forum-d', 
+				'forum-room-d', 
+				'blog-d', 
+				'blog-comments-d',
+				'wiki-d',
+				'wiki-node-d', 
+				'terminal' 
+
+			] ) ) {
 
 				return null;
 
@@ -570,7 +602,22 @@ final class Conclude {
 		}
 
 		// Compress exceptions
-		if( $type === 'text/html' && !in_array( PASS[ 1 ], [ 'search', 'user-d', 'category-d', 'contents-d', 'comments-d', 'forum-d', 'forum-room-d',  'blog-d', 'blog-comments-d' ] ) ) {
+		if( $type === 'text/html' && !in_array( PASS[ 1 ], [ 
+
+			'search', 
+			'blog', 
+			'user-d', 
+			'category-d', 
+			'contents-d', 
+			'comments-d', 
+			'forum-d', '
+			forum-room-d', 
+			'blog-d', 
+			'blog-comments-d',
+			'wiki-d',
+			'wiki-node-d'
+
+		] ) ) {
 
 			if( !Auth ) {
 

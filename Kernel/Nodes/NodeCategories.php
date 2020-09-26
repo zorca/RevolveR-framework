@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Categories 
   *
-  * v.1.9.0
+  * v.1.9.3
   *
   *
   *
@@ -171,7 +171,12 @@ if( ROLE !== 'none' ) {
 
 		];
 
+
+		$contents .= '<h2 class="revolver__collapse-form-legend revolver__collapse-form-legend-form-free">'. TRANSLATIONS[ $ipl ]['Add category'] .'</h2>';
+
+		$contents .= '<output class="revolver__collapse-form-contents" style="overflow: hidden; width: 0px; height: 0px; line-height: 0px; display: inline-block; min-height: 0px; opacity: 0; transform: scaleX(1) scaleY(1) scaleZ(1);">';
 		$contents .= $form::build( $form_parameters );
+		$contents .= '</output>';
 
 	}
 

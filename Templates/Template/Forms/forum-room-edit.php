@@ -259,9 +259,75 @@ if( USER['name'] === $n['author'] ) {
 
 			], // #tab 2
 
+			'tab_3' => [
+
+				// tab title
+				'title' => 'Forum',
+
+				// included fieldsets
+				'fieldsets' => [
+					
+					// fieldset contents parameters
+					'fieldset_2' => [
+
+						'title' => 'Forum',
+						
+						// wrap fields into label
+						'labels' => [
+
+							'label_5' => [
+
+								'title'  => 'Choose forum',
+								'access' => 'topic',
+								'auth'   => 1,
+
+								'fields' => [
+
+									0 => [
+
+										'type' 			=> 'select',
+										'name' 			=> 'revolver_node_edit_forum',
+										'required'		=> true
+
+									],
+
+								],
+
+							],
+
+						],
+
+					],
+
+				],
+
+			], // #tab 3
+
 		]
 
 	];
+
+
+	// TAB-3 Forum Choose
+	$forum_options_list = '';
+
+	foreach( iterator_to_array(
+
+			$model::get( 'forums', [
+
+				'criterion' => 'id::*',
+				'course'	=> 'forward',
+				'sort' 		=> 'id'
+
+			])
+
+		)['model::forums'] as $k => $v ) {
+
+		$forum_options_list .= '<option value="'. $v['id'] .'"'. ( $v['id'] === $n['forum'] ? ' selected="selected"' : '') .'>'. $v['title'] .'</option>';
+
+	}
+
+	$form_parameters['tabs']['tab_3']['fieldsets']['fieldset_2']['labels']['label_5']['fields'][0]['value:html'] = $forum_options_list;
 
 	$render_node_html_files .= '<dl>';
 

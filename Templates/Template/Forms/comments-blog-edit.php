@@ -27,7 +27,7 @@ if( in_array( ACCESS['role'], ['Admin', 'Writer', 'User'], true ) ) {
 	$form_parameters = [
 
 		// main parameters
-		'id'		=> 'comment-edit-form',
+		'id'		=> 'comment-blog-edit-form',
 		'class'		=> 'revolver__comment-blog-edit-form revolver__new-fetch',
 		'action'	=> '/blog-comments-d/',
 		'method'	=> 'post',
@@ -112,13 +112,22 @@ if( in_array( ACCESS['role'], ['Admin', 'Writer', 'User'], true ) ) {
 							3 => [
 
 								'type' 			=> 'input:hidden',
+								'name' 			=> 'revolver_comment_user_name',
+								'required'		=> true,
+								'value'			=> $comment_user['nickname']
+
+							],
+
+							4 => [
+
+								'type' 			=> 'input:hidden',
 								'name' 			=> 'revolver_comment_time',
 								'required'		=> true,
 								'value'			=> date('d.m.Y H:i')
 
 							],
 
-							4 => [
+							5 => [
 
 								'type' 			=> 'input:hidden',
 								'name' 			=> 'revolver_comment_id',
@@ -127,7 +136,7 @@ if( in_array( ACCESS['role'], ['Admin', 'Writer', 'User'], true ) ) {
 
 							],
 
-							5 => [
+							6 => [
 
 								'type' 			=> 'input:hidden',
 								'name' 			=> 'revolver_node_route',
@@ -135,7 +144,7 @@ if( in_array( ACCESS['role'], ['Admin', 'Writer', 'User'], true ) ) {
 
 							],
 
-							6 => [
+							7 => [
 
 								'type' 			=> 'input:hidden',
 								'name' 			=> 'revolver_comments_action_edit',

@@ -4,7 +4,7 @@
   * 
   * Search Route
   *
-  * v.1.9.0
+  * v.1.9.3
   *
   *
   *
@@ -46,11 +46,20 @@ if( isset(SV['g']['query']) ) {
 
   $output .= '<ul>';
 
-  foreach( $all_nodes as $k => $v ) {
+  function search( string $qs, iterable $v, string $m ): string {
 
-    if( preg_match('/'. $qs .'/i', $v['content']) ) {
+    if( $m === 'topic' ) {
 
-      $output .= '<li><a href="'. $v['route'] .'" title="'. $v['description'] .'">'.  str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['title'] ) .'</a><span>'. str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['description'] ) .'</span>';
+      $url = '/forum/'. $v['forum_id'] .'/'. $v['id'] .'/';
+
+    } 
+    else {
+
+      $url = $v['route'];
+
+    }
+
+      $output = '<li>'. TRANSLATIONS[ 'EN' ][ $m ] .':: <a href="'. $url .'" title="'. $v['description'] .'">'.  str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['title'] ) .'</a><span>'. str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['description'] ) .'</span>';
 
       $replace = trim(
 
@@ -124,7 +133,102 @@ if( isset(SV['g']['query']) ) {
 
       }
 
-      $output .= '<dfn>... '. $highlight_1 . '<mark>'. $qs .'</mark>'. preg_replace('/[\x{10000}-\x{10FFFF}]/u', '\xEF\xBF\xBD', $highlight_2) .' :: <span>'. $v['time'] .'</span> ...</dfn></li>';
+      return $output . '<dfn>... '. $highlight_1 . '<mark>'. $qs .'</mark>'. preg_replace('/[\x{10000}-\x{10FFFF}]/u', '\xEF\xBF\xBD', $highlight_2) .' :: <span>'. $v['time'] .'</span> ...</dfn></li>';
+
+  }
+
+
+  // Nodes search
+  foreach( $all_nodes as $k => $v ) {
+
+    if( preg_match('/'. $qs .'/i', $v['content']) ) {
+
+      $output .= search( $qs, $v, 'node' );
+
+    }
+
+  }
+
+
+  // Blog search
+  foreach( iterator_to_array(
+
+    $model::get( 'blog_nodes', [
+
+      'criterion' => 'id::*',
+
+      'bound'   => [
+
+        20,   // limit
+
+      ],
+
+      'course'  => 'backward', // backward
+      'sort'    => 'time',
+
+    ])
+
+  )['model::blog_nodes'] as $k => $v) {
+
+    if( preg_match('/'. $qs .'/i', $v['content']) ) {
+
+      $output .= search( $qs, $v, 'blog' );
+
+    }
+
+  }
+
+  // Wiki search
+  foreach( iterator_to_array(
+
+    $model::get( 'wiki_nodes', [
+
+      'criterion' => 'id::*',
+
+      'bound'   => [
+
+        20,   // limit
+
+      ],
+
+      'course'  => 'backward', // backward
+      'sort'    => 'time',
+
+    ])
+
+  )['model::wiki_nodes'] as $k => $v) {
+
+    if( preg_match('/'. $qs .'/i', $v['content']) ) {
+
+      $output .= search( $qs, $v, 'Wiki' );
+
+    }
+
+  }
+
+  // Forum search
+  foreach( iterator_to_array(
+
+    $model::get( 'forum_rooms', [
+
+      'criterion' => 'id::*',
+
+      'bound'   => [
+
+        20,   // limit
+
+      ],
+
+      'course'  => 'backward', // backward
+      'sort'    => 'time',
+
+    ])
+
+  )['model::forum_rooms'] as $k => $v) {
+
+    if( preg_match('/'. $qs .'/i', $v['content']) ) {
+
+      $output .= search( $qs, $v, 'topic' );
 
     }
 

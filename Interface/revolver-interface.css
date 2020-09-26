@@ -2,7 +2,7 @@
 /* 
  * RevolveR CMF main interface
  *
- * v.1.9.2
+ * v.1.9.3
  *
  *
  *			          ^
@@ -34,6 +34,20 @@
 :root {
 
 	--scale-factor: 1;
+
+}
+
+::-webkit-scrollbar {
+
+	background: linear-gradient(to left, rgba(121, 121, 121, .9) 0%, rgba(212, 228, 239, .1) 100%);
+	width: 0;
+
+}
+
+html {
+
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 
 }
 
@@ -152,7 +166,7 @@ body {
 	position: relative;
 	width: 1440px;
 	z-index: 1000;
-	margin: 3vw auto 0;
+	margin: 0 auto;
 
 }
 
@@ -1187,7 +1201,9 @@ fieldset legend::before {
 		letter-spacing: .2vw;
 		color: #86868685;
 		font-size: 1.4vw;
-		float: right;
+		position: absolute;
+		right: 2vw;
+		top: 9vw;
 		opacity: .3;
 
 	}
@@ -1316,15 +1332,10 @@ fieldset legend::before {
 		vertical-align: top;
 		text-align: left;
 		padding-top: .3vw;
-		position: fixed;
 		top: 0;
 		display: table;
 		width: 95vw;
 		padding: 1vw 1vw 1vw 0;
-		text-align: right;
-		background: linear-gradient(to right, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 1) 100%);
-		border-bottom-right-radius: 1vw;
-		border-top: .08vw dashed #fff;
 
 	}
 
@@ -1332,7 +1343,16 @@ fieldset legend::before {
 
 		list-style: none;
 		position: relative;
+		width: 300vw;
+		border: .02vw dashed #fff;
+		padding: 1vw;
+		box-shadow: inset 0 0 0.2vw #888;
+		top: -1.3vw;
 
+	}
+
+	.revolver__footer .revolver__main-menu ul {
+		top: -.3vw;
 	}
 
 	.revolver__main-menu ul li {
@@ -1355,6 +1375,12 @@ fieldset legend::before {
 		text-shadow: 0.05vw -0.05vw 0.05vw #ffffff;
 		color: #841111 !important;
 		letter-spacing: .14vw;
+		background: #ffffff82;
+		padding: .5vw;
+		transform: rotateY(20deg);
+		border: .01vw dashed #8677ce;
+		box-shadow: inset 0 0 0.3vw #af92ef;
+		border-radius: .7vw;
 
 	}
 
@@ -1417,23 +1443,6 @@ fieldset legend::before {
 
 	}
 
-	#RevolverRoot .revolver__footer .revolver__main-menu ul li.route-active a:after {
-
-		content: ']' !important;
-		margin-left: .2vw; 
-		font-size: 1vw;
-		color: #841111;
-
-	}
-
-	#RevolverRoot .revolver__footer .revolver__main-menu ul li.route-active a:before {
-
-		content: '[' !important;
-		font-size: 1vw;
-		color: #841111;
-
-	}
-
 	#RevolverRoot .revolver__footer .revolver__main-menu ul li:hover a:after,
 	#RevolverRoot .revolver__footer .revolver__main-menu ul li:hover a:before {
 
@@ -1483,7 +1492,7 @@ fieldset legend::before {
 
 	.revolver__mobile-friendly .revolver__main-menu ul li a {
 
-		font-size: calc(.4vw * var(--scale-factor));
+		font-size: calc(.8vw * var(--scale-factor));
 
 	}
 
@@ -1921,10 +1930,10 @@ fieldset legend::before {
 				.revolver__article-header h2 a,
 				.revolver__comments-header h2 a {
 
-					text-shadow: -.1vw 0 .2vw #fff;
+					text-shadow: -.1vw 0 0.2vw #bbb;
 					text-decoration: none;
 					font-size: 1.3vw;
-					color: #b00000;
+					color: #b04900;
 
 					font-size: calc(1.3vw * var(--scale-factor));
 
@@ -3654,8 +3663,10 @@ div.day-future:hover {
 		display: table-cell;
 		padding-left: .1vw;
 		font-size: .8vw;
-		height: 100%;
+		height: 4.5vw;
 		color: #666;
+		padding-bottom: 1.5vw;
+		padding-top: 1vw;
 
 	}
 
@@ -3667,10 +3678,10 @@ div.day-future:hover {
 		display: table;
 		width: 95vw;
 		padding: 1vw 1vw 1vw 0;
-		text-align: right;
+		text-align: left;
 		background: linear-gradient(to right, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 1) 100%);
 		border-top-right-radius: 1vw;
-		right: 1vw;
+		right: -30vw;
 
 	}
 

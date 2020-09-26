@@ -114,7 +114,7 @@ RewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]
 
 RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]
 
-RewriteCond %{QUERY_STRING} ^.*(request|concat|union|declare).* [NC]
+RewriteCond %{QUERY_STRING} ^.*(concat|union|declare).* [NC]
 
 RewriteRule ^(.*)$ - [F]
 

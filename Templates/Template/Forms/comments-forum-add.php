@@ -56,6 +56,14 @@ $form_parameters = [
 						4 => [
 
 							'type' 			=> 'input:hidden',
+							'name' 			=> 'revolver_comment_user_name',
+							'value'			=> USER['name']
+
+						],
+
+						5 => [
+
+							'type' 			=> 'input:hidden',
 							'name' 			=> 'revolver_comment_time',
 							'value'			=> date('d.m.Y H:i')
 

@@ -66,7 +66,6 @@ $dbx::query('index', 'revolver__statistics', $STRUCT_STATISTICS);
 //print '<h1>Model set</h1>';
 
 /*
-
 $model::set('test', [
 
 	'id'			=> 3,
@@ -74,12 +73,11 @@ $model::set('test', [
 	'time'  		=> 'test time',
 	'track' 		=> 'test track',
 	'route' 		=> '/test/',
-	'user_agent'	=> 'User Agent ____ 123',
+	'user_agent'	=> 'User Agent 123',
 	'ip'			=> '127.0.0.1',
 	'referer'		=> 'test referer'
 
 ]);
-
 */
 
 /*

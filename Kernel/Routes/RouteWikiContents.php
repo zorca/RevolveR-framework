@@ -2,7 +2,7 @@
 
  /* 
   * 
-  * RevolveR Route Contents Dispatch
+  * RevolveR Route Wiki Contents Dispatch
   *
   * v.1.9.3
   *
@@ -48,7 +48,6 @@ if( in_array( ROLE, ['Admin', 'Writer'] ) ) {
     $files_to_delete = [];
 
     $published = 0;
-    $mainpage  = 0;
 
     $action = null;
 
@@ -151,16 +150,6 @@ if( in_array( ROLE, ['Admin', 'Writer'] ) ) {
 
     }
 
-    if( isset(SV['p']['revolver_node_mainpage']) ) {
-
-      if( (bool)SV['p']['revolver_node_mainpage']['valid'] ) {
-
-        $mainpage = 1;
-
-      }
-
-    }
-
     if( isset(SV['p']['revolver_node_edit_delete']) ) {
 
       if( (bool)SV['p']['revolver_node_edit_delete']['valid'] ) {
@@ -177,7 +166,7 @@ if( in_array( ROLE, ['Admin', 'Writer'] ) ) {
 
         if( $captcha::verify(SV['p']['revolver_captcha']['value']) ) {
 
-          define('form_pass', 'pass');
+          //define('form_pass', 'pass');
 
         }
 
@@ -185,9 +174,11 @@ if( in_array( ROLE, ['Admin', 'Writer'] ) ) {
 
     }
 
+    define('form_pass', 'pass');
+
     $node = iterator_to_array(
 
-          $model::get('nodes', [
+          $model::get('wiki_nodes', [
 
             'criterion' => 'id::'. $node_id,
             'course'  => 'backward',
@@ -195,7 +186,7 @@ if( in_array( ROLE, ['Admin', 'Writer'] ) ) {
 
           ])
 
-        )['model::nodes'];
+        )['model::wiki_nodes'];
 
   }
 
@@ -253,7 +244,7 @@ if( $node ) {
 
         if( $passed && form_pass === 'pass' ) {
 
-          $model::set('nodes', [
+          $model::set('wiki_nodes', [
 
             'id'          => $node_id,
             'title'       => $node_title,
@@ -268,7 +259,6 @@ if( $node ) {
             'country'     => $country,
 
             'published'   => $published,
-            'mainpage'    => $mainpage,
 
             'criterion'   => 'id'
 
@@ -280,14 +270,14 @@ if( $node ) {
             foreach( $files_to_delete as $file_to_delete ) {
 
               // Delete from database
-              $model::erase('files', [
+              $model::erase('wiki_files', [
 
                 'criterion' => 'id::'. explode(':', $file_to_delete)[0]
 
               ]);
 
               // Delete file from filesystem
-              unlink( $_SERVER['DOCUMENT_ROOT'] . '/public/uploads/' . explode(':', $file_to_delete)[1] );
+              unlink( $_SERVER['DOCUMENT_ROOT'] . '/public/wfiles/' . explode(':', $file_to_delete)[1] );
 
             }
 
@@ -301,7 +291,7 @@ if( $node ) {
 
                 $upload_allow = null;
 
-                if( !is_readable($_SERVER['DOCUMENT_ROOT'] .'/public/uploads/'. $f['name']) ) {
+                if( !is_readable($_SERVER['DOCUMENT_ROOT'] .'/public/wfiles/'. $f['name']) ) {
 
                   if( (bool)$f['valid'] ) {
 
@@ -313,7 +303,7 @@ if( $node ) {
 
                 if( $upload_allow ) {
 
-                  $model::set('files', [
+                  $model::set('wiki_files', [
 
                     'node'      => $node_route,
                     'name'      => $f['name'],
@@ -321,7 +311,7 @@ if( $node ) {
 
                   ]);
 
-                  move_uploaded_file( $f['temp'], $_SERVER['DOCUMENT_ROOT'] .'/public/uploads/'. $f['name'] );
+                  move_uploaded_file( $f['temp'], $_SERVER['DOCUMENT_ROOT'] .'/public/wfiles/'. $f['name'] );
 
                 }
 
@@ -331,12 +321,12 @@ if( $node ) {
 
           }
 
-          header( 'Location: '. site_host . $node_route .'?notification=node-updated^'. $node_id .'-'. $published .'-'. $mainpage );
+          header( 'Location: '. site_host . $node_route );
 
         }
         else {
 
-          header('Location: '. site_host . $node_route .'edit/?notification=conflict-reason');
+          header( 'Location: '. site_host . $node_route .'edit/?notification=conflict-reason' );
 
         }
 
@@ -345,7 +335,7 @@ if( $node ) {
 
         $files = iterator_to_array(
 
-            $model::get('files', [
+            $model::get('wiki_files', [
 
               'criterion' => 'node::'. $node_route,
               'course'  => 'forward',
@@ -353,18 +343,18 @@ if( $node ) {
 
             ])
 
-          )['model::files'];
+          )['model::wiki_files'];
 
         if( $files ) {
 
           foreach( $files as $f ) {   
 
-            unlink( $_SERVER['DOCUMENT_ROOT'] .'/public/uploads/'. $f['name'] );
+            unlink( $_SERVER['DOCUMENT_ROOT'] .'/public/wfiles/'. $f['name'] );
 
           }
 
           // Delete from database
-          $model::erase('files', [
+          $model::erase('wiki_files', [
 
             'criterion' => 'node::'. $node_route
 
@@ -373,7 +363,7 @@ if( $node ) {
         }
 
         // Delete from database
-        $model::erase('nodes', [
+        $model::erase('wiki_nodes', [
 
           'criterion' => 'id::'. $node_id
 
@@ -399,12 +389,12 @@ else {
 
 }
 
-print '<!-- contents dispatch -->';
+print '<!-- Wiki contents dispatch -->';
 
 define('serviceOutput', [
 
   'ctype'     => 'text/html',
-  'route'     => '/contents-d/'
+  'route'     => '/wiki-node-d/'
 
 ]);
 

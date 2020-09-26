@@ -1187,17 +1187,6 @@
 							}
 							else if( tag === 'Preview' ) {
 
-								// Disable preview for forum
-								if( i.closest('form').className.match('revolver__forum-add-room') ||
-									i.closest('form').className.match('revolver__comment-forum-add-form') ||
-									i.closest('form').className.match('revolver__comment-forum-edit-form') ||
-									i.closest('form').className.match('revolver__node-edit-topic-form') 
-								) {
-
-									return;
-
-								}
-
 								RR.toggleClass([ e.target ], 'preview-active');
 
 								let diff_values = {};
@@ -1297,9 +1286,33 @@
 
 											let fiteq = 1;
 
-											if( aform.id.match('node') ) {
+											if( aform.id === 'node-edit-blog-form' ) {
+
+												pmode = 'blog_edit';
+
+											}
+											else if( 
+
+												aform.id === 'comment-blog-add-form' || 
+												aform.id === 'comment-blog-edit-form' 
+
+											) {
+
+												pmode = 'blog_comment';
+
+											} else if( aform.id === 'node-edit-topic-form' ) {
+
+												pmode = 'topic_edit';
+
+											}
+											else if( aform.id.match('node') ) {
 
 												pmode = 'node';
+
+											}
+											else if( aform.id.match('blog') ) {
+
+												pmode = 'blog';
 
 											}
 											else if( aform.id.match('comment') ) {
@@ -1310,6 +1323,11 @@
 											else if( aform.id.match('message')) {
 
 												pmode = 'message';
+
+											}
+											else if( aform.id.match('room') ) {
+
+												pmode = 'topic';
 
 											}
 											else if( aform.id.match('feedback') ) {
@@ -1373,13 +1391,23 @@
 														case 'revolver_forum_room_description':
 														case 'revolver_forum_room_content':
 
-														case 'revolver_node_edit_description':
-														case 'revolver_comment_user_email':
-														case 'revolver_node_edit_content':
-														case 'revolver_comment_user_name':
-														case 'revolver_comment_content':
+														case 'revolver_froom_edit_title':
+														case 'revolver_froom_edit_description':
+														case 'revolver_froom_edit_content':													
+
+														case 'revolver_blog_edit_title':
+														case 'revolver_blog_edit_description':
+														case 'revolver_blog_edit_content':
+
 														case 'revolver_node_edit_title':
 														case 'revolver_node_edit_route':
+														case 'revolver_node_edit_description':
+														case 'revolver_node_edit_content':
+
+														case 'revolver_comment_user_email':
+														case 'revolver_comment_user_name':
+														case 'revolver_comment_content':
+
 														case 'revolver_mailto_nickname':
 														case 'revolver_mailto_message':
 														case 'revolver_user_name':

@@ -4,7 +4,7 @@
   * 
   * Secure Route :: Generates Captcha
   * 
-  * v.1.9.2
+  * v.1.9.3
   *
   *
   *
@@ -63,6 +63,18 @@ if( isset( SV['g']['route'] ) ) {
       if( $psw[ 1 ] === 'categories' && is_numeric( $psw[ count($psw) - 3 ] ) ) {
 
         $dsp = '/category-d/';
+
+      }
+
+      if( $psw[ 1 ] === 'wiki' && is_numeric( $psw[ count($psw) - 3 ] ) ) {
+
+        $dsp = '/wiki-d/';
+
+      }
+
+      if( $psw[ 1 ] === 'wiki' && $psw[ 4 ] === 'edit' ) {
+
+        $dsp = '/wiki-node-d/';
 
       }
 

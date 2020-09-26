@@ -2,7 +2,7 @@
  /* 
   * RevolveR Front-end :: main interface
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *			          ^
   *			         | |
@@ -446,7 +446,7 @@ R.fetchRoute = ( intro ) => {
 
 				}
 
-				if( !this.href.includes( 'webp', 'svg' ,'png', 'jpg', 'jpeg', 'gif' ) ) {
+				if( !this.href.includes( 'webp', 'svg' ,'png', 'jpg', 'jpeg', 'gif', 'zip' ) ) {
 
 					R.loadURI(
 
@@ -531,7 +531,7 @@ R.fetchRoute = ( intro ) => {
 
 				R.menuMove = true;
 
-				R.menuPosition = ( R.menuLeft - RR.curxy[0] ) *-1; 
+				R.menuPosition = ( R.menuLeft - RR.curxy[0] ) *-1;
 
 				R.styleApply(R.mainMenues, ['left:'+ R.menuPosition +'px']);
 
@@ -604,7 +604,7 @@ R.fetchRoute = ( intro ) => {
 
 						}
 
-					}, 150);
+					}, 550);
 
 				});
 

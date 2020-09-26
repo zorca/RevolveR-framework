@@ -4,7 +4,7 @@
   * 
   * Aggregator Route :: Generate ATOM
   *
-  * v.1.9.0
+  * v.1.9.3
   *
   *
   *
@@ -62,6 +62,49 @@ foreach( iterator_to_array(
     ])
 
   )['model::nodes'] as $node => $n) {
+
+  if( $n['published'] ) {
+
+    $feed .= ' <entry>'. "\n";
+    $feed .= '  <title>'.  $n['title'] .'</title>'. "\n";
+    $feed .= '  <description>'. $n['description'] .'</description>'. "\n";
+    $feed .= '  <link>'. site_host . $n['route'] .'</link>'. "\n";
+    $feed .= '  <id>'. site_host . $n['route'] .'</id>'. "\n";
+
+    $feed .= '  <updated>'. date(
+
+      DATE_RFC822, strtotime(
+
+        $n['time']
+
+      )
+
+    ) .'</updated>'. "\n";
+
+    $feed .= ' </entry>'. "\n\n";
+
+  }
+
+}
+
+foreach( iterator_to_array(
+
+    $model::get( 'blog_nodes', [
+
+      'criterion' => 'id::*',
+
+      'bound'   => [
+
+        20,   // limit
+
+      ],
+
+      'course'  => 'backward', // backward
+      'sort'    => 'time',
+
+    ])
+
+  )['model::blog_nodes'] as $bnode => $n) {
 
   if( $n['published'] ) {
 

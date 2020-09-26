@@ -4,7 +4,7 @@
   * 
   * RevolveR Calendar
   *
-  * v.1.8.0
+  * v.1.9.3
   *
   *
   *
@@ -90,29 +90,23 @@ final class Calendar {
 					case 'm':
 					case 's':
 
-						if( $v >= 60 ) {
+						if( (int)$v >= 60 ) {
 
-							$mod = $v / 60;
+							$mod = (int)$v / 60;
 
 							$flx = floor($mod);
 
-							if( $mod > 1 ) {
+							if( (int)$mod > 1 ) {
 
-								$t[ $m ] -= 60 * $flx;
+								$t[ $m ] -= 60 * (int)$flx;
 
-								$t[ $x ] += $flx;
+								$t[ $x ] += (int)$flx;
 
 							}
 
 						}
 
 						$t[ $m ] = abs( $v );
-
-						break;
-
-					case 'h':
-
-						// make shift hours to days 
 
 						break;
 

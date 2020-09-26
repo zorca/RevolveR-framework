@@ -43,12 +43,7 @@
 
 	if( RQST === '/blog/' ) {
 
-		$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'length' => 2000, 'xhash' => 0, 'lazy' => 1 ] ) .'</div>';
-
-	}
-	else {
-
-		$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( $n['contents'], ['lazy' => 1] ) .'</div>';
+		$render_node .= '<div class="revolver__article-contents">'. $n['contents'] .'</div>';
 
 	}
 

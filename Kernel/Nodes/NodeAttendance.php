@@ -3,7 +3,7 @@
  /*
   * RevolveR Attendance Node
   *
-  * v.1.9.0
+  * v.1.9.3
   *
   *
   *
@@ -237,9 +237,9 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 
 				if( !(bool)$counter ) {
 
-					$total_time_s = $time[2] - $start_time_s;
+					$total_time_s = (int)$time[2] - (int)$start_time_s;
 
-					$total_time_m = $time[1] - $start_time_m;
+					$total_time_m = (int)$time[1] - (int)$start_time_m;
 
 					$apple_icons = explode('png', $xkey['route']);
 
@@ -257,9 +257,9 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 
 							'total_time' => [
 
-								'h' =>  $total_time_h,
-								'm' =>  $total_time_m,
-								's' =>  $total_time_s
+								'h' =>  (int)$total_time_h,
+								'm' =>  (int)$total_time_m,
+								's' =>  (int)$total_time_s
 
 							],
 
@@ -277,11 +277,11 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 				}
 				else {
 
-					$total_time_freeze_s = $calendar::timeDiffCalc( $time[ 2 ] - $prev_time_s );
-					$total_time_freeze_m = $calendar::timeDiffCalc( $time[ 1 ] - $prev_time_m );
+					$total_time_freeze_s = $calendar::timeDiffCalc( (int)$time[ 2 ] - (int)$prev_time_s );
+					$total_time_freeze_m = $calendar::timeDiffCalc( (int)$time[ 1 ] - (int)$prev_time_m );
 					
-					$total_time_s += $time[ 2 ] - $prev_time_s;
-					$total_time_m += $time[ 1 ] - $prev_time_m;
+					$total_time_s += (int)$time[ 2 ] - (int)$prev_time_s;
+					$total_time_m += (int)$time[ 1 ] - (int)$prev_time_m;
 
 					if( (bool)($prev_time_s - $time[ 2 ]) ) {
 
@@ -308,9 +308,9 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 
 							'total_time' => [
 
-								'h' => $total_time_h,
-								'm' => $total_time_m,
-								's' => $total_time_s
+								'h' => (int)$total_time_h,
+								'm' => (int)$total_time_m,
+								's' => (int)$total_time_s
 
 							],
 
@@ -392,7 +392,7 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 
 				$host = explode('.', parse_url($g['referer'])['path'] );
 
-					if( !in_array( $host[0] != 'www' ? $host[0] : $host[1], ['yandex', 'rambler', 'bing', 'nigma', 'baidu', 'duckduckgo', 'google'] ) ) {
+					if( !in_array( $host[0] != 'www' ? $host[0] : $host[1], ['yandex', 'yahoo', 'rambler', 'bing', 'nigma', 'baidu', 'duckduckgo', 'google'] ) ) {
 
 						$count_referers++;
 
@@ -538,8 +538,6 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 
 		$total_hits = count( $xkey );
 
-		$total_time = $calendar::timeShit( $xkey[ $total_hits - 2 ][ 'total_time' ] );
-
 		$ua_data = explode('/',  $key );
 
 		if( $ua_data[0] !== 'bot' ) {
@@ -558,17 +556,7 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 
 			$contents .= '<div class="revolver__stats-group-time">';
 
-			if( isset( $total_time['s'] ) ) {
-
-				$contents .= '<span class="revolver__stats-time">  [ ';
-
-				$contents .= $total_hits .' '. TRANSLATIONS[ $ipl ]['total hits'] .' '. TRANSLATIONS[ $ipl ]['at_2'] .' ';
-				$contents .= $total_time['h'] .' '. TRANSLATIONS[ $ipl ]['hours'] .' '. $total_time['m'] .' ';
-				$contents .= TRANSLATIONS[ $ipl ]['minutes'] .' '. $total_time['s'] .' '. TRANSLATIONS[ $ipl ]['seconds'];
-
-				$contents .= ' ]  </span>';
-			
-			}
+			$contents .= '<span class="revolver__stats-time"> [ '. $total_hits .' '. TRANSLATIONS[ $ipl ]['total hits'] .' ] </span>';
 			
 			$contents .= '</div>';
 

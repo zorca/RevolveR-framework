@@ -3,7 +3,7 @@
  /* 
   * RevolveR CMF translations 
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *
   *
@@ -155,6 +155,7 @@ define('TRANSLATIONS', [
 		'Forum manage'								=> 'Forum manage',
 		'You can manage forum containers here'		=> 'You can manage forum containers here',
 		'Add forum container'						=> 'Add forum container',
+		'Choose forum'								=> 'Choose forum',
 
 		'Container title'							=> 'Container title',
 		'Type container name'						=> 'Type container name',
@@ -198,6 +199,13 @@ define('TRANSLATIONS', [
 		'Blog item description'						=> 'Blog item description',
 		'Blog item contents'						=> 'Blog item contents',
 		'Delete blog item'							=> 'Delete blog item',
+
+		// Wiki
+		'Wiki'										=> 'Wiki',
+		'Wiki catergories'							=> 'Wiki catergories',
+		'Create an article'							=> 'Create an article',
+		'Create Wiki Node'							=> 'Create Wiki Node',
+		'Create Wiki category'						=> 'Create Wiki category',
 
 		// Subscription
 		'New comment for you subscription'       	=> 'New comment for you subscription',
@@ -445,7 +453,9 @@ define('TRANSLATIONS', [
 		'Type keywords here'						=> 'Type keywords here',
 		'Search for'								=> 'Search for',
 		'Empty query'								=> 'Empty query',
-
+		'node'										=> 'Page',
+		'blog'										=> 'Blog',
+		'topic'										=> 'Topic',
 
 		/* 404 */
 		'Route not found'							=> 'Route not found',
@@ -710,11 +720,13 @@ define('TRANSLATIONS', [
 		'Latest comments'							=> 'Последние комментарии',
 
 		'Moderate'									=> 'Модерировать',
+
 		// Forum*
 		'Forum'										=> 'Форум',
 		'Forum manage'								=> 'Управление форумом',
 		'You can manage forum containers here'		=> 'Вы можете администрировать контейнеры форума здесь',
 		'Add forum container'						=> 'Добавить контейнер форума',
+		'Choose forum'								=> 'Выбрать форум',
 
 		'Container title'							=> 'Заголовок контейнера',
 		'Type container name'						=> 'Напишите имя контейнера',
@@ -759,6 +771,13 @@ define('TRANSLATIONS', [
 		'Blog item description'						=> 'Описание записи блога',
 		'Blog item contents'						=> 'Содержимое записи блога',
 		'Delete blog item'							=> 'Удаление записи блога',
+
+		// Wiki
+		'Wiki'										=> 'Wiki',
+		'Wiki catergories'							=> 'Wiki категории',
+		'Create an article'							=> 'Создать статью',
+		'Create Wiki Node'							=> 'Создать Wiki страницу',
+		'Create Wiki category'						=> 'Создать Wiki категорию',
 
 		// subscription
 		'New comment for you subscription'         => 'По вашей подписке новый комментарий',
@@ -992,6 +1011,9 @@ define('TRANSLATIONS', [
 		'Type keywords here'						=> 'Фраза для поиска',
 		'Search for'								=> 'Поиск по фразе',
 		'Empty query'								=> 'Пустой запрос',
+		'node'										=> 'Страница',
+		'blog'										=> 'Блог',
+		'topic'										=> 'Тема форума',
 
 		/* 404 */
 		'Route not found'							=> 'Страница не найдена',

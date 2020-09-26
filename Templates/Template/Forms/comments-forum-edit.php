@@ -132,12 +132,20 @@ if( PASS[ 4 ] === 'comment' && PASS[ 6 ] === 'edit' ) {
 								5 => [
 
 									'type' 			=> 'input:hidden',
+									'name' 			=> 'revolver_comment_user_name',
+									'value'			=> $comment_user['nickname']
+
+								],
+
+								6 => [
+
+									'type' 			=> 'input:hidden',
 									'name' 			=> 'revolver_forum_id',
 									'value'			=> PASS[ 2 ]
 
 								],
 
-								6 => [
+								7 => [
 
 									'type' 			=> 'input:hidden',
 									'name' 			=> 'revolver_comments_action_edit',

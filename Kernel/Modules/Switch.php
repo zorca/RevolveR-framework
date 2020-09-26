@@ -3,7 +3,7 @@
  /* 
   * RevolveR primary routing switch
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *
   *
@@ -184,6 +184,28 @@ if( defined('ROUTE') ) {
 
 			break;
 
+		case '#wiki':
+
+			ob_start();
+
+			require_once('./Kernel/Nodes/NodeWiki.php');
+
+			break;
+
+		case '#wiki_create':
+
+			ob_start();
+
+			if( !Auth ) {
+
+				header('Location: '. site_host .'/user/auth/');
+
+			}
+
+			require_once('./Kernel/Nodes/WikiNodeCreate.php');
+
+			break;
+
 		case '#privacy':
 
 			ob_start();
@@ -281,6 +303,24 @@ if( defined('ROUTE') ) {
 
 			// Comments dispatch
 			require_once('./Kernel/Routes/RouteComments.php');
+
+			break;
+
+		case '#wiki-d':
+
+			ob_start('ob_gzhandler');
+
+			// Comments dispatch
+			require_once('./Kernel/Routes/RouteWikiCategoriesEdit.php');
+
+			break;
+
+		case '#wiki-node-d':
+
+			ob_start('ob_gzhandler');
+
+			// Comments dispatch
+			require_once('./Kernel/Routes/RouteWikiContents.php');
 
 			break;
 

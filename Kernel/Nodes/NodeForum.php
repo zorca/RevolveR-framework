@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Forum 
   *
-  * v.1.9.2
+  * v.1.9.3
   *
   *
   *
@@ -606,7 +606,7 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			$room_user		  = $forum_rooms[ 0 ]['user'];
 			$room_time 		  = $forum_rooms[ 0 ]['time'];
 			$room_id 	      = $forum_rooms[ 0 ]['id'];
-			$room_title       = $room_id .': '. $forum_rooms[ 0 ]['title'] .' '. TRANSLATIONS[ $ipl ]['by'] .' '. $room_user;
+			$room_title       = $forum_rooms[ 0 ]['title'] .' '. TRANSLATIONS[ $ipl ]['by'] .' '. $room_user;
 			$room_description = $forum_rooms[ 0 ]['description'];
 			$room_content 	  = html_entity_decode(
 
@@ -636,12 +636,12 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			'id'		  => 'forum-room-inner',
 			'route'		  => '/forum/'. $forum['id'] .'/'. $room_id .'/',
 			'time'		  => $room_time,
-			'teaser'	  => false,
+			'teaser'	  => null,
 			'footer'	  => USER['name'] === $room_user || in_array(ROLE, ['Admin', 'Writer']) ? true : null,
 			'published'	  => 1,
 			'editor'	  => USER['name'] === $room_user || in_array(ROLE, ['Admin', 'Writer']) ? true : null,
 			'author'	  => $room_user,
-			'editor_mode' => false,
+			'editor_mode' => null,
 
 		];
 
@@ -677,6 +677,7 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			$room_title       = $forum_rooms[ 0 ]['title'];
 			$room_time		  = $forum_rooms[ 0 ]['time'];
 			$room_description = $forum_rooms[ 0 ]['description'];
+
 			$room_content 	  = html_entity_decode(
 
 									htmlspecialchars_decode(
@@ -685,7 +686,11 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 
 									)
 								);
-			$room_user		  = $forum_rooms[ 0 ]['user']; 
+
+			$room_user		  = $forum_rooms[ 0 ]['user'];
+			$room_forum_id	  = $forum_rooms[ 0 ]['forum_id'];
+
+
 		}
 
 		$title = $room_title;
@@ -698,7 +703,8 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			'id'		  => 'forum-room-inner',
 			'route'		  => '/forum/'. $forum['id'] .'/'. $room_id .'/',
 			'time'		  => $room_time,
-			'teaser'	  => false,
+			'forum'		  => $room_forum_id,
+			'teaser'	  => null,
 			'footer'	  => true,
 			'published'	  => 1,
 			'author'	  => $room_user,
@@ -720,8 +726,8 @@ else {
 		'contents'  => $contents,
 		'id'	    => 'forum-manage',
 		'route'     => '/forum/',
-		'teaser'    => false,
-		'footer'    => false,
+		'teaser'    => null,
+		'footer'    => null,
 		'published' => 1
 
 	];

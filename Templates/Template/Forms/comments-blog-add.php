@@ -22,7 +22,7 @@ $blog_item = iterator_to_array(
 $form_parameters = [
 
 	// Main parameters
-	'id' 	  => 'comment-add-form',
+	'id' 	  => 'comment-blog-add-form',
 	'class'	  => 'revolver__comment-blog-add-form revolver__new-fetch',
 	'action'  => '/blog-comments-d/',
 	'method'  => 'post',
