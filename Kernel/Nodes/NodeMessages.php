@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Messages
   *
-  * v.1.9.0
+  * v.1.9.4
   *
   *
   *
@@ -63,11 +63,19 @@ if( !empty(SV['p']) && ROLE !== 'none' ) {
 
 		if( (bool)SV['p']['revolver_mailto_message']['valid'] ) { 
 
-			$mailToMessage = $markup::Markup( 
+			$mailToMessage = $markup::Markup(
 
-					SV['p']['revolver_mailto_message']['value'], [ 'xhash' => 0 ]
+									html_entity_decode(
 
-				);
+										htmlspecialchars_decode(
+
+											SV['p']['revolver_mailto_message']['value']
+
+										)
+
+									)
+
+								);
 
 		}
 
@@ -416,7 +424,19 @@ if( $messages_list ) {
 		$contents_messages .= '<div class="revolver__messages-body">';
 		$contents_messages .= '<header><b>'. TRANSLATIONS[ $ipl ]['Message from'] .' '. $v['from'] .'</b> <time>'. $v['time'] .'</time></header>';
 
-		$contents_messages .= '<div class="revolver__messages-text">'. $markup::Markup( $v['message'] ) .'</div>';
+		$contents_messages .= '<div class="revolver__messages-text">'. $markup::Markup( 
+
+					htmlspecialchars_decode( 
+
+						html_entity_decode( 
+
+							$v['message'] 
+
+						) 
+
+					)
+
+				) .'</div>';
 
 		if( (bool)$message_files_count ) {
 

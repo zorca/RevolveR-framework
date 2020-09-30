@@ -4,7 +4,7 @@
   * 
   * RevolveR Kernel Models
   *
-  * v.1.9.2
+  * v.1.9.4
   *
   *
   *

@@ -4,7 +4,7 @@
   * 
   * RevolveR Route Comment Dispatch
   *
-  * v.1.9.2
+  * v.1.9.4
   *
   *
   *
@@ -123,9 +123,17 @@ if( in_array(ROLE, ['Admin', 'Writer', 'User'], true) || (int)USER['id'] === Big
 
 				$contents = $markup::Markup(
 
-					SV['p']['revolver_comment_content']['value'], [ 'xhash' => 0 ]
+									html_entity_decode(
 
-				);
+										htmlspecialchars_decode(
+
+											SV['p']['revolver_comment_content']['value']
+
+										)
+
+									)
+
+								);
 
 			}
 
@@ -454,8 +462,16 @@ if( in_array(ROLE, ['Admin', 'Writer', 'User'], true) || (int)USER['id'] === Big
 
 				'message'	=> $markup::Markup(
 
-				'<p>'. TRANSLATIONS[ $ipl ]['Hello'] .', '. $mailTo .'! '. TRANSLATIONS[ $ipl ]['Posted'] .' <a title="'. TRANSLATIONS[ $ipl ]['new comment'] .'" href="'. $node_route .'">'. TRANSLATIONS[ $ipl ]['new comment'] .'</a>!</p>', [ 'xhash' => 0 ]
+					htmlspecialchars_decode( 
 
+						html_entity_decode( 
+
+							'<p>'. TRANSLATIONS[ $ipl ]['Hello'] .', '. $mailTo .'! '. TRANSLATIONS[ $ipl ]['Posted'] .' <a title="'. TRANSLATIONS[ $ipl ]['new comment'] .'" href="'. $node_route .'">'. TRANSLATIONS[ $ipl ]['new comment'] .'</a>!</p>'
+
+						)
+
+					)
+					
 				),
 
 				'time' => date('d.m.Y h:m')

@@ -4,7 +4,7 @@
   * 
   * RevolveR Secure Variables Dispatch
   *
-  * v.1.9.0
+  * v.1.9.4
   *
   *
   *
@@ -708,29 +708,15 @@ final class SecureVariablesDispatcher {
 
 	protected static function escape( string $v ): string {
 
-	return trim(
+		return trim(
 
-			stripslashes(
+				stripslashes(
 
-				strip_tags(
-
-					htmlspecialchars(
-
-						str_ireplace(
-
-							['/*', '--+', 'qq'], // clean some SQL injections
-
-							['', '', ''],
-
-							$v),
-
-							ENT_IGNORE, 'utf-8')
+					htmlspecialchars( $v )
 
 				)
 
-			)
-
-		);
+			);
 
 	}
 

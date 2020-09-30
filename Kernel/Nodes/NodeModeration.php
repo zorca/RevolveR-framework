@@ -4,7 +4,7 @@
   * 
   * RevolveR Contents Moderate
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *
   *
@@ -157,7 +157,20 @@ if( in_array( ROLE, ['Admin', 'Writer'] ) ) {
 
                   $update = $comment;
 
-                  $update['content'] = $markup::markup( $comment['content'], [ 'xhash'=> 0 ] );
+                  $update['content'] = $markup::markup( 
+
+                              htmlspecialchars_decode( 
+
+                                html_entity_decode( 
+
+                                  $comment['content'] 
+
+                                )
+
+                              )
+
+                            );
+
                   $update['published'] = $cmd[1];
                   $update['criterion'] = 'id';
 
@@ -409,7 +422,15 @@ if( in_array( ROLE, ['Admin', 'Writer'] ) ) {
 
       $contents_comment .= $markup::markup(
 
-        $c['comments']['content'], [ 'xhash' => 1 ]
+          htmlspecialchars_decode( 
+
+            html_entity_decode( 
+
+              $c['comments']['content']
+
+            )
+
+          )
 
       );
 

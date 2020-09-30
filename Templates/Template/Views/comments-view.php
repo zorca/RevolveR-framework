@@ -89,7 +89,17 @@ if( is_array( $node_comments ) ) {
 
 		$render_node .= '</figure>';
 
-		$render_node .= '<div class="revolver__comments-contents">'. $markup::Markup( $c['comment_contents'], [ 'xhash' => 1,  'lazy' => 1 ] ) .'</div>';
+		$render_node .= '<div class="revolver__comments-contents">'. $markup::Markup( 
+
+				htmlspecialchars_decode( 
+
+					html_entity_decode( 
+
+						$c['comment_contents']
+
+					)
+
+				), [ 'lazy' => 1 ] ) .'</div>';
 
 
 		if( $n['editor'] ) {

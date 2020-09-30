@@ -4,7 +4,7 @@
   * 
   * RevolveR Create new node
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *
   *
@@ -65,7 +65,7 @@ if( Auth ) {
 
 					$node_content = $markup::Markup(
 
-						SV['p']['revolver_node_edit_content']['value'], [ 'xhash' => 0 ]
+						SV['p']['revolver_node_edit_content']['value']
 
 					);
 

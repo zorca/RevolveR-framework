@@ -74,7 +74,7 @@ if( PASS[ 4 ] === 'comment' && PASS[ 6 ] === 'edit' ) {
 
 											)
 
-										), [ 'xhash' => 0 ]
+										)
 
 									),
 

@@ -9,6 +9,8 @@
 
 <body>
 
+<div class="preloader" style="position: fixed; width: 100%; height: 100%; background: rgba(60, 60, 60, .8) url('/Interface/preloader.svg') 50% 50% no-repeat; z-index: 100000"></div>
+
 <main id="RevolverRoot" class="<?php print $main_class; ?>">
 
 <?php

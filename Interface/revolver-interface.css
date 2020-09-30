@@ -156,6 +156,44 @@ html:not(.revolver__mobile-friendly)::before {
 
 }
 
+/* Paralaxing */
+
+article {
+
+	position: relative;
+
+}
+
+.parallax-1,
+.parallax-2 {
+
+	border: .1vw dashed #ffffff;
+	position: absolute;
+	display: block;
+
+	width: 95.8vw;
+	z-index: -1;
+	left: 0;
+	top: 0;
+
+}
+
+.parallax-1 {
+
+	background: repeating-linear-gradient(45deg, transparent, transparent .1vw, #ffffff45 .1vw, #a8b9a894 .25vw), linear-gradient(to bottom, #eeeeee5c, #bfbfbf1a);
+	border-right: none;
+	border-top: none;
+
+}
+
+.parallax-2 {
+
+	background: repeating-linear-gradient(-45deg, transparent, transparent .1vw, #ffffff45 .1vw, #a8b9a894 .25vw), linear-gradient(to top, #eeeeee5c, #bfbfbf1a);
+	border-bottom: none;
+	border-left: none;
+
+}
+
 body {
 
 	background: transparent repeating-linear-gradient(-45deg, transparent, transparent .01vw, #cccccca3 .01vw, #9d9d9d75 .5vw);
@@ -4418,5 +4456,37 @@ div.day-future:hover {
 .revolver__mobile-friendly .revolver__stats-list dt dfn .revolver__stats-group-identify span.revolver__stats-country::after {
 
 	top: .3vw !important;
+
+}
+
+/* Code hightlight */
+
+.S {
+
+	color: red;
+
+}
+
+.func {
+
+	color: blue;
+
+}
+
+.C {
+
+	color: orange;
+
+}
+
+.kwrd {
+
+	font-weight: bold;
+
+}
+
+.R {
+
+	color: gray;
 
 }

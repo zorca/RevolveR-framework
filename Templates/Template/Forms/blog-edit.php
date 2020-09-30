@@ -148,7 +148,7 @@ if( in_array(ACCESS['role'], ['Admin', 'Writer', 'User'], true) ) {
 
 												)
 
-											), [ 'xhash' => 0 ]
+											)
 
 										),
 

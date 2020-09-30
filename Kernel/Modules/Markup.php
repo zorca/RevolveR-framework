@@ -6,7 +6,7 @@
   *
   * Makes markup valid and secure
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *
   *
@@ -553,6 +553,104 @@ final class Markup {
 
 	// Make markup valid and secure
 	public static function Markup(string $s, ?array $opts = null): string {
+
+		$default = [
+
+			'length' => 0,
+			'lazy'	 => 0
+
+		];
+
+		if( $opts ) {
+
+			$options = array_merge( $default, $opts );
+
+		}
+		else {
+
+			$options = $default;
+
+		}
+
+		// Prepare given markup, makes it's valid and secure
+		return self::tidy_html5( self::crop( $s, $options['length'] ), $options['lazy'] );
+
+	}
+
+	public static function tidy_html5( string $html, int $lazy, iterable $config = [], string $encoding = 'utf8' ): string {
+
+		$config += [
+
+			'clean'						=> 1,
+			'doctype'					=> 'omit',
+			'indent'					=> 2,
+			'output-html'				=> 1,
+			'tidy-mark'					=> 0,
+			'fix-bad-comments'			=> 1,
+			'show-body-only'			=> 1,
+			'accessibility-check'		=> 0,
+			'drop-empty-paras'			=> 1,
+			'escape-scripts'			=> 1,
+			'fix-backslash'				=> 1,
+			'strict-tags-attributes'	=> 1,
+			'logical-emphasis'			=> 1,
+			'escape-scripts'			=> 1,
+			'strict-tags-attributes'	=> 1,
+			'indent-with-tabs'			=> 1,
+			'keep-tabs'					=> 1,
+			'tab-size'					=> 4,
+			'wrap'						=> 0,
+			'vertical-space'			=> 1,
+
+			// Filter
+			'omit-optional-tags'	=> 'html, body, head, title, iframe, script',
+			'priority-attributes'	=> 'src',
+
+			// HTML5 tags
+			'new-blocklevel-tags'	=> 'article aside audio bdi canvas details dialog figcaption figure footer header hgroup main menu menuitem nav section source summary template track video',
+			'new-empty-tags'		=> 'command embed keygen source track wbr',
+			'new-inline-tags'		=> 'audio command datalist embed keygen mark menuitem meter output progress source time video wbr'
+
+		];
+
+		$output = tidy_parse_string( $html, $config, $encoding )->value;
+
+		tidy_clean_repair($output);
+
+		preg_match_all('@src="([^"]+)"@', $output, $src);
+
+		$preload_list = array_pop($src);
+
+		foreach( $preload_list as $s ) {
+
+			self::$lazyList[] = $s;
+
+			$output = str_ireplace( 
+
+				['src="'. $s .'"'], 
+
+				['src="'. self::cleanXSS( $s ) .'"'], 
+
+				$output
+
+			);
+
+		}
+
+
+
+		if( (bool)$lazy ) {
+
+			$output = str_ireplace([' src', '<img '], [' data-src', '<img src="/Interface/preloader.svg" '], $output);
+
+		}
+
+		return $output;
+
+	}
+
+	// Make markup valid and secure
+	public static function MarkupX(string $s, ?array $opts = null): string {
 
 		$default = [
 

@@ -4,7 +4,7 @@
   * 
   * RevolveR countries list
   *
-  * v1.8.0
+  * v1.9.4
   *
   *
   *

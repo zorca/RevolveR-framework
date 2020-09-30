@@ -4,7 +4,7 @@
   * 
   * RevolveR eMail class
   *
-  * v.1.8.0
+  * v.1.9.4
   *
   *               ^
   *              | |
@@ -141,7 +141,27 @@ final class eMail {
 
     $chunks = '';
 
-    foreach( iterator_to_array(self::$parse::extract( self::$escape::Markup($message, [ 'xhash' => 1 ] ))) as $nx ) {
+    foreach( iterator_to_array(
+
+      self::$parse::extract( 
+
+        self::$escape::Markup( 
+
+          htmlspecialchars_decode( 
+
+            html_entity_decode( 
+
+              $message 
+
+            )
+
+          )
+
+        )
+
+      )
+
+    ) as $nx ) {
 
       foreach( $nx['explode'] as $ex ) {
 
@@ -228,7 +248,22 @@ final class eMail {
 
   protected static function encode( string $s ): string {
 
-    $chunks = str_split( self::$escape::Markup( ltrim($s, '.'), [ 'xhash' => 0 ] ), 69);
+    $chunks = str_split( 
+
+      self::$escape::Markup( 
+
+          htmlspecialchars_decode( 
+
+            html_entity_decode( 
+
+              ltrim($s, '.')
+
+            )
+
+          ) 
+  
+      ), 69);
+
     $result = '';
 
     foreach( $chunks as $c ) {

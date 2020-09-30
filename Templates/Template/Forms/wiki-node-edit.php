@@ -152,7 +152,7 @@ $form_parameters = [
 
 											)
 
-										), [ 'xhash' => 0 ]
+										)
 
 									),
 

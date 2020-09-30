@@ -2,7 +2,7 @@
 #
 # RevolveR CMF :: Access configuration
 #
-# v.1.9.0
+# v.1.9.4
 #
 #
 #                     ^
@@ -345,6 +345,3 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # Rewrite rule
 
 RewriteRule ^(.*)$ index.php [QSA,L]
-
-Options +ExecCGI
-AddHandler cgi-script .cgi

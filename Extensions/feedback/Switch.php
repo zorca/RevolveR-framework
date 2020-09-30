@@ -4,7 +4,7 @@
   * 
   * RevolveR Feedback Extension
   *
-  * v.1.9.3
+  * v.1.9.2
   *
   */
 
@@ -823,7 +823,6 @@ if( defined('ROUTE') ) {
 
 														'type'		=> 'input:hidden',
 														'name'		=> 'revolver_feedback_cache_enabled',
-														'readonly'	=> true,
 														'value'		=> 1
 
 													],

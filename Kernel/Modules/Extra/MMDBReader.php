@@ -3,7 +3,7 @@
  /* 
   * Max Mind format Data Base Reader
   *
-  * v.1.8.0
+  * v.1.9.4
   *
   *
   *

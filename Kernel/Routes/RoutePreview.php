@@ -4,7 +4,7 @@
   * 
   * Preview Route
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *
   *
@@ -182,7 +182,19 @@ if( !empty( SV['p'] ) ) {
 
 						$render .= '</header>';
 
-						$render .= '<div class="revolver__article-contents">'. $markup::Markup( $node_content, [ 'xhash' => 1 ] ) .'</div>';
+						$render .= '<div class="revolver__article-contents">'. $markup::Markup(
+
+							htmlspecialchars_decode(
+
+								html_entity_decode(
+
+									$node_content 
+
+								)
+
+							)
+
+						) .'</div>';
 
 						$render .= '</article>';
 
@@ -252,7 +264,19 @@ if( !empty( SV['p'] ) ) {
 
 					$render .= '</header>';
 
-					$render .= '<div class="revolver__article-contents">'. $markup::Markup( $node_content, [ 'xhash' => 1 ] ) .'</div>';
+					$render .= '<div class="revolver__article-contents">'. $markup::Markup( 
+
+						htmlspecialchars_decode( 
+
+							html_entity_decode( 
+
+								$node_content 
+
+							)
+
+						)
+
+					) .'</div>';
 
 					$render .= '</article>';
 
@@ -320,7 +344,19 @@ if( !empty( SV['p'] ) ) {
 
 					$render .= '</header>';
 
-					$render .= '<div class="revolver__article-contents">'. $markup::Markup( $node_content, [ 'xhash' => 1 ] ) .'</div>';
+					$render .= '<div class="revolver__article-contents">'. $markup::Markup( 
+
+						htmlspecialchars_decode( 
+
+							html_entity_decode( 
+
+								$node_content 
+
+							)
+
+						)
+
+					) .'</div>';
 
 					$render .= '</article>';
 
@@ -466,7 +502,19 @@ if( !empty( SV['p'] ) ) {
 
 						$render .= '</header>';
 
-						$render .= '<div class="revolver__article-contents">'. $markup::Markup( $node_content, [ 'xhash' => 1 ] ) .'</div>';
+						$render .= '<div class="revolver__article-contents">'. $markup::Markup( 
+
+							htmlspecialchars_decode( 
+
+								html_entity_decode( 
+
+									$node_content 
+
+								)
+
+							)
+
+						) .'</div>';
 
 						$render .= '</article>';
 
@@ -614,7 +662,19 @@ if( !empty( SV['p'] ) ) {
 
 						$render .= '</header>';
 
-						$render .= '<div class="revolver__article-contents">'. $markup::Markup( $node_content, [ 'xhash' => 1 ] ) .'</div>';
+						$render .= '<div class="revolver__article-contents">'. $markup::Markup( 
+
+							htmlspecialchars_decode( 
+
+								html_entity_decode( 
+
+									$node_content 
+
+								)
+
+							)
+
+						) .'</div>';
 
 						$render .= '</article>';
 
@@ -793,7 +853,19 @@ if( !empty( SV['p'] ) ) {
 
 					$render .= '</figure>';
 
-					$render .= '<div class="revolver__comments-contents">'. $markup::Markup( $comment_contents, [ 'xhash' => 1 ] ) .'</div>';
+					$render .= '<div class="revolver__comments-contents">'. $markup::Markup( 
+
+						htmlspecialchars_decode( 
+
+							html_entity_decode( 
+
+								$comment_contents 
+
+							)
+
+						)
+
+					) .'</div>';
 
 					$render .= '</article>';
 
@@ -921,7 +993,19 @@ if( !empty( SV['p'] ) ) {
 
 					$render .= '</figure>';
 
-					$render .= '<div class="revolver__comments-contents">'. $markup::Markup( $comment_contents, [ 'xhash' => 1 ] ) .'</div>';
+					$render .= '<div class="revolver__comments-contents">'. $markup::Markup( 
+
+						htmlspecialchars_decode( 
+
+							html_entity_decode( 
+
+								$comment_contents 
+
+							)
+
+						)
+
+					) .'</div>';
 
 					$render .= '</article>';
 
@@ -955,7 +1039,7 @@ if( !empty( SV['p'] ) ) {
 
 						if( (bool)SV['p']['revolver_mailto_message']['valid'] ) {
 
-							$message = $markup::Markup( SV['p']['revolver_mailto_message']['value'], [ 'xhash' => 1 ] );;
+							$message = $markup::Markup( SV['p']['revolver_mailto_message']['value'] );;
 
 						}
 

@@ -4,7 +4,7 @@
   * 
   * MySQLi Data Base X Class
   * 
-  * v.2.9.3
+  * v.2.9.4
   *
   * `Strict` mode supported
   *
@@ -2296,9 +2296,9 @@ final class DBX {
 
 		return preg_replace(
 
-				['/(\/\*\s*\w*\s*(?!.\/\*))/si', '/(\-\-\s*\w*\s*(?!.\-\-))/si', '/(or\s*\w*\s*=\s*\w(?!.*or)|\|\|\s*\w*\s*=\s*\w(?!.\|\|))/si', /*'/[\x{10000}-\x{10FFFF}]/u'*/], 
+				['/(\/\*\s*\w*\s*(?!.\/\*))/si', '/(\-\-\s*\w*\s*(?!.\-\-))/si', '/(or\s*\w*\s*=\s*\w(?!.*or)|\|\|\s*\w*\s*=\s*\w(?!.\|\|))/si'], 
 
-				[';', ';', '', /*'\xEF\xBF\xBD'*/],
+				[';', ';', ''],
 
 				str_replace(
 
@@ -2306,7 +2306,7 @@ final class DBX {
 
 					[ '', ';', '&quot;', '\\Z', "\%", '&#45;&#45;', '&#47;&#42;&#33;'], 
 
-					trim($s)
+					trim( $s )
 
 				)
 
@@ -2326,7 +2326,7 @@ final class DBX {
 
 			addslashes(
 
-				htmlspecialchars($v)
+				htmlspecialchars( $v )
 
 			)
 

@@ -129,7 +129,7 @@ if( USER['name'] === $n['author'] ) {
 
 												)
 
-											), [ 'xhash' => 0 ]
+											)
 
 										),
 

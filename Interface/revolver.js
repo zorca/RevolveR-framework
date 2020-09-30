@@ -369,6 +369,58 @@
 
 		},
 
+ 		syntax: function(code) {
+
+			let comments	= [];
+
+			let strings		= [];
+
+			let res			= [];
+
+			let all			= { 'C': comments, 'S': strings, 'R': res };
+
+			let safe		= { '<': '<', '>': '>', '&': '&' };
+
+			return code.replace(/[<>&]/g, function( m ) { 
+			
+				return safe[ m ]; 
+
+			}).replace(/\/\*[\s\S]*\*\//g, function( m ) { 
+
+				var l = comments.length; comments.push( m ); 
+
+				return '~~~C'+ l +'~~~';
+
+			}).replace(/([^\\])\/\/[^\n]*\n/g, function( m, f ) { 
+
+				var l = comments.length; comments.push( m ); 
+
+				return f +'~~~C'+ l +'~~~'; 
+
+			}).replace(/\/(\\\/|[^\/\n])*\/[gim]{0,3}/g, function( m ){ 
+
+				var l = res.length; res.push( m ); 
+
+				return '~~~R'+ l +'~~~';
+
+			}).replace(/([^\\])((?:'(?:\\'|[^'])*')|(?:"(?:\\"|[^"])*"))/g, function( m, f, s )	{ 
+
+				var l = strings.length; 
+				strings.push(s); 
+
+				return f +'~~~S'+ l +'~~~'; 
+
+			}).replace(/(var|function|typeof|new|return|if|for|in|while|break|do|continue|switch|case)([^a-z0-9\$_])/gi,
+				'<span class="kwrd">$1</span>$2').replace(/(\{|\}|\]|\[|\|)/gi,
+				'<span class="gly">$1</span>').replace(/([a-z\_\$][a-z0-9_]*)[\s]*\(/gi,
+				'<span class="func">$1</span>(').replace(/~~~([CSR])(\d+)~~~/g, function( m, t, i ) { 
+
+					return '<span class="'+ t +'">'+ all[ t ][ i ] +'</span>'; 
+
+			}).replace(/\n/g, '<br/>').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+
+		},
+
 		// Browser events futures support
 		event: (e, evt, c) => {
 
@@ -473,6 +525,17 @@
 
 			}
 
+			RR.new('div', 'body', 'before', {
+
+				attr: {
+
+					style: 'position: fixed; width: 100%; height: 100%; background: rgba(60, 60, 60, .8) url("/Interface/preloader.svg") 50% 50% no-repeat; z-index: 100000',
+					class: 'preloader'
+
+				}
+
+			});
+
 			const R = new Request(u, params);
 
 			// Fetch URI
@@ -521,6 +584,13 @@
 				RR.FormData = null;
 
 				clearInterval( RR.preview );
+
+				setTimeout(() => {
+
+					document.querySelector('.preloader').outerHTML = '';
+
+				}, 2000);
+
 
 				if( k ) {
 
@@ -715,6 +785,80 @@
 
 		},
 
+		// Parallaxing Effects core
+		parallaxBlocks: ( t ) => {
+
+			const Article = t ? [ t ] : R.sel('article');
+
+			if( t ) {
+
+				for( prlx of t.querySelectorAll('table') ) {
+
+					prlx.outerHTML = '';
+
+				}
+
+			} 
+			else {
+
+				for( prlx of R.sel('article')[0].querySelectorAll('table') ) {
+
+					prlx.outerHTML = '';
+
+				}
+
+			}
+
+			setTimeout(() => {
+
+				if( Article ) {
+
+					for( let parallax of Article ) {
+
+						R.styleApply( [ parallax ], ['position: relative'], () => {
+
+							parallax.innerHTML = '<table class="parallax-1" style="position: absolute; height:'+ parallax.offsetHeight +'px"></table><table class="parallax-2" style="position: absolute; height:'+ parallax.offsetHeight +'px"></table>' + parallax.innerHTML;
+
+							R.event( [ parallax ], 'mousemove', (e) => {
+
+								R.styleApply('.parallax-1', ['left:'+ ( (e.screenX / 90) + (e.screenX / 92) ) *-1 +'px', 'top:'+ (e.screenY / 90) * -1 +'px'], () => {
+
+									R.styleApply('.parallax-2', ['left:'+ ( (e.screenX / 90) + (e.screenX / 92) ) +'px', 'top:'+ (e.screenY / 90) +'px']);
+
+									setTimeout(() => {
+
+										if( R.parallaxReturn ) {
+
+											if( R.sel('.parallax-1, .parallax-2') ) {
+
+												R.animate('.parallax-1, .parallax-2', ['top:0px:1000:elastic', 'left:0px:1000:elastic'], () => {
+
+													R.parallaxReturn = null;
+
+												});
+
+											}
+
+										}
+
+									}, 3000);
+
+								});
+
+								R.parallaxReturn = true;
+
+							});
+
+						});
+
+					}
+
+				}
+
+			}, 3000);
+
+		},
+
 		// Perform HTML forms design improvements
 		formBeautifier: () => {
 
@@ -866,14 +1010,14 @@
 
 				});
 
-				for (let u of selects) {
+				for( let u of selects ) {
 
 					let options = u.querySelectorAll('option');
 					let parent  = u.parentElement;
 					let opts    = '';
 					let cnt     = 0;
 
-					for (let x of options) {
+					for( let x of options ) {
 
 						let cls = '';
 
@@ -1027,10 +1171,10 @@
 
 			const textareas = RR.sel('textarea');
 
-			if(textareas.length > 0) {
+			if( textareas ) {
 
 				// Place editor buttons before textareas
-				for(let i of textareas) {
+				for( let i of textareas ) {
 
 					let className = 'revolver__editor-'+ ( i.name.includes('=') ? atob( i.name ) : i.name );
 
@@ -1763,6 +1907,12 @@
 
 						RR.animate([expander], ['opacity:1:2000:linear','transform:scale(1,1,1):2000:elastic'], () => {
 
+							for( prlx of expander.closest('article').querySelectorAll('table') ) {
+
+								prlx.outerHTML = '';
+
+							}
+
 							RR.callback(expander, c, [true]);
 
 						});
@@ -1777,6 +1927,12 @@
 							RR.toggle([expander]);
 
 							RR.styleApply([expander], ['overflow: hidden', 'height:0px']);
+
+							for( prlx of expander.closest('article').querySelectorAll('table') ) {
+
+								prlx.outerHTML = '';
+
+							}
 
 							RR.callback(expander, c, [null]);
 
@@ -3234,7 +3390,7 @@
 
 			var w = document.createElement(w);
 
-			for(let i of RR.htmlObj(e)) {
+			for( let i of RR.htmlObj(e) ) {
 
 				i.parentElement.insertBefore(w, i);
 				w.appendChild(i);
@@ -4181,3 +4337,13 @@ const R_CMF_i = [
 	document.location.hostname
 
 ];
+
+document.addEventListener('DOMContentLoaded', (e) => {
+
+	setTimeout(() => {
+
+		document.querySelector('.preloader').outerHTML = '';
+
+	}, 2000);
+
+});

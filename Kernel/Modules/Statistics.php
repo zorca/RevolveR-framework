@@ -3,7 +3,7 @@
  /* 
   * RevolveR Statistics Class
   *
-  * v.1.8.0
+  * v.1.9.4
   *
   *
   *
@@ -99,6 +99,8 @@ final class Statistics {
 					'/user-d/',
 					'/forum-d/',
 					'/forum-room-d/',
+					'/wiki-d/',
+					'/wiki-node-d/',
 					'/blog-d/',
 					'/topic-d/',
 					'/blog-comments-d/',

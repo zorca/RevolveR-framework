@@ -4,7 +4,7 @@
   * 
   * RevolveR Route Wiki Contents Dispatch
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *
   *
@@ -102,7 +102,15 @@ if( in_array( ROLE, ['Admin', 'Writer'] ) ) {
 
         $node_content = $markup::Markup(
 
-          SV['p']['revolver_node_edit_content']['value'], [ 'xhash' => 0 ]
+              htmlspecialchars_decode(
+
+                html_entity_decode(
+
+                  SV['p']['revolver_node_edit_content']['value']
+
+                )
+
+            )
 
         );
 

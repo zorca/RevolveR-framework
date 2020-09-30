@@ -3,7 +3,7 @@
  /* 
   * RevolveR CMF translations 
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *
   *
@@ -720,13 +720,13 @@ define('TRANSLATIONS', [
 		'Latest comments'							=> 'Последние комментарии',
 
 		'Moderate'									=> 'Модерировать',
-
 		// Forum*
 		'Forum'										=> 'Форум',
 		'Forum manage'								=> 'Управление форумом',
 		'You can manage forum containers here'		=> 'Вы можете администрировать контейнеры форума здесь',
 		'Add forum container'						=> 'Добавить контейнер форума',
 		'Choose forum'								=> 'Выбрать форум',
+
 
 		'Container title'							=> 'Заголовок контейнера',
 		'Type container name'						=> 'Напишите имя контейнера',

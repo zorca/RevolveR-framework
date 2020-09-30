@@ -4,7 +4,7 @@
   * 
   * RevolveR Route Forums Edit
   *
-  * v.1.9.2
+  * v.1.9.4
   *
   *
   *
@@ -71,9 +71,17 @@ if( Auth ) {
 
 					$room_content = $markup::Markup(
 
-						SV['p']['revolver_forum_room_content']['value'], [ 'xhash' => 0 ]
+										html_entity_decode(
 
-					);
+											htmlspecialchars_decode(
+
+												SV['p']['revolver_forum_room_content']['value']
+
+											)
+
+										)
+
+								);
 
 				}
 

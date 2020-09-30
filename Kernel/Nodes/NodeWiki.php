@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Wiki 
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *
   *
@@ -200,15 +200,19 @@ if( count(PASS) > 3 ) {
 			'route'		  => $wiki_node['route'],
 			'description' => $wiki_node['description'],
 
-			'contents'	  => html_entity_decode(
+			'contents'	  => $markup::Markup(
 
-				htmlspecialchars_decode(
+								html_entity_decode(
 
-					$wiki_node['content']
+									htmlspecialchars_decode(
 
-				)
+										$wiki_node['content']
 
-			),
+									)
+
+								)
+
+							),
 
 			'category'	  => $wiki_node['category'],
 			'language'	  => $lang::getLanguageData( $wiki_node['country'] ),

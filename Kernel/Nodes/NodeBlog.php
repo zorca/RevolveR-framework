@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Blog
   *
-  * v.1.9.2
+  * v.1.9.4
   *
   *
   *
@@ -64,7 +64,15 @@ if( ROLE !== 'none' ) {
 
 					$node_content = $markup::Markup(
 
-						SV['p']['revolver_node_edit_content']['value'], [ 'xhash' => 0 ]
+						htmlspecialchars_decode(
+
+							html_entity_decode(
+
+								SV['p']['revolver_node_edit_content']['value']
+
+							)
+
+						)
 
 					);
 
@@ -509,12 +517,37 @@ if( $blog_items ) {
 
 		if( !empty( PASS[ 2 ] ) ) {
 
-			$item_content = $markup::Markup( $bi['content'], [ 'xhash' => 1, 'lazy' => 1 ] );
+			$item_content = $markup::Markup(
+
+					htmlspecialchars_decode( 
+
+						html_entity_decode( 
+
+							$bi['content']
+
+						)
+
+					), [ 'lazy' => 1 ]
+
+				);
+
 
 		} 
 		else {
 
-			$item_content = $markup::Markup( $bi['content'], [ 'length' => 1500, 'xhash' => 0, 'lazy' => 1 ] );
+			$item_content = $markup::Markup( 
+
+					htmlspecialchars_decode( 
+
+						html_entity_decode( 				
+
+							$bi['content']
+
+						), 
+
+					), [ 'length' => 1500, 'lazy' => 1 ] 
+
+				);
 
 		}
 

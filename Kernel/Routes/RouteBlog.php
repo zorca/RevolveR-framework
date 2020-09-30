@@ -4,7 +4,7 @@
   * 
   * RevolveR Route Contents Dispatch
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *
   *
@@ -137,9 +137,17 @@ if( Auth ) {
 
           $blog_content = $markup::Markup(
 
-            SV['p']['revolver_blog_edit_content']['value'], [ 'xhash' => 0 ]
+                  html_entity_decode(
 
-          );
+                    htmlspecialchars_decode(
+
+                      SV['p']['revolver_blog_edit_content']['value']
+
+                    )
+
+                  )
+
+                );
 
         }
 

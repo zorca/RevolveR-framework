@@ -43,7 +43,7 @@
 
 	$render_node .= '</header>';
 
-	$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( $n['contents'], ['lazy' => 1, 'xhash' => 1] ) .'</div>';
+	$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
 
 
 	if( $n['footer'] ) {

@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Data Base schema
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *
   *
@@ -1279,6 +1279,34 @@ $STRUCT_STATISTICS = [
 
 ];
 
+$STRUCT_TEST = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // bigint
+		'auto'	 => true,
+		'length' => 255,
+		'fill'   => true
+
+	],
+
+	'field_test' => [
+
+		'type'   => 'text', // varchar
+		'length' => 255,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	]
+
+];
+
+
 // Compare DBX Schema
 $DBX_KERNEL_SCHEMA = [
 
@@ -1312,7 +1340,7 @@ $DBX_KERNEL_SCHEMA = [
 	'messages'		  => $STRUCT_MESSAGES,
 	'messages_files'  => $STRUCT_MESSAGES_FILES,
 
-	//'probe'			 => $STRUCT_PROBE
+	'test'			  => $STRUCT_TEST
 
 ];
 

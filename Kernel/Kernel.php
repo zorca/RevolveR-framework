@@ -3,7 +3,7 @@
  /*
   * RevolveR CMF Kernel
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *			          ^
   *			         | |
@@ -32,13 +32,15 @@
   */
  
 // Kernel version
-define('rr_version', '1.9.3');
+define('rr_version', '1.9.4');
 
 // X64 guest number
 define('BigNumericX64', 9223372036854775806);
 
 // Debug mode
-ini_set('error_reporting', E_WARNING | E_STRICT | E_DEPRECATED | E_USER_DEPRECATED | E_PARSE | E_RECOVERABLE_ERROR);
+//ini_set('error_reporting', E_WARNING | E_NOTICE | E_STRICT | E_DEPRECATED | E_USER_DEPRECATED | E_PARSE | E_RECOVERABLE_ERROR);
+
+error_reporting(0);
 
 // Hide GET parameters for interface and store it
 $uri_segment = explode('?', $_SERVER['REQUEST_URI']);
@@ -622,6 +624,12 @@ else {
 		'auth' => 0
 
 	]);
+
+	if( RQST === '/' ) {
+
+		header('Location: '. site_host . '/setup/');
+
+	}
 
 }
 

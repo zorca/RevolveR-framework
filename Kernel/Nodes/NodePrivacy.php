@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Privacy 
   *
-  * v.1.9.0
+  * v.1.9.4
   *
   *
   *
@@ -136,20 +136,20 @@ $policy_text = '
 
   <p>Thank you for choosing our services!</p>';
 
-  $contents .= $markup::Markup($policy_text, ['xhash' => 1]);
+  $contents .= $markup::Markup($policy_text);
 
   $contents .= $sense_policy;
 
-  $contents .= $markup::Markup($policy_text_end, ['xhash' => 1]);
+  $contents .= $markup::Markup($policy_text_end);
 
 $node_data[] = [
 
-	'title'			=> $title,
-	'id'			=> 'privacy-notes',
-	'route'			=> '/privacy/',
+	'title'			  => $title,
+	'id'			    => 'privacy-notes',
+	'route'			  => '/privacy/',
 	'contents'		=> $contents,
-	'teaser'		=> null,
-	'footer'		=> null,
+	'teaser'		  => null,
+	'footer'		  => null,
 	'published'		=> 1
 
 ];

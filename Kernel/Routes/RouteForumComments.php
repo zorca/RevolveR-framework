@@ -4,7 +4,7 @@
   * 
   * RevolveR Route Comment Dispatch
   *
-  * v.1.9.2
+  * v.1.9.4
   *
   *
   *
@@ -99,9 +99,17 @@ if( in_array(ROLE, ['Admin', 'Writer', 'User'], true) ) {
 
 				$contents = $markup::Markup(
 
-					SV['p']['revolver_comment_content']['value'], [ 'xhash' => 0 ]
+								html_entity_decode(
 
-				);
+									htmlspecialchars_decode(
+
+										SV['p']['revolver_comment_content']['value']
+
+									)
+
+								)
+
+							);
 
 			}
 

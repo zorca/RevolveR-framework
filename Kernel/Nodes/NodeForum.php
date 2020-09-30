@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Forum 
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *
   *
@@ -494,7 +494,19 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 				$forum_room_contents .= '</dt>';
 				
 				$forum_room_contents .= '<dd>';
-				$forum_room_contents .= '<div>'. $markup::Markup( $froom['content'], [ 'xhash' => 0 ] ) .'</div>';
+				$forum_room_contents .= '<div>'. $markup::Markup( 
+
+					htmlspecialchars_decode( 
+
+						html_entity_decode( 
+
+							$froom['content'] 
+
+						)
+
+					)
+
+				) .'</div>';
 				
 				$comments = iterator_to_array(
 
@@ -608,13 +620,18 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			$room_id 	      = $forum_rooms[ 0 ]['id'];
 			$room_title       = $forum_rooms[ 0 ]['title'] .' '. TRANSLATIONS[ $ipl ]['by'] .' '. $room_user;
 			$room_description = $forum_rooms[ 0 ]['description'];
-			$room_content 	  = html_entity_decode(
+			$room_content 	  = $markup::Markup(
 
-									htmlspecialchars_decode(
+									html_entity_decode(
 
-										$forum_rooms[ 0 ]['content']
+										htmlspecialchars_decode(
+
+											$forum_rooms[ 0 ]['content']
+
+										)
 
 									)
+
 								);
 
 			define('NF', $not_found);
@@ -678,13 +695,18 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			$room_time		  = $forum_rooms[ 0 ]['time'];
 			$room_description = $forum_rooms[ 0 ]['description'];
 
-			$room_content 	  = html_entity_decode(
+			$room_content 	  = $markup::Markup(
 
-									htmlspecialchars_decode(
+									html_entity_decode(
 
-										$forum_rooms[ 0 ]['content']
+										htmlspecialchars_decode(
+
+											$forum_rooms[ 0 ]['content']
+
+										)
 
 									)
+
 								);
 
 			$room_user		  = $forum_rooms[ 0 ]['user'];

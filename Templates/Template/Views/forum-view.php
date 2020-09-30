@@ -31,7 +31,17 @@
 
 	if( RQST === '/' ) {
 
-		$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'length' => 2000, 'xhash' => 0, 'lazy' => 1 ] ) .'</div>';
+		$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( 
+
+					htmlspecialchars_decode( 
+
+						html_entity_decode( 
+
+							$n['contents']
+
+						)
+
+					), [ 'length' => 2000, 'lazy' => 1 ] ) .'</div>';
 
 	}
 	else {
@@ -43,7 +53,17 @@
 		}
 		else {
 
-			$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( $n['contents'], ['lazy' => 1] ) .'</div>';
+			$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( 
+
+					htmlspecialchars_decode( 
+
+						html_entity_decode( 
+
+							$n['contents']
+
+						)
+
+					), ['lazy' => 1] ) .'</div>';
 
 		}
 

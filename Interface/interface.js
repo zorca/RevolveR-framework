@@ -36,7 +36,8 @@ if( !self.run ) {
 
 	self.run = true;
 
-	R.menuPosition = 0;
+	R.menuPosition  = 0;
+	R.parallaxReturn = null;
 
 }
 
@@ -106,7 +107,7 @@ R.switchAttendanceDate = ( x ) => {
 
 };
 
-R.useCaptcha = (p) => {
+R.useCaptcha = ( p ) => {
 
 	self.overprint = atob( p.split('*')[2] );
 	self.oprintvar = atob( p.split('*')[0] );
@@ -237,7 +238,7 @@ R.lazyLoad = () => {
 
 	}
 
-	if( R.lazyList.length > 0 ) {
+	if( R.lazyList ) {
 
 		let lazy = () => {
 
@@ -256,6 +257,8 @@ R.lazyLoad = () => {
 						setTimeout(() => {
 
 							R.animate([ l[0] ], ['opacity:1:1400:wobble', 'transform:scale(1, 1, 1):1650:elastic'] );
+
+							R.parallaxBlocks( l[0].closest('article') );
 
 							l[0].className = 'lazy-preload';
 
@@ -289,178 +292,180 @@ R.fetchRoute = ( intro ) => {
 	R.styleApply(R.mainMenues, ['left:'+ R.menuPosition + 'px']);
 
 	// Privacy policy
-	R.fetch('/secure/?policy=get', 'get', 'json', null, function() {
 
-		const key = atob( this.privacy ).split('::');
+	setTimeout(() => {
 
-		if( key[0] !== 'accepted' ) {
+		R.fetch('/secure/?policy=get', 'get', 'json', null, function() {
 
-			const nPolicy = {
+			const key = atob( this.privacy ).split('::');
 
-				html: '<div class="revolver__statuses-heading">... Privacy policy notification <i>+</i></div><div class="privacy-policy-notification"><p>This domain use cookies only to improve privacy and make possible correct work our services.</p><p>You can <a href="/privacy/">read domain cookie policy</a> and <a href="'+ document.location.pathname +'?notification=accept-privacy-policy">accept</a> it.</p></div>',
+			if( key[0] !== 'accepted' ) {
 
-				attr: {
+				const nPolicy = {
 
-					class : 'revolver__status-notifications revolver__notice'
+					html: '<div class="revolver__statuses-heading">... Privacy policy notification <i>+</i></div><div class="privacy-policy-notification"><p>This domain use cookies only to improve privacy and make possible correct work our services.</p><p>You can <a href="/privacy/">read domain cookie policy</a> and <a href="'+ document.location.pathname +'?notification=accept-privacy-policy">accept</a> it.</p></div>',
 
-				}
+					attr: {
 
-			};
+						class : 'revolver__status-notifications revolver__notice'
 
-			R.new('div', '.revolver__main-contents', 'before', nPolicy);
+					}
 
-			let forms = R.sel('form');
+				};
 
-			let c = 0;
+				R.new('div', '.revolver__main-contents', 'before', nPolicy);
 
-			for( let f of forms ) {
+				let forms = R.sel('form');
 
-				if( c >= 1 ) {
+				let c = 0;
 
-					R.event([f.parentElement], 'click', (e) => {
+				for( let f of forms ) {
 
-						if( e.isTrusted ) {
+					if( c >= 1 ) {
 
-							R.new('div', '.revolver__form-wrapper', 'before', nPolicy);
+						R.event([f.parentElement], 'click', (e) => {
+
+							if( e.isTrusted ) {
+
+								R.new('div', '.revolver__form-wrapper', 'before', nPolicy);
+
+							}
+
+						});
+
+						for(let i of f.querySelectorAll('input, textarea')) {
+
+							i.disabled = 'disabled';
 
 						}
 
-					});
+					}
 
-					for(let i of f.querySelectorAll('input, textarea')) {
+					c++;
 
-						i.disabled = 'disabled';
+				}
+
+				R.styleApply('.revolver__captcha-wrapper', ['display:none']);
+
+				R.setAllow( null );
+
+			}
+			else {
+
+				if( intro ) {
+
+					let cform = R.sel('#comment-add-form');
+
+					let route = cform ? cform[0].action.replace( document.location.origin, '' ) : document.location.pathname;
+
+					if( route !== '/' && route !== '/logout/' ) {
+
+						R.fetch('/secure/?route='+ route, 'get', 'json', null, function() {
+
+							R.useCaptcha( this.key );
+
+						});
 
 					}
 
 				}
 
-				c++;
+				R.setAllow( key[1] );
 
 			}
 
-			R.styleApply('.revolver__captcha-wrapper', ['display:none']);
+			// Lazy load
+			setTimeout(()=>{
 
-			R.setAllow( null );
+				R.lazyLoad();
 
-		}
-		else {
+			}, 4000);
 
-			if( intro ) {
+			// Stop preview
+			clearInterval( R.preview );
 
-				let cform = R.sel('#comment-add-form');
+			// Hide status messages
+			clearInterval( R.notificationsInterval );
 
-				let route = cform ? cform[0].action.replace( document.location.origin, '' ) : document.location.pathname;
+			R.notificationsInterval = null;
 
+			R.notificationsInterval = setInterval(() => {
 
-				if( route === '/forum-comments-d/' ) {
+				let notifications = R.sel('.revolver__status-notifications');
 
-					route = document.location.pathname;
+				if( notifications ) {
+
+					R.cleanNotifications( notifications );
 
 				}
 
-				if( route !== '/' && route !== '/logout/' ) {
+			}, 20000);
 
-					R.fetch('/secure/?route='+ route, 'get', 'json', null, function() {
+			R.event('.revolver__status-notifications .revolver__statuses-heading i', 'click', function(e) {
 
-						R.useCaptcha( this.key );
+				e.preventDefault();
+
+				if( e.isTrusted ) {
+
+					R.styleApply([this.parentElement], ['display:none'], () => {
+
+						R.animate(this.parentElement.parentElement.children, ['height:0px:500:elastic']);
+
+						R.animate([this.parentElement.parentElement], ['height:0px:1500:wobble', 'color:rgba(255,255,255,.1):700:elastic', 'opacity:0:1000:harmony']);
+
+						void setTimeout(() => {
+
+							R.rem([this.parentElement.parentElement]);
+
+						}, 1300);
 
 					});
 
 				}
 
-			}
+			});
 
-			R.setAllow( key[1] );
+			for( let i of R.sel('a') ) {
 
-		}
+				if( i.target === '_blank') {
 
-		// Lazy load
-		R.lazyLoad();
-
-		// Stop preview
-		clearInterval( R.preview );
-
-		// Hide status messages
-		clearInterval( R.notificationsInterval );
-
-		R.notificationsInterval = null;
-
-		R.notificationsInterval = setInterval(() => {
-
-			let notifications = R.sel('.revolver__status-notifications');
-
-			if( notifications ) {
-
-				R.cleanNotifications( notifications );
-
-			}
-
-		}, 20000);
-
-		R.event('.revolver__status-notifications .revolver__statuses-heading i', 'click', function(e) {
-
-			e.preventDefault();
-
-			if( e.isTrusted ) {
-
-				R.styleApply([this.parentElement], ['display:none'], () => {
-
-					R.animate(this.parentElement.parentElement.children, ['height:0px:500:elastic']);
-
-					R.animate([this.parentElement.parentElement], ['height:0px:1500:wobble', 'color:rgba(255,255,255,.1):700:elastic', 'opacity:0:1000:harmony']);
-
-					void setTimeout(() => {
-
-						R.rem([this.parentElement.parentElement]);
-
-					}, 1300);
-
-				});
-
-			}
-
-		});
-
-		for( let i of R.sel('a') ) {
-
-			if( i.target === '_blank') {
-
-				R.addClass( [ i ], ['external'] );
-
-			}
-
-		}
-
-		R.event('a', 'click', function(e) {
-
-			e.preventDefault();
-
-			if( e.isTrusted ) {
-
-				if( R.hasClass( [ this ], 'external' ) ) {
-
-					self.open( e.target.href );
-
-					return;
-
-				}
-
-				if( !this.href.includes( 'webp', 'svg' ,'png', 'jpg', 'jpeg', 'gif', 'zip' ) ) {
-
-					R.loadURI(
-
-						this.href, this.innerText
-
-					);
+					R.addClass( [ i ], ['external'] );
 
 				}
 
 			}
 
+			R.event('a', 'click', function(e) {
+
+				e.preventDefault();
+
+				if( e.isTrusted ) {
+
+					if( R.hasClass( [ this ], 'external' ) ) {
+
+						self.open( e.target.href );
+
+						return;
+
+					}
+
+					if( !this.href.includes( 'webp', 'svg' ,'png', 'jpg', 'jpeg', 'gif', 'zip' ) ) {
+
+						R.loadURI(
+
+							this.href, this.innerText
+
+						);
+
+					}
+
+				}
+
+			});
+
 		});
 
-	});
+	}, 3000);
 
 	// Intro
 	if( intro ) {
@@ -496,6 +501,20 @@ R.fetchRoute = ( intro ) => {
 
 	}
 
+	R.parallaxBlocks( null );
+
+	const codeBlocks = R.sel('code');
+
+	if( codeBlocks ) {
+
+		for( let i of codeBlocks ) {
+
+			i.innerHTML = R.syntax( i.innerHTML );
+
+		}
+
+	}
+
 	// Highlight menu
 	const menu = R.sel('.revolver__main-menu li');
 
@@ -517,7 +536,7 @@ R.fetchRoute = ( intro ) => {
 
 	}
 
-	R.event(R.mainMenues, 'mousedown', function(e) {
+	R.event(R.mainMenues, 'mousedown', (e) => {
 
 		e.preventDefault();
 
@@ -525,7 +544,7 @@ R.fetchRoute = ( intro ) => {
 
 			R.menuLeft = RR.curxy[0];
 
-			R.MenuMoveObserver = R.event('body', 'mousemove', function(e) {
+			R.MenuMoveObserver = R.event('body', 'mousemove', (e) => {
 
 				e.preventDefault();
 
@@ -535,7 +554,7 @@ R.fetchRoute = ( intro ) => {
 
 				R.styleApply(R.mainMenues, ['left:'+ R.menuPosition +'px']);
 
-				R.event('body', 'mouseup', function(e) {
+				R.event('body', 'mouseup', (e) => {
 
 					e.preventDefault();
 
@@ -560,7 +579,7 @@ R.fetchRoute = ( intro ) => {
 
 	});
 
-	R.event(R.mainMenues, 'touchstart', function(e) {
+	R.event(R.mainMenues, 'touchstart', (e) => {
 
 		e.preventDefault();
 
@@ -570,7 +589,7 @@ R.fetchRoute = ( intro ) => {
 
 			R.menuLeft = e.changedTouches[0].screenX;
 
-			R.MenuMoveObserver = R.event('body', 'touchmove', function(e) {
+			R.MenuMoveObserver = R.event('body', 'touchmove', (e) => {
 
 				e.preventDefault();
 
@@ -580,7 +599,7 @@ R.fetchRoute = ( intro ) => {
 
 				R.styleApply(R.mainMenues, ['left:'+ R.menuPosition +'px']);
 
-				R.event('body', 'touchend', function(e) {
+				R.event('body', 'touchend', (e) => {
 
 					let target = e.changedTouches[0].target;
 
@@ -614,218 +633,225 @@ R.fetchRoute = ( intro ) => {
 
 	});
 
-	// Forms styles
-	R.formBeautifier();
+	setTimeout(() => {
 
-	// Enable editor
-	if( R.sel('textarea') ) {
+		// Forms styles
+		R.formBeautifier();
 
-		R.markupEditor();
+		// Enable editor
+		if( R.sel('textarea') ) {
 
-	}
-
-	// Tabs
-	if( R.sel('#tabs') ) {
-
-		R.tabs('#tabs li.revolver__tabs-tab', '#tabs div');
-
-	}
-
-	// Collapsible elements
-	if( R.sel('.collapse dd') ) {
-
-		for ( let i of R.sel('.collapse dd') ) {
-
-			R.toggle( [ i ] );
+			R.markupEditor();
 
 		}
 
-	}
+		// Tabs
+		if( R.sel('#tabs') ) {
 
-	R.expand('.collapse dt, .revolver__collapse-form-legend');
+			R.tabs('#tabs li.revolver__tabs-tab', '#tabs div');
 
-	R.event('input[type="submit"]', 'click', (e) => {
+		}
 
-		if( e.isTrusted ) {
+		// Collapsible elements
+		if( R.sel('.collapse dd') ) {
 
-			if( self.flag ) {
+			for ( let i of R.sel('.collapse dd') ) {
 
-				let m = [];
-				let c = 0;
+				R.toggle( [ i ] );
 
-				let draw = R.sel('#drawpane div');
+			}
 
-				for( let a of draw ) {
+		}
 
-					m[ c ] = ( a.dataset.selected === 'true' ? 1 : 0 ) +':'+ a.dataset.xy;
+		R.expand('.collapse dt, .revolver__collapse-form-legend');
 
-					c++;
+		R.event('input[type="submit"]', 'click', (e) => {
 
-				}
+			if( e.isTrusted ) {
 
-				function encoder( s ) {
+				if( self.flag ) {
 
-					let e = '';
+					let m = [];
+					let c = 0;
 
-					for ( let j = 0; j < s.length; j++ ) {
+					let draw = R.sel('#drawpane div');
 
-						e += String.fromCharCode( s.charCodeAt( j ) ^ 51 );
+					for( let a of draw ) {
 
-					}
+						m[ c ] = ( a.dataset.selected === 'true' ? 1 : 0 ) +':'+ a.dataset.xy;
 
-					return e;
-
-				}
-
-				let s = '';
-				let e = encoder( '{\"value\":'+ '"'+ self.oprintvar +'*'+ m.join('|') +'"'+ '}' );
-
-				for ( let i = 0; i < e.length; i++ ) {
-
-					s += e.charCodeAt( i );
-
-					if( i < e.length - 1 ) {
-
-						s += '|';
+						c++;
 
 					}
 
+					function encoder( s ) {
+
+						let e = '';
+
+						for ( let j = 0; j < s.length; j++ ) {
+
+							e += String.fromCharCode( s.charCodeAt( j ) ^ 51 );
+
+						}
+
+						return e;
+
+					}
+
+					let s = '';
+					let e = encoder( '{\"value\":'+ '"'+ self.oprintvar +'*'+ m.join('|') +'"'+ '}' );
+
+					for ( let i = 0; i < e.length; i++ ) {
+
+						s += e.charCodeAt( i );
+
+						if( i < e.length - 1 ) {
+
+							s += '|';
+
+						}
+
+					}
+
+					R.attr('.revolver__captcha-wrapper input[type="hidden"]', {
+
+						'value': btoa( s ) +'*'+ btoa( self.overprint ) +'*'+ btoa( document.location.pathname )
+
+					});
+
 				}
 
-				R.attr('.revolver__captcha-wrapper input[type="hidden"]', {
+			}
 
-					'value': btoa( s ) +'*'+ btoa( self.overprint ) +'*'+ btoa( document.location.pathname )
+		});
+
+		// Fetch Submit
+		R.fetchSubmit('form.revolver__new-fetch', 'text', function() {
+
+			// Prevent search box fetching
+			if( !self.searchAction ) {
+
+				R.sel('#RevolverRoot')[0].innerHTML = '';
+
+				for( let i of R.convertSTRToHTML(this) ) {
+
+					if( i.tagName === 'TITLE' ) {
+
+						var title = i.innerHTML;
+
+					}
+
+					if ( i.id === 'RevolverRoot' ) {
+
+						var contents = i.innerHTML;
+
+					}
+
+					if( i.tagName === 'META') {
+
+						if( i.name === 'host') {
+
+							eval( 'window.route="'+ i.content +'";' );
+
+						}
+
+					}
+
+					if( i.className === 'revolver__privacy-key' ) {
+
+						R.sel('.revolver__privacy-key')[0].dataset.xprivacy = i.dataset.xprivacy;
+
+					}
+
+				}
+
+				R.insert( R.sel('#RevolverRoot'), contents );
+
+				R.location(title, self.route);
+
+				R.scroll();
+
+				R.logging(this, 'body');
+
+				clearInterval( R.notificationsInterval );
+
+				R.notificationsInterval = null;
+
+				R.fetchRoute( true );
+
+			}
+
+		});
+
+		// Search
+		R.event('.revolver__search-box form', 'submit', function(e) {
+
+			e.preventDefault();
+
+			if( e.isTrusted ) {
+
+				// Prevent search box fetching
+				self.searchAction = true;
+
+				R.fetch('/search/?query='+ this.querySelectorAll('input[type="search"]')[0].value, 'get', 'html', true, function() {
+
+					if( this.length ) {
+
+						R.insert('.revolver__main-contents', '<article class="revolver__article published"><div class="revolver__article-contents">'+ this +'<div></article>');
+
+						R.logging(this, 'div');
+
+						void setTimeout(() => {
+
+							self.searchAction = null;
+
+							clearInterval( R.notificationsInterval );
+
+							R.notificationsInterval = null;
+
+							R.fetchRoute( null );
+
+						}, 500);
+
+					}
 
 				});
 
 			}
 
-		}
+		});
 
-	});
+		// Terminal fetch
+		R.fetchSubmit('form.revolver__terminal-fetch', 'json', function() {
 
-	// Fetch Submit
-	R.fetchSubmit('form.revolver__new-fetch', 'text', function() {
+			// Prevent search box fetching
+			if( !self.searchAction ) {
 
-		// Prevent search box fetching
-		if( !self.searchAction ) {
+				RR.new('li', '.revolver__terminal-session-store ul', 'after', {
 
-			R.sel('#RevolverRoot')[0].innerHTML = '';
+					html: '<span class="revolver__collapse-form-legend">'+ this.command +'</span><pre class="revolver__collapse-form-contents" style="overflow: hidden; width: 0; height: 0; line-height: 0; display: inline-block;">'+ this.output +'</pre>'
 
-			for( let i of R.convertSTRToHTML(this) ) {
+				});
 
-				if( i.tagName === 'TITLE' ) {
+				R.fetch('/secure/?route=/terminal/', 'get', 'json', null, function() {
 
-					var title = i.innerHTML;
+					R.useCaptcha( this.key );
 
-				}
+				});
 
-				if ( i.id === 'RevolverRoot' ) {
-
-					var contents = i.innerHTML;
-
-				}
-
-				if( i.tagName === 'META') {
-
-					if( i.name === 'host') {
-
-						eval( 'window.route="'+ i.content +'";' );
-
-					}
-
-				}
-
-				if( i.className === 'revolver__privacy-key' ) {
-
-					R.sel('.revolver__privacy-key')[0].dataset.xprivacy = i.dataset.xprivacy;
-
-				}
+				R.fetchRoute( null );
 
 			}
 
-			R.insert( R.sel('#RevolverRoot'), contents );
 
-			R.location(title, self.route);
-
-			R.scroll();
-
-			R.logging(this, 'body');
-
-			clearInterval( R.notificationsInterval );
-
-			R.notificationsInterval = null;
-
-			R.fetchRoute( true );
-
-		}
-
-	});
-
-	// Search
-	R.event('.revolver__search-box form', 'submit', function(e) {
-
-		e.preventDefault();
-
-		if( e.isTrusted ) {
-
-			// Prevent search box fetching
-			self.searchAction = true;
-
-			R.fetch('/search/?query='+ this.querySelectorAll('input[type="search"]')[0].value, 'get', 'html', true, function() {
-
-				if( this.length ) {
-
-					R.insert('.revolver__main-contents', '<article class="revolver__article published"><div class="revolver__article-contents">'+ this +'<div></article>');
-
-					R.logging(this, 'div');
-
-					void setTimeout(() => {
-
-						self.searchAction = null;
-
-						clearInterval( R.notificationsInterval );
-
-						R.notificationsInterval = null;
-
-						R.fetchRoute( null );
-
-					}, 500);
-
-				}
-
-			});
-
-		}
-
-	});
-
-	// Terminal fetch
-	R.fetchSubmit('form.revolver__terminal-fetch', 'json', function() {
-
-		// Prevent search box fetching
-		if( !self.searchAction ) {
-
-			RR.new('li', '.revolver__terminal-session-store ul', 'after', {
-
-				html: '<span class="revolver__collapse-form-legend">'+ this.command +'</span><pre class="revolver__collapse-form-contents" style="overflow: hidden; width: 0; height: 0; line-height: 0; display: inline-block;">'+ this.output +'</pre>'
-
-			});
-
-			R.fetch('/secure/?route=/terminal/', 'get', 'json', null, function() {
-
-				R.useCaptcha( this.key );
-
-			});
-
-			R.fetchRoute( null );
-
-		}
+		});
 
 
-	});
+	}, 3000);
 
 	R.loadURI = ( url, title ) => {
+
+		R.parallaxReturn = true;
 
 		R.fetch(url, 'get', 'html', true, function() {
 
