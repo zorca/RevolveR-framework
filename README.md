@@ -4,4 +4,4 @@ RevolveR contents management framework ( actual version 1.9.4 ) - web framework 
 
 # Documentation
 
-RevolveR Contents Managemet Framework docomentation placed here: https://revolvercmf.ru/wiki
+RevolveR Contents Managemet Framework docomentation placed here: https://revolvercmf.ru/wiki/
