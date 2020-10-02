@@ -451,7 +451,8 @@ final class Conclude {
 				'secure', 
 				'setup', 
 				'blog', 
-				'wiki', 
+				'wiki',
+				'forum',
 				'user', 
 				'user-d', 
 				'category-d', 
@@ -605,7 +606,8 @@ final class Conclude {
 		if( $type === 'text/html' && !in_array( PASS[ 1 ], [ 
 
 			'search', 
-			'blog', 
+			'blog',
+			'forum',
 			'user-d', 
 			'category-d', 
 			'contents-d', 
