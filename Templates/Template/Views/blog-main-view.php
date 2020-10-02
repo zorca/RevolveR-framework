@@ -120,7 +120,7 @@ if( $comments ) {
 
 						), 
 
-					)[ 'lazy' => 1 ] ) .'</div>';
+					), [ 'lazy' => 1 ] ) .'</div>';
 
 
 		if( $n['editor'] ) {
