@@ -792,7 +792,7 @@
 
 			if( t ) {
 
-				for( prlx of t.querySelectorAll('table') ) {
+				for( prlx of t.querySelectorAll('.parallax-1, .parallax-2') ) {
 
 					prlx.outerHTML = '';
 
@@ -801,7 +801,7 @@
 			} 
 			else {
 
-				for( prlx of R.sel('article')[0].querySelectorAll('table') ) {
+				for( prlx of R.sel('article')[0].querySelectorAll('.parallax-1, .parallax-2') ) {
 
 					prlx.outerHTML = '';
 
@@ -841,7 +841,7 @@
 
 										}
 
-									}, 3000);
+									}, 30000);
 
 								});
 
@@ -855,7 +855,7 @@
 
 				}
 
-			}, 3000);
+			}, 2000);
 
 		},
 
@@ -1907,7 +1907,7 @@
 
 						RR.animate([expander], ['opacity:1:2000:linear','transform:scale(1,1,1):2000:elastic'], () => {
 
-							for( prlx of expander.closest('article').querySelectorAll('table') ) {
+							for( prlx of expander.closest('article').querySelectorAll('.parallax-1, .parallax-2') ) {
 
 								prlx.outerHTML = '';
 
@@ -1928,7 +1928,7 @@
 
 							RR.styleApply([expander], ['overflow: hidden', 'height:0px']);
 
-							for( prlx of expander.closest('article').querySelectorAll('table') ) {
+							for( prlx of expander.closest('article').querySelectorAll('.parallax-1, .parallax-2') ) {
 
 								prlx.outerHTML = '';
 

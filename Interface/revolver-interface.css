@@ -2119,16 +2119,21 @@ fieldset legend::before {
 
 			}
 
-			.revolver__article-contents code {
+			.revolver__article-contents pre {
 
 				box-shadow: inset -.1vw .2vw .7vw #fafafa;
 				background: rgba(255, 247, 249, .4);
 				border: .1vw dashed #cacaca;
-				color: rgb(0, 0, 144);
+				padding: .1vw .8vw;
 				overflow-x: scroll;
+
+			}
+
+			.revolver__article-contents code {
+
+				color: rgb(0, 0, 144);
 				padding: .1vw .8vw;
 				font-size: .8vw;
-				display: block;
 				height: auto;
 				width: auto;
 			
