@@ -588,6 +588,9 @@ if( !empty(SV['p']) ) {
 			// Create table subscriptions
 			$dbx::query('c', 'revolver__subscriptions', $STRUCT_SUBSCRIPTIONS);
 
+			// Create table blog subscriptions
+			$dbx::query('c', 'revolver__blog_subscriptions', $STRUCT_BLOG_SUBSCRIPTIONS);
+
 			// Create table blog nodes
 			$dbx::query('c', 'revolver__blog_nodes', $STRUCT_BLOG_NODES);
 			

@@ -272,6 +272,8 @@ if( $node ) {
 
           ]);
 
+          file_get_contents('http://www.google.com/ping?sitemap=' . site_host .'/sitemap/');
+
           // Files
           if( (bool)count($files_to_delete) ) {
 

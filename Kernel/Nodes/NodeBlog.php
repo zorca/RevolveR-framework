@@ -491,13 +491,13 @@ if( !$blog_items ) {
 
 $node_data[] = [
 
-	'title'		=> $title,
-	'contents'  => '<p>'. TRANSLATIONS[ $ipl ]['Welcome blogs'] .'</p>'. $contents,
-	'id'	    => 'blog',
-	'route'     => '/blog/',
-	'teaser'    => false,
-	'footer'    => false,
-	'published' => 1
+	'title'		  => $title,
+	'contents'    => '<p>'. TRANSLATIONS[ $ipl ]['Welcome blogs'] .'</p>'. $contents,
+	'id'	      => 'blog',
+	'route'       => '/blog/',
+	'teaser'      => null,
+	'footer'      => null,
+	'published'   => 1
 
 ];
 
@@ -511,7 +511,7 @@ if( $blog_items ) {
 
 		if( PASS[ 1 ] === 'blog' && empty( PASS[ 2 ] ) ) {
 
-			$editor = false;
+			$editor = null;
 
 		}
 
@@ -555,6 +555,8 @@ if( $blog_items ) {
 
 			if( !empty(PASS[2]) && RQST === $bi['route'] ) {
 
+				$descr = $bi['description'];
+
 				$node_data[0] = [
 
 					'title'		  => $bi['title'],
@@ -579,6 +581,8 @@ if( $blog_items ) {
 			else {
 
 				if( RQST === $bi['route'] || RQST === '/blog/' ) {
+
+					$descr = $bi['description'];
 
 					$node_data[] = [
 

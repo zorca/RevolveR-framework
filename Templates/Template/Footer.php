@@ -1,4 +1,11 @@
 
+
+<section class="revolver__breadcrumb">
+
+	<?php require('Breadcrumb.php') ?>
+
+</section>
+
 <!-- RevolveR :: footer -->
 <footer class="revolver__footer <?php print $auth_class; ?>">
 

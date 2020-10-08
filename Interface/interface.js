@@ -2,7 +2,7 @@
  /* 
   * RevolveR Front-end :: main interface
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   *			          ^
   *			         | |
@@ -37,7 +37,6 @@ if( !self.run ) {
 	self.run = true;
 
 	R.menuPosition  = 0;
-	R.parallaxReturn = null;
 
 }
 
@@ -45,7 +44,7 @@ self.searchAction = null;
 
 R.logging = ( x, e = 'html' ) => {
 
-	let lines = x.split('</meter>')[0].split('<meter>')[1].replace('<!--', '').replace('-->', '').trim().split("\n");
+	let lines = x.split('</meter>')[0].split('<meter value="0">')[1].replace('<!--', '').replace('-->', '').trim().split("\n");
 
 	let s = [];
 
@@ -216,67 +215,6 @@ R.cleanNotifications = (t) => {
 			});
 
 		}, 10000 / ++timeShift);
-
-	}
-
-};
-
-// Lazy load future
-R.lazyLoad = () => {
-
-	let list = R.sel('img[data-src]');
-
-	R.lazyList = [];
-
-	if( list ) {
-
-		for( let p of list ) {
-
-			R.lazyList.push([ p, 0 ]);
-
-		};
-
-	}
-
-	if( R.lazyList ) {
-
-		let lazy = () => {
-
-			for( let l of R.lazyList ) {
-
-				if( l[1] === 0 ) {
-
-					if( l[0].offsetTop < ( self.innerHeight + self.pageYOffset + 450 ) ) {
-
-						l[0].src = l[0].dataset.src;
-
-						l[1] = 1;
-
-						l[0].style = 'opacity: 0; transform: scale(.1, .1, .1);';
-
-						setTimeout(() => {
-
-							R.animate([ l[0] ], ['opacity:1:1400:wobble', 'transform:scale(1, 1, 1):1650:elastic'] );
-
-							R.parallaxBlocks( l[0].closest('article') );
-
-							l[0].className = 'lazy-preload';
-
-						}, 1000);
-
-						console.log( 'Lazy load :: '+ l[0].src );
-
-					}
-
-				}
-
-			}
-
-		};
-
-		R.event(self, 'scroll', lazy);
-
-		R.event(self, 'resize', lazy);
 
 	}
 
@@ -501,7 +439,18 @@ R.fetchRoute = ( intro ) => {
 
 	}
 
-	R.parallaxBlocks( null );
+	// Parallax effects
+	const articleBlocks = R.sel('article');
+
+	R.parallaxBlocks( articleBlocks );
+
+	const menuBlock = R.sel('.revolver__main-menu ul');
+
+	R.parallaxBlocks( menuBlock );
+
+	const relatedBlock = R.sel('.revolver__related div');
+
+	R.parallaxBlocks( relatedBlock );
 
 	const codeBlocks = R.sel('code');
 
@@ -516,25 +465,39 @@ R.fetchRoute = ( intro ) => {
 	}
 
 	// Highlight menu
-	const menu = R.sel('.revolver__main-menu li');
+	setTimeout(() => {
 
-	if( menu ) {
+		const menu = R.sel('.revolver__main-menu li');
 
-		for( let e of menu ) {
+		if( menu ) {
 
-			if( document.location.href === e.children[0].href ) {
+			R.styleApply('.revolver__site-description', ['top:7vw', 'z-index:500000']);
 
-				void setTimeout(() => {
+			for( let e of menu ) {
 
-					R.addClass([e], 'route-active');
+				let rgxp = document.location.pathname;
+				let pass = R.attr( e.children[0], 'href')[0];
 
-				}, 2000);
+				if( (rgxp.includes(pass) && pass !== '/') || (rgxp === '/' && rgxp.includes(pass)) ) {
+
+					void setTimeout(() => {
+
+						R.addClass([ e ], 'route-active');
+
+						R.styleApply('.revolver__site-description', ['top:7vw', 'z-index:500000']);
+
+						R.reParallax('.revolver__main-menu ul');
+
+					}, 1000);
+
+				}
 
 			}
 
 		}
 
-	}
+	}, 1500);
+
 
 	R.event(R.mainMenues, 'mousedown', (e) => {
 
@@ -583,9 +546,43 @@ R.fetchRoute = ( intro ) => {
 
 		e.preventDefault();
 
-		if( !R.menuMove ) {
+		R.menuMove = null;
 
-			R.touchFreeze = null;
+		R.event('body', 'touchend', (e) => {
+
+			e.preventDefault();
+
+			if( !R.menuMove ) {
+
+				R.touchFreeze = null;
+
+				let target = e.changedTouches[0].target;
+
+				if( R.isO(R.MenuMoveObserver) ) {
+
+					for( i of R.MenuMoveObserver ) {
+
+						R.detachEvent( i[ 2 ] );
+
+					}
+
+				}
+
+				if( target.tagName === 'A' && !R.touchFreeze ) {
+
+					R.loadURI(target.href, target.title);
+
+					R.touchFreeze = true;
+
+					R.menuMove = null;
+
+				}
+
+			}
+
+		});
+
+		if( !R.menuMove ) {
 
 			R.menuLeft = e.changedTouches[0].screenX;
 
@@ -598,34 +595,6 @@ R.fetchRoute = ( intro ) => {
 				R.menuPosition = ( R.menuLeft - e.changedTouches[0].screenX ) *-1; 
 
 				R.styleApply(R.mainMenues, ['left:'+ R.menuPosition +'px']);
-
-				R.event('body', 'touchend', (e) => {
-
-					let target = e.changedTouches[0].target;
-
-					e.preventDefault();
-
-					for( i of R.MenuMoveObserver ) {
-
-						R.detachEvent(i[ 2 ]);
-
-					}
-
-					setTimeout(() => {
-
-						if( target.tagName === 'A' && !R.touchFreeze ) {
-
-							R.loadURI(target.href, target.title);
-
-							R.touchFreeze = true;
-
-							R.menuMove = null;
-
-						}
-
-					}, 550);
-
-				});
 
 			});
 
@@ -655,13 +624,19 @@ R.fetchRoute = ( intro ) => {
 		// Collapsible elements
 		if( R.sel('.collapse dd') ) {
 
-			for ( let i of R.sel('.collapse dd') ) {
+			for( let i of R.sel('.collapse dd') ) {
 
 				R.toggle( [ i ] );
 
 			}
 
 		}
+
+		R.event('.collapse dt', 'click', () => {
+
+			R.reParallax();
+
+		});
 
 		R.expand('.collapse dt, .revolver__collapse-form-legend');
 
@@ -850,8 +825,6 @@ R.fetchRoute = ( intro ) => {
 	}, 3000);
 
 	R.loadURI = ( url, title ) => {
-
-		R.parallaxReturn = true;
 
 		R.fetch(url, 'get', 'html', true, function() {
 

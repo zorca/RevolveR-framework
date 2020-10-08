@@ -4,7 +4,9 @@
 
 <?php
 
-$mainWrap = true;
+$mainWrap 	= true;
+
+$nodeLoaded = null;
 
 /* Edit Templates */
 if( defined('ROUTE') ) {
@@ -227,7 +229,7 @@ if( !defined('ROUTE') ) {
 							if( PASS[ 1 ] !== 'forum' && PASS[ 1 ] !== 'blog' &&  PASS[ 1 ] !== 'wiki' ) {
 							
 								/* Comments views */
-								include('./Templates/'. TEMPLATE .'/Views/comments-view.php');
+								require_once('./Templates/'. TEMPLATE .'/Views/comments-view.php');
 
 								/* Comments add */
 								require_once('./Templates/'. TEMPLATE .'/Forms/comments-add.php');
@@ -248,13 +250,14 @@ if( !defined('ROUTE') ) {
 							else if( PASS[ 1 ] === 'blog' ) {
 
 								/* Comments views */
-								include('./Templates/'. TEMPLATE .'/Views/blog-main-view.php');
+								include('./Templates/'. TEMPLATE .'/Views/comments-blog-view.php');
 
 								if( Auth ) {
 
 									require_once('./Templates/'. TEMPLATE .'/Forms/comments-blog-add.php');
 
 								}
+
 
 							}
 
@@ -291,7 +294,7 @@ if( !defined('ROUTE') ) {
 
 						if( PASS[ 1 ] === 'blog' && PASS[ 3 ] !== 'edit' ) {
 
-							if( $counter > 0 ) {
+							if( $counter > 0 || (bool)pagination['offset'] ) {
 
 								include('./Templates/'. TEMPLATE .'/Views/blog-view.php');
 
@@ -333,11 +336,41 @@ endif;
 
 ?>
 
-<?php if( $pages_count > 1 && pagination['allow'] ) {
+<?php 
+
+if( $pages_count > 1 && pagination['allow'] ) {
 
 	require_once('./Templates/'. TEMPLATE .'/Pagination.php');
 
-} ?>
+} 
+
+?>
+
+<?php 
+
+	// Redirect broken or 404
+
+	if( !(bool)$nodeLoaded ) {
+
+
+		$render_node .= '<article class="revolver__article article-id-404">';
+		$render_node .= '<header class="revolver__article-header">';
+		$render_node .= '<h1>'. TRANSLATIONS[ $ipl ]['Route not found'] .'</h1>';
+		$render_node .= '</header>';
+
+		$render_node .= '<div class="revolver__article-contents">';
+		$render_node .= '<p>'. TRANSLATIONS[ $ipl ]['Route'];
+		$render_node .= ' <b>'. RQST .'</b> '. TRANSLATIONS[ $ipl ]['was not found on this host'] .'!</p>';
+		$render_node .= '<p><a href="/">'. TRANSLATIONS[ $ipl ]['Begin at homepage'] .'!</a>';
+		$render_node .= '</p></div>';
+
+		$render_node .= '<footer class="revolver__article-footer">';
+		$render_node .= '<nav><ul><li><a title="'. TRANSLATIONS[ $ipl ]['Homepage'] .'" href="/">'. TRANSLATIONS[ $ipl ]['Homepage'] .'</a></li></ul></nav>';
+		$render_node .= '</footer></article>';
+
+	}
+
+?>
 
 <?php 
 
@@ -352,5 +385,6 @@ endif;
 
 <!-- related -->
 <?php require_once('Related.php'); ?>
+
 
 </section>

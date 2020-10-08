@@ -62,17 +62,17 @@ if( is_array( $node_comments ) ) {
 
 		$datetime = $dateData_1[2] .'-'. $dateData_1[1] .'-'. $dateData_1[0];
 
-		$render_node .= '<article id="comment-'. $c['comment_id'] .'" class="revolver__comments comments-'. $c['comment_id'] .' '. $class .'">';
+		$render_node .= '<article itemprop="comment" itemscope itemtype="https://schema.org/Comment" id="comment-'. $c['comment_id'] .'" class="revolver__comments comments-'. $c['comment_id'] .' '. $class .'">';
 
 		$render_node .= '<header class="revolver__comments-header">'; 
 
-		$render_node .= '<h2><a href="'. $n['route'] .'#comment-'. $c['comment_id'] .'">&#8226;'. $c['comment_id'] .'</a> '. TRANSLATIONS[ $ipl ]['by'] .' <span>'. $c['comment_user_name'] .'</span></h2>';
+		$render_node .= '<h2><a itemprop="url" href="'. $n['route'] .'#comment-'. $c['comment_id'] .'">&#8226;'. $c['comment_id'] .'</a> '. TRANSLATIONS[ $ipl ]['by'] .' <span>'. $c['comment_user_name'] .'</span></h2>';
 
-		$render_node .= '<time datetime="'. $datetime .'">'. $c['comment_time'] .'</time>';
+		$render_node .= '<time itemprop="dateCreated" datetime="'. $datetime .'">'. $c['comment_time'] .'</time>';
 
 		$render_node .= '</header>';
 
-		$render_node .= '<figure class="revolver__comments-avatar">';
+		$render_node .= '<figure itemprop="creator" itemscope itemtype="https://schema.org/Person" class="revolver__comments-avatar">';
 
 		if( $c['comment_user_avatar'] === 'default') {
 
@@ -85,7 +85,9 @@ if( is_array( $node_comments ) ) {
 
 		}
 
-		$render_node .= '<img src="'. $src .'" alt="'. $c['comment_user_name'] .'" />';
+		$render_node .= '<img itemprop="image" src="'. $src .'" alt="'. $c['comment_user_name'] .'" />';
+
+		$render_node .= '<figcaption itemprop="name">'. $c['comment_user_name'] .'</figcaption>';
 
 		$render_node .= '</figure>';
 

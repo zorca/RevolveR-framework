@@ -1,5 +1,7 @@
 <?php
 
+	$nodeLoaded = true;
+
 	if( !isset($n['editor']) ) {
 
 		$n['editor'] = null;
@@ -8,7 +10,7 @@
 
 	if( !isset($n['language']['hreflang']) ) {
 
-		$n['language']['hreflang'] = $primary_language; 
+		$n['language']['hreflang'] = $primary_language;
 
 	}
 
@@ -18,24 +20,29 @@
 
 	}
 
-	$render_node .= '<article lang="'. $n['language']['hreflang'] .'" class="revolver__article article-id-'. $n['id'] .' '. $class .'">';
+	$xlang  = PASS[ 1 ] !== 'blog' && PASS[ 1 ] !== 'forum' ? ' lang="'. $n['language']['hreflang'] .'"' : '';
+	$xalang = PASS[ 1 ] !== 'blog' && PASS[ 1 ] !== 'forum' ? ' hreflang="'. $n['language']['hreflang'] .'"' : '';
 
-	$render_node .= '<header class="revolver__article-header">'; 
+	$render_node .= '<article itemscope itemtype="http://schema.org/Article"'. $xlang .' class="revolver__article article-id-'. $n['id'] .' '. $class .'">';
+
+	$render_node .= '<header class="revolver__article-header">';
 
 	if( $n['teaser'] ) {
 
-		$render_node .= '<h2><a hreflang="'. $n['language']['hreflang'] .'" href="'. $n['route'] .'" rel="bookmark">'. $n['title'] .'</a></h2>';
+		$render_node .= '<h2 itemprop="headline"><a itemprop="url"'. $xalang .' href="'. $n['route'] .'" rel="bookmark">'. $n['title'] .'</a></h2>';
 
 	}
 	else {
 
-		$render_node .= '<h2>'. $n['title'] .'</h2>';
+		$render_node .= '<h2 itemprop="headline name">'. $n['title'] .'</h2>';
 
 	}
 
 	if( $n['time'] ) {
 
-		$render_node .= '<time datetime="'. $calendar::formatTime( $n['time'] ) .'">'. $n['time'] .'</time>';
+		$datetime = explode( '.', str_replace( '-', '.', explode(' ', $n['time'])[0] ) );
+
+		$render_node .= '<time itemprop="datePublished" datetime="'. $datetime[2] .'-'. $datetime[1] .'-'. $datetime[0] .'">'. $n['time'] .'</time>';
 
 	}
 
@@ -43,7 +50,7 @@
 
 	if( RQST === '/' ) {
 
-		$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'length' => 2000, 'lazy' => 1 ] ) .'</div>';
+		$render_node .= '<div itemprop="articleBody" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'length' => 2000, 'lazy' => 1 ] ) .'</div>';
 
 	}
 	else {
@@ -64,7 +71,7 @@
 
 					)['model::users'][0];
 
-				$render_node .= '<figure class="revolver__comments-avatar" style="text-align:center">';
+				$render_node .= '<figure itemprop="creator" itemscope itemtype="https://schema.org/Person" class="revolver__comments-avatar">';
 
 				if( $topic_author['avatar'] === 'default') {
 
@@ -77,18 +84,18 @@
 
 				}
 
-				$render_node .= '<img src="'. $src .'" alt="'. $topic_author['nickname'] .'" />';
+				$render_node .= '<img itemprop="image" src="'. $src .'" alt="'. $topic_author['nickname'] .'" />';
 
-				$render_node .= '<figcaption>'. $topic_author['nickname'] .'</figcaption><br />';
+				$render_node .= '<figcaption itemprop="name">'. $topic_author['nickname'] .'</figcaption>';
 
 				$render_node .= '</figure>';
 
-				$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div><br /><br /><br />';	
+				$render_node .= '<div itemprop="articleBody" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
 
-			} 
+			}
 			else {
 
-				$render_node .= '<div class="revolver__article-contents">'. $n['contents'] .'</div>';	
+				$render_node .= '<div itemprop="articleBody" class="revolver__article-contents">'. $n['contents'] .'</div>';
 
 			}
 
@@ -96,15 +103,19 @@
 		}
 		else {
 
-			$render_node .= '<div class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
+			$render_node .= '<div itemprop="articleBody" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
 
 		}
 
 	}
 
+	$render_node .= '<footer class="revolver__article-footer">';
+
+	$render_node .= '<div itemprop="author">'. $n['author'] .'</div>';
+
 	if( $n['footer'] ) {
 
-		$render_node .= '<footer class="revolver__article-footer"><nav>';
+		$render_node .= '<nav>';
 
 		$render_node .= '<ul>';
 
@@ -115,13 +126,19 @@
 		}
 		else {
 
-			$render_node .= '<li><a hreflang="'. $n['language']['hreflang'] .'" title="'. $n['title'] .'" href="'. $n['route'] .'">'. TRANSLATIONS[ $ipl ]['Read More'] .' &rArr;</a></li>';
+			if( PASS[ 1 ] !== 'blog' ) {
+
+				$render_node .= '<li><a itemprop="url"'. $xalang .' title="'. $n['title'] .'" href="'. $n['route'] .'">'. TRANSLATIONS[ $ipl ]['Read More'] .' &rArr;</a></li>';
+
+			}
 
 		}
 
-		$render_node .= '</ul></nav></footer>';
+		$render_node .= '</ul></nav>';
 
 	}
+
+	$render_node .= '</footer>';
 
 	$render_node .= '</article>';
 

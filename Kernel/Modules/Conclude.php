@@ -37,12 +37,12 @@
 
 final class Conclude {
 
-	protected function __clone() {
-
-	}
-
 	/* Get template cache for defined URI */
 	public static function getCacheFile( ?iterable $f ): string {
+
+		// ToDo :: fix cache collisions
+
+		return '0';
 
 		$c = '0';
 
@@ -289,9 +289,6 @@ final class Conclude {
 
 		}
 
-		//var_dump(ROUTE);
-		//var_dump( $dir . $R .'.php' );
-
 		return $dir . $R .'.php';
 
 	}
@@ -406,7 +403,7 @@ final class Conclude {
 
 		}
 
-		$output = '<meter>' . "\n". implode( "\n", $datum ) ."\n" . '</meter>';
+		$output = '<meter value="0">' . "\n". implode( "\n", $datum ) ."\n" . '</meter>';
 
 		if( defined('ROUTE') ) {
 
@@ -450,9 +447,9 @@ final class Conclude {
 				'search', 
 				'secure', 
 				'setup', 
-				'blog', 
-				'wiki',
-				'forum',
+				//'blog', 
+				//'wiki',
+				//'forum',
 				'user', 
 				'user-d', 
 				'category-d', 
@@ -514,9 +511,9 @@ final class Conclude {
 		);
 
 		$header  = '<!DOCTYPE html>'. "\n";
-		$header .= '<html lang="'. main_language .'">'. "\n";
+		$header .= '<html lang="'. main_language .'" xmlns="http://www.w3.org/1999/xhtml" prefix="og: https://ogp.me/ns#">'. "\n";
 
-		$footer  = "\n". '<keygen class="revolver__privacy-key" data-xprivacy="'. base64_encode( '{ "xkey": "_s::'. session_id() .'"}' ) .'" />'. "\n\n";
+		$footer  = "\n". '<span class="revolver__privacy-key" data-xprivacy="'. base64_encode( '{ "xkey": "_s::'. session_id() .'"}' ) .'"></span>'. "\n\n";
 		$footer .= "\n". '</body>';
 		$footer .= "\n". '</html>' ."\n";
 
@@ -605,15 +602,13 @@ final class Conclude {
 		// Compress exceptions
 		if( $type === 'text/html' && !in_array( PASS[ 1 ], [ 
 
-			'search', 
-			'blog',
-			'forum',
+			'search',
 			'user-d', 
 			'category-d', 
 			'contents-d', 
 			'comments-d', 
-			'forum-d', '
-			forum-room-d', 
+			'forum-d', 
+			'forum-room-d', 
 			'blog-d', 
 			'blog-comments-d',
 			'wiki-d',
@@ -700,6 +695,7 @@ final class Conclude {
 			if( NF ) {
 
 				header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+
 				header('Status: 404 Not Found');
 
 			}
@@ -720,7 +716,7 @@ final class Conclude {
 		header('Connection: close');
 
 		$header  = '<!DOCTYPE html>'. "\n";
-		$header .= '<html lang="'. main_language .'">'. "\n";
+		$header .= '<html lang="'. main_language .'" xmlns="http://www.w3.org/1999/xhtml" prefix="og: https://ogp.me/ns#">'. "\n";
 
 		$footer  = "\n". '<br class="revolver__privacy-key" data-xprivacy="'. base64_encode( '{ "xkey": "_s::'. session_id() .'"}' ) .'" />'. "\n\n";
 		$footer .= "\n". '</body>';

@@ -332,11 +332,6 @@ final class Calendar {
 
 							break;
 
-						default:
-
-							$layout_td .= $flag ? ++$next_void : (int)date('d', strtotime($year .'-'. $month .' -1 month last '. $dayNamesOfWeek[ $d - 1 ] ));
-
-							break;
 
 					}
 

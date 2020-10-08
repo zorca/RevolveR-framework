@@ -487,10 +487,12 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 
 			foreach( $forum_rooms as $froom ) {
 
+				$datetime = explode( '.', str_replace( '-', '.', explode(' ', $froom['time'])[0] ) );
+
 				$forum_room_contents .= '<dl class="revolver__forum-topic-list">';
 				
 				$forum_room_contents .= '<dt>';
-				$forum_room_contents .= '<span>#'. $froom['id'] .' :: <a href="/forum/'. $forum['id'] .'/'. $froom['id'] .'/" title="Forum topic '. $froom['title'] .' by '. $froom['user'] .'">'. $froom['title'] . '</a></span> <span>by '. $froom['user'] .' at <time>'. $froom['time'] .'</time></span>';
+				$forum_room_contents .= '<span>#'. $froom['id'] .' :: <a href="/forum/'. $forum['id'] .'/'. $froom['id'] .'/" title="Forum topic '. $froom['title'] .' by '. $froom['user'] .'">'. $froom['title'] . '</a></span> <span>by '. $froom['user'] .' at <time datetime="'. $datetime[ 2 ] .'-'. $datetime[ 1 ] .'-'. $datetime[ 0 ] .'">'. $froom['time'] .'</time></span>';
 				$forum_room_contents .= '</dt>';
 				
 				$forum_room_contents .= '<dd>';

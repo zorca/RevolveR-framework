@@ -6,23 +6,26 @@ $render_node .= '<ul>';
 // Links 
 $render_node_links = '';
 
+// Bind link root
+$link_root = PASS[ 1 ] === 'blog' ? '/blog/' : '/';
+
 // Limit pages per section
 $limit = 5;
 
 for( $i = 1; $i <= $pages_count; $i++ ) {
 
-	$link = $i === 1 ? '/' : '/?page='. $i; 
+	$link = $i === 1 ? $link_root : $link_root . '?page='. $i; 
 
 	if( $i >= 1 ) {
 
 		if( (int)pagination['curent'] + 1 === 1 ) {
 
-			$prev_link = '/';
+			$prev_link = $link_root;
 
 		}
 		else {
 
-			$prev_link = ((int)pagination['curent'] <= 1 ? '/' : (int)pagination['curent'] - 1 === 1) ? '/' : '/?page='. ((int)pagination['curent'] - 1);
+			$prev_link = ((int)pagination['curent'] <= 1 ? $link_root : (int)pagination['curent'] - 1 === 1) ? $link_root : $link_root . '?page='. ((int)pagination['curent'] - 1);
 
 		}
 
@@ -43,7 +46,7 @@ for( $i = 1; $i <= $pages_count; $i++ ) {
 
 		}
 
-		$next_link = pagination['curent'] >= $pages_count ? '/' : '/?page='. $nextFixed;
+		$next_link = pagination['curent'] >= $pages_count ? $link_root : $link_root . '?page='. $nextFixed;
 
 		$render_node_next = pagination['curent'] >= $pages_count ? '' : '<li><a href="'. $next_link .'"><span>⇒</span></a></li>';
 

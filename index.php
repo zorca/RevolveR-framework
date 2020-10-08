@@ -6,7 +6,7 @@
   *
   * Contents Management Framework
   *
-  * v.1.9.4
+  * v.1.9.4.5
   * 
   *
   *
@@ -255,7 +255,8 @@ define('KERNEL_CONFIG', [
 # READ KERNEL CONFIG
 foreach( KERNEL_CONFIG['Parts']['Kernel#0'] as $KPart ) {
 
-  	require_once( $KPart['directory'] . $KPart['file'] .'.php' );
+  # COMPARE K-PARTS
+  require_once( $KPart['directory'] . $KPart['file'] .'.php' );
 
 }
 

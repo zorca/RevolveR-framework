@@ -44,7 +44,7 @@ if( isset(SV['g']['query']) ) {
 
   $output .= '<p>'. TRANSLATIONS[ $ipl ]['Search for'] .' <b>'. $qs .'</b>.</p>';
 
-  $output .= '<ul>';
+  $output .= '<ol>';
 
   function search( string $qs, iterable $v, string $m ): string {
 
@@ -59,7 +59,7 @@ if( isset(SV['g']['query']) ) {
 
     }
 
-      $output = '<li>'. TRANSLATIONS[ 'EN' ][ $m ] .':: <a href="'. $url .'" title="'. $v['description'] .'">'.  str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['title'] ) .'</a><span>'. str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['description'] ) .'</span>';
+      $output = '<li><a href="'. $url .'" title="'. $v['description'] .'">'.  str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['title'] ) .'</a><em>'. $v['time'] .'</em><span>'. TRANSLATIONS[ 'EN' ][ $m ] .' › '.  str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['description'] ) .'</span>';
 
       $replace = trim(
 
@@ -116,11 +116,14 @@ if( isset(SV['g']['query']) ) {
 
       foreach( $snippet as $snip ) {
 
-        $length = strlen( $snip ) * .3;
+        $length  = strlen( $snip ) * .3;
+
+        $xlength = strlen( explode( $qs, $snip )[0] ); 
+
 
         if( $c % 2 !== 0 ) {
 
-          $highlight_1 = substr( $snip, $length, 0 );    
+          $highlight_1 = substr( $snip, $xlength * .3, $xlength );
 
         }
         else {
@@ -133,7 +136,7 @@ if( isset(SV['g']['query']) ) {
 
       }
 
-      return $output . '<dfn>... '. $highlight_1 . '<mark>'. $qs .'</mark>'. preg_replace('/[\x{10000}-\x{10FFFF}]/u', '\xEF\xBF\xBD', $highlight_2) .' :: <span>'. $v['time'] .'</span> ...</dfn></li>';
+      return $output . '<dfn class="revolver__search-snippet">... '. preg_replace("#[^а-яА-ЯA-Za-z:;._,? -]+#u", '', $highlight_1) . '<mark>'. $qs .'</mark>'. preg_replace("#[^а-яА-ЯA-Za-z:.;_,? -]+#u", '', $highlight_2) .' ...</dfn></li>';
 
   }
 
@@ -234,7 +237,7 @@ if( isset(SV['g']['query']) ) {
 
   }
 
-  $output .= '</ul>';
+  $output .= '</ol>';
 
   $output .= '<p>'. TRANSLATIONS[ $ipl ]['Search for'] .' <b>'. $qs .'</b>.</p>';
 

@@ -3,7 +3,7 @@
  /*
   * RevolveR CMF Kernel
   *
-  * v.1.9.4
+  * v.1.9.4.5
   *
   *			          ^
   *			         | |
@@ -32,7 +32,7 @@
   */
  
 // Kernel version
-define('rr_version', '1.9.4');
+define('rr_version', '1.9.4.5');
 
 // X64 guest number
 define('BigNumericX64', 9223372036854775806);
@@ -523,7 +523,7 @@ if( (bool)strlen( $db_config ) ) {
 	}
 	else {
 
-		if( RQST === '/' ) {
+		if( RQST === '/' || PASS[ 1 ] === 'blog' ) {
 
 			define('pagination', [
 
@@ -778,7 +778,6 @@ if( INSTALLED ) {
 	$authFlag = (int)USER['id'] !== (int)BigNumericX64 ? true : null;
 
 }
-
 
 /* Redirected notifications */
 if( SV ) {

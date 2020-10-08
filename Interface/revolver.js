@@ -3,7 +3,7 @@
   *
   * RevolveR CMF interface :: ECMA Script 7
   *
-  * v.1.9.3
+  * v.1.9.4
   *
   * RevolveR ECMA Script is a fast, simple and
   *
@@ -529,7 +529,7 @@
 
 				attr: {
 
-					style: 'position: fixed; width: 100%; height: 100%; background: rgba(60, 60, 60, .8) url("/Interface/preloader.svg") 50% 50% no-repeat; z-index: 100000',
+					style: 'position: fixed; width: 100%; height: 100%; background: repeating-linear-gradient(45deg, transparent, transparent .1vw, #ffffff45 .1vw, #b7754594 .25vw), linear-gradient(to bottom, #eeeeee5c, #bfbfbf1a), transparent url("/Interface/preloader.svg") 50% 50% no-repeat; z-index: 100000',
 					class: 'preloader'
 
 				}
@@ -788,64 +788,27 @@
 		// Parallaxing Effects core
 		parallaxBlocks: ( t ) => {
 
-			const Article = t ? [ t ] : R.sel('article');
+			const blocks = RR.isO( t ) || RR.isA( t ) ? t : [ t ];
 
-			if( t ) {
+			R.reParallax();
 
-				for( prlx of t.querySelectorAll('.parallax-1, .parallax-2') ) {
+			if( RR.isO(blocks) && blocks ) {
 
-					prlx.outerHTML = '';
+				setTimeout(() => {
 
-				}
+					for( let parallax of blocks ) {
 
-			} 
-			else {
+						RR.styleApply( [ parallax ], ['position: relative'], () => {
 
-				for( prlx of R.sel('article')[0].querySelectorAll('.parallax-1, .parallax-2') ) {
+							parallax.innerHTML = '<table class="parallax-1" style="position: absolute; height:'+ parallax.offsetHeight +'px; width:'+ parallax.offsetWidth +'px;"></table><table class="parallax-2" style="position: absolute; height:'+ parallax.offsetHeight +'px; width:'+ parallax.offsetWidth +'px;"></table>' + parallax.innerHTML;
 
-					prlx.outerHTML = '';
+							RR.event( [ parallax ], 'mousemove', (e) => {
 
-				}
+								RR.styleApply('.parallax-1', ['left:'+ ( (e.screenX / 90) + (e.screenX / 92) ) *-1 +'px', 'top:'+ (e.screenY / 90) * -1 +'px'], () => {
 
-			}
-
-			setTimeout(() => {
-
-				if( Article ) {
-
-					for( let parallax of Article ) {
-
-						R.styleApply( [ parallax ], ['position: relative'], () => {
-
-							parallax.innerHTML = '<table class="parallax-1" style="position: absolute; height:'+ parallax.offsetHeight +'px"></table><table class="parallax-2" style="position: absolute; height:'+ parallax.offsetHeight +'px"></table>' + parallax.innerHTML;
-
-							R.event( [ parallax ], 'mousemove', (e) => {
-
-								R.styleApply('.parallax-1', ['left:'+ ( (e.screenX / 90) + (e.screenX / 92) ) *-1 +'px', 'top:'+ (e.screenY / 90) * -1 +'px'], () => {
-
-									R.styleApply('.parallax-2', ['left:'+ ( (e.screenX / 90) + (e.screenX / 92) ) +'px', 'top:'+ (e.screenY / 90) +'px']);
-
-									setTimeout(() => {
-
-										if( R.parallaxReturn ) {
-
-											if( R.sel('.parallax-1, .parallax-2') ) {
-
-												R.animate('.parallax-1, .parallax-2', ['top:0px:1000:elastic', 'left:0px:1000:elastic'], () => {
-
-													R.parallaxReturn = null;
-
-												});
-
-											}
-
-										}
-
-									}, 30000);
+									RR.styleApply('.parallax-2', ['left:'+ ( (e.screenX / 90) + (e.screenX / 92) ) +'px', 'top:'+ (e.screenY / 80) +'px']);
 
 								});
-
-								R.parallaxReturn = true;
 
 							});
 
@@ -853,9 +816,93 @@
 
 					}
 
+				}, 1000);
+
+			}
+
+		},
+
+		reParallax: ( relax = 'article' )  => {
+
+			setTimeout(() => {
+
+				for( let plax of R.sel( relax ) ) {
+
+					for( let block of plax.querySelectorAll('.parallax-1, .parallax-2') ) {
+
+						RR.animate([ block ], ['height:0px:150:linear'], () => {
+
+							RR.animate([ block ], ['height:'+ plax.offsetHeight +'px:2000:elastic'] );
+
+						});
+
+					}
+
 				}
 
-			}, 2000);
+			}, 500);
+
+		},
+
+		// Lazy load future
+		lazyLoad: () => {
+
+			let list = R.sel('img[data-src]');
+
+			R.lazyList = [];
+
+			if( list ) {
+
+				for( let p of list ) {
+
+					R.lazyList.push([ p, 0 ]);
+
+				};
+
+			}
+
+			if( R.lazyList ) {
+
+				let lazy = () => {
+
+					for( let l of R.lazyList ) {
+
+						if( l[1] === 0 ) {
+
+							if( l[0].offsetTop < ( self.innerHeight + self.pageYOffset + 450 ) ) {
+
+								l[0].src = l[0].dataset.src;
+
+								l[1] = 1;
+
+								l[0].style = 'opacity: 0; transform: scale(.1, .1, .1);';
+
+								setTimeout(() => {
+
+									R.animate([ l[0] ], ['opacity:1:1400:wobble', 'transform:scale(1, 1, 1):1650:elastic'] );
+
+									l[0].className = 'lazy-preload';
+
+									R.reParallax();
+
+
+								}, 500);
+
+								console.log( 'Lazy load :: '+ l[0].src );
+
+							}
+
+						}
+
+					}
+
+				};
+
+				R.event(self, 'scroll', lazy);
+
+				R.event(self, 'resize', lazy);
+
+			}
 
 		},
 
@@ -1343,12 +1390,12 @@
 
 								let tObserver = null;
 
-								let eObserved = R.sel('.revolver__new-fetch');
+								let eObserved = RR.sel('.revolver__new-fetch');
 
 								// Type observer future 
 								// prevent preview loading 
 								// while typewriting or formating
-								R.event(eObserved, 'click', (e) => {
+								RR.event(eObserved, 'click', (e) => {
 
 									if( e.isTrusted ) {
 
@@ -1360,13 +1407,13 @@
 
 											locked = null;
 
-										}, 5000);
+										}, 3000);
 
 									}
 
 								});
 
-								R.event(eObserved, 'keydown', (e) => {
+								RR.event(eObserved, 'keydown', (e) => {
 
 									if( e.isTrusted ) {
 
@@ -1378,13 +1425,13 @@
 
 											locked = null;
 
-										}, 5000);
+										}, 3000);
 
 									}
 
 								});
 
-								R.event(eObserved, 'keyup', (e) => {
+								RR.event(eObserved, 'keyup', (e) => {
 
 									if( e.isTrusted ) {
 
@@ -1396,7 +1443,7 @@
 
 											locked = null;
 
-										}, 5000);
+										}, 3000);
 
 									}
 
@@ -1643,15 +1690,15 @@
 
 															if( e.isTrusted ) {
 
-																R.styleApply([this.parentElement], ['display:none'], () => {
+																RR.styleApply([this.parentElement], ['display:none'], () => {
 
-																	R.animate(this.parentElement.parentElement.children, ['height:0px:500:elastic']);
+																	RR.animate(this.parentElement.parentElement.children, ['height:0px:500:elastic']);
 
-																	R.animate([this.parentElement.parentElement], ['height:0px:1500:wobble', 'color:rgba(255,255,255,.1):700:elastic', 'opacity:0:1000:harmony']);
+																	RR.animate([this.parentElement.parentElement], ['height:0px:1500:wobble', 'color:rgba(255,255,255,.1):700:elastic', 'opacity:0:1000:harmony']);
 
 																	void setTimeout(() => {
 
-																		R.rem([this.parentElement.parentElement]);
+																		RR.rem([this.parentElement.parentElement]);
 
 																	}, 1300);
 
@@ -1664,6 +1711,8 @@
 													}
 
 													RR.animate(preview, ['opacity:.9:2500:flicker'], () => {
+
+														RR.reParallax();
 
 														if( RR.isset(preview[1]) ) {
 
@@ -1862,7 +1911,7 @@
 
 			let t = RR.htmlObj(e);
 
-			if( t ) {
+			if( t && !RR.isM ) {
 
 				let y = t[0].offsetTop - t[0].offsetHeight - 50;
 
@@ -1907,11 +1956,7 @@
 
 						RR.animate([expander], ['opacity:1:2000:linear','transform:scale(1,1,1):2000:elastic'], () => {
 
-							for( prlx of expander.closest('article').querySelectorAll('.parallax-1, .parallax-2') ) {
-
-								prlx.outerHTML = '';
-
-							}
+							R.reParallax();
 
 							RR.callback(expander, c, [true]);
 
@@ -1928,11 +1973,7 @@
 
 							RR.styleApply([expander], ['overflow: hidden', 'height:0px']);
 
-							for( prlx of expander.closest('article').querySelectorAll('.parallax-1, .parallax-2') ) {
-
-								prlx.outerHTML = '';
-
-							}
+							R.reParallax();
 
 							RR.callback(expander, c, [null]);
 
@@ -2504,6 +2545,8 @@
 			var e = RR.htmlObj(e);
 			var p = RR.htmlObj(p +'[data-content]');
 
+			R.reParallax();
+
 			RR.event(e, 'click', function(evt) {
 
 				evt.preventDefault();
@@ -2513,9 +2556,9 @@
 					RR.attr(t +' .tabactive', { 'class': null, 'style': 'visibility:hidden' });
 					RR.attr(t +' .activetab', { 'class': null });
 
-					for (let i of p) {
+					for( let i of p ) {
 
-						if (i.hasAttribute('data-content')) {
+						if( i.hasAttribute('data-content') ) {
 
 							if (RR.attr(i, 'data-content')[0] === RR.attr(this, 'data-link')[0]) {
 
@@ -2527,6 +2570,8 @@
 						}
 
 					}
+
+					R.reParallax();
 
 				}
 
@@ -4235,7 +4280,7 @@
 		stripNum: (v) => +v.replace(/\D+/g, '') - 0,
 
 		// Check of object is type of html object
-		htmlObj: (e) => RR.isO(e) ? e : R.sel(e),
+		htmlObj: (e) => RR.isO(e) ? e : RR.sel(e),
 
 		// Isset 
 		isset: (v) => !RR.isU(v) && v !== null ? true : null,
@@ -4344,6 +4389,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 		document.querySelector('.preloader').outerHTML = '';
 
-	}, 2000);
+	}, 1000);
 
 });

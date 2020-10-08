@@ -45,6 +45,8 @@ if( in_array(ROLE, ['Admin', 'Writer', 'User'], true) ) {
 
 		$action = null;
 
+		$subscribe = null;
+
 		$published = 0;
 
 		$contents = '';
@@ -157,6 +159,16 @@ if( in_array(ROLE, ['Admin', 'Writer', 'User'], true) ) {
 
 	}
 
+	if( isset(SV['p']['revolver_comment_subscription']) ) {
+
+		if( (bool)SV['p']['revolver_comment_subscription']['valid'] ) {
+
+			$subscribe = true;
+
+		}
+
+	} 
+
 	if( $action === 'edit' ) {
 
 		if( $advanced_action === 'delete' ) {
@@ -212,7 +224,176 @@ if( in_array(ROLE, ['Admin', 'Writer', 'User'], true) ) {
 
 		]);
 
-		header( 'Location: '. site_host . $node_route .'?notification=comment-added^' . 'not-subscribed');
+			$email_users = iterator_to_array(
+
+				$model::get( 'users', [
+
+					'criterion' => 'id::'. $user_id,
+
+					'bound'		=> [
+
+						1
+
+					],
+
+					'course'	=> 'forward',
+					'sort'		=> 'id'
+
+				])
+
+			)['model::users'];
+
+			if( $email_users ) {
+
+				$user_id_to = $email_users[0]['id'];
+				$user_email = $email_users[0]['email'];
+				$user_name  = $email_users[0]['nickname'];
+
+				$email  = '<p>'. TRANSLATIONS[ $ipl ]['Posted'];
+
+				$email .= ' <a title="'. TRANSLATIONS[ $ipl ]['new comment'] .'" href="'. site_host . $node_route .'">';
+
+				$email .= TRANSLATIONS[ $ipl ]['new comment'];
+
+				$email .= '</a>!</p>';
+
+				$mail::send( 
+
+					$email_users[0]['email'], TRANSLATIONS[ $ipl ]['New comment for you contents'], $email
+
+				);
+
+			}
+
+			$notify = iterator_to_array(
+
+				$model::get( 'blog_subscriptions', [
+
+					'criterion'	=> 'node_id::'. $node_id,
+					'course'	=> 'backward',
+					'sort'		=> 'id'
+
+				])
+
+			)['model::blog_subscriptions'];
+
+			$subscribed = null;
+
+			if( $notify ) {
+
+				foreach( $notify as $n ) {
+
+					if( $n['user_email'] === $user_email ) {
+
+						if( $subscribe ) {
+
+							if( !$subscribed ) {
+
+								// Update if exist
+								$model::set('blog_subscriptions', [
+
+									'id'			=> $n['id'],
+									'user_id'		=> $user_id,
+									'node_id'		=> $node_id,
+
+									'user_name'		=> $user_name,
+									'user_email'	=> $user_email,
+
+									'criterion'		=> 'id'
+
+								]);
+
+								$subscribed = true;
+
+							}
+
+						}
+						else {
+
+							// Delete if exist
+							$model::erase('blog_subscriptions', [
+
+								'criterion' => 'id::'. $n['id']
+
+							]);
+
+							$subscribed = null;
+
+						}
+
+					}
+
+				}
+
+			}
+
+			if( $subscribe ) {
+
+				if( !$subscribed ) {
+
+					// Add if not exist
+					$model::set('blog_subscriptions', [
+
+						'user_id'		=> $user_id,
+						'node_id'		=> $node_id,
+
+						'user_name'		=> $user_name,
+						'user_email'	=> $user_email
+
+					]);
+
+				}
+
+			}
+
+			$model::set('messages', [
+
+				'user_id'	=> $user_id,
+				'to'		=> $user_name,
+				'from'		=> 'Administrator',
+
+				'message'	=> $markup::Markup(
+
+					htmlspecialchars_decode( 
+
+						html_entity_decode( 
+
+							'<p>'. TRANSLATIONS[ $ipl ]['Hello'] .', '. $user_name .'! '. TRANSLATIONS[ $ipl ]['Posted'] .' <a title="'. TRANSLATIONS[ $ipl ]['new comment'] .'" href="'. $node_route .'">'. TRANSLATIONS[ $ipl ]['new comment'] .'</a>!</p>'
+
+						)
+
+					)
+					
+				),
+
+				'time' => date('d.m.Y h:m')
+
+			]);
+
+			// Send subscription notification
+			if( $notify ) {
+
+				foreach( $notify as $n ) {
+
+					$notification  = '<p>'. TRANSLATIONS[ $ipl ]['Posted'] .' <a title="'. TRANSLATIONS[ $ipl ]['new comment'] .'" href="'. site_host . $node_route .'">';
+					$notification .= TRANSLATIONS[ $ipl ]['new comment'];
+					$notification .= '</a>!</p>';
+
+					$mail::send( 
+
+						$n['user_email'],
+
+						$n['user_name'] .'! '. TRANSLATIONS[ $ipl ]['New comment for you subscription'], 
+
+						$notification
+
+					);
+
+				}
+
+			}
+
+		header( 'Location: '. site_host . $node_route .'?notification=comment-added^' . ($subscribed ? 'subscribed' : 'not-subscribed'));
 
 	}
 

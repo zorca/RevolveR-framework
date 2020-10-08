@@ -710,11 +710,15 @@ final class SecureVariablesDispatcher {
 
 		return trim(
 
-				stripslashes(
+				//strip_tags(
 
-					htmlspecialchars( $v )
+					stripslashes(
 
-				)
+						htmlspecialchars( $v )
+
+					)
+
+				//)
 
 			);
 

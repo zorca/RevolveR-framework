@@ -19,11 +19,11 @@
 	background-position-y: -.5vw !important;
 	background-position-x: 1vw !important;
 	background-size: 82% !important;
-	width: 5vw;
-	height: 3vw;
 	transform: scale(.4);
 	position: absolute;
 	left: -4.1vw;
+	height: 3vw;
+	width: 5vw;
 	top: -.9vw;
 
 }
@@ -81,14 +81,16 @@
 
 }
 
-.revolver__mobile-friendly .revolver__scalable-main .article-id-categories .state-attribution {
+.revolver__mobile-friendly .revolver__scalable-main .article-id-categories .state-attribution,
+.revolver__mobile-friendly .revolver__scalable-main .article-id-wiki .state-attribution {
 
 	left: 14.8vw !important;
 	top: 0vw !important;
 
 }
 
-.article-id-categories .state-attribution {
+.article-id-categories .state-attribution,
+.article-id-wiki .state-attribution {
 
 	left: 8vw !important;
 
@@ -96,14 +98,14 @@
 
 .revolver__mobile-friendly .revolver__scalable-main .article-id-dashboard .state-attribution {
 
-	left: 17.6vw !important;
+	left: 30vw !important;
 	top: .3vw !important;
 
 }
 
 .revolver__mobile-friendly .revolver__scalable-main .article-id-create .state-attribution {
 
-	left: 23.2vw !important;
+	margin-left: 14vw !important;
 	top: .3vw !important;
 
 }

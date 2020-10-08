@@ -1,10 +1,16 @@
 
 <!-- RevolveR :: header -->
-<header class="revolver__header <?php print $auth_class; ?>">
+<header itemscope itemtype="http://schema.org/Organization" class="revolver__header <?php print $auth_class; ?>">
 
-	<h1 class="revolver__logo">
+	<h1 class="revolver__logo" rel="banner">
 
-		<a title="<?php print DESCRIPTION; ?>" href="<?php print site_host ?>"><?php print $brand; ?></a>
+		<a itemprop="url" title="<?php print DESCRIPTION; ?>" href="<?php print site_host ?>">
+
+			<span itemprop="name"><?php print $brand; ?></span>
+
+		</a>
+
+		<link itemprop="logo" href="/Interface/RCMF.svg" />
 
 	</h1>
 
@@ -19,14 +25,19 @@
 
 	</div>
 
+	<!-- RevolveR :: site description -->
+	<h2 itemprop="description" class="revolver__site-description"><?php print $descr; ?></h2>
+
 </header>
 
 <section class="revolver__nav-bar">
 
-	<!-- main menu -->
-	<?php include('Menu.php'); ?>
+	<?php require('Menu.php'); ?>
 
-	<!-- RevolveR :: site description -->
-	<h2 class="revolver__site-description"><?php print DESCRIPTION; ?></h2>
+</section>
+
+<section class="revolver__breadcrumb">
+
+	<?php require('Breadcrumb.php') ?>
 
 </section>

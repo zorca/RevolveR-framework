@@ -2,7 +2,7 @@
 /* 
  * RevolveR CMF main interface
  *
- * v.1.9.3
+ * v.1.9.4
  *
  *
  *			          ^
@@ -54,20 +54,27 @@ html {
 h1, h2,
 h1 a, h2 a {
 
-	text-shadow: -1px 0 2px #fcfcfc;	
+	text-shadow: -.05vw 0 .1vw #fcfcfc;
+	font-stretch: ultra-condensed;	
 	font-family: Arial;
-	font-size: 20px;
 
 }
 
 p {
 
 	hyphens: auto;
-	font-size: 16px;
-	letter-spacing: 1px;
+	letter-spacing: .05vw;
 	word-wrap: break-word;
 	text-rendering: optimizeLegibility;
 	font-family: Helvetica, Arial, sans-serif;
+
+}
+
+mark {
+
+	background: #fb92af;
+	border-radius: .3vw;
+	padding: 0 .3vw;
 
 }
 
@@ -167,7 +174,7 @@ article {
 .parallax-1,
 .parallax-2 {
 
-	border: .1vw dashed #ffffff;
+	border: .1vw dashed #c17d36e3;
 	position: absolute;
 	display: block;
 
@@ -180,7 +187,7 @@ article {
 
 .parallax-1 {
 
-	background: repeating-linear-gradient(45deg, transparent, transparent .1vw, #ffffff45 .1vw, #a8b9a894 .25vw), linear-gradient(to bottom, #eeeeee5c, #bfbfbf1a);
+	background: repeating-linear-gradient(45deg, transparent, transparent .1vw, #ffffff45 .1vw, #b7754594 .25vw), linear-gradient(to bottom, #eeeeee5c, #bfbfbf1a);
 	border-right: none;
 	border-top: none;
 
@@ -188,7 +195,7 @@ article {
 
 .parallax-2 {
 
-	background: repeating-linear-gradient(-45deg, transparent, transparent .1vw, #ffffff45 .1vw, #a8b9a894 .25vw), linear-gradient(to top, #eeeeee5c, #bfbfbf1a);
+	background: repeating-linear-gradient(-45deg, transparent, transparent .1vw, #ffffff45 .1vw, #b7754594 .25vw), linear-gradient(to top, #eeeeee5c, #bfbfbf1a);
 	border-bottom: none;
 	border-left: none;
 
@@ -202,9 +209,9 @@ body {
 #RevolverRoot {
 
 	position: relative;
+	margin: 0 auto;
 	width: 1440px;
 	z-index: 1000;
-	margin: 0 auto;
 
 }
 
@@ -332,14 +339,6 @@ body {
 
 }
 
-#RevolverRoot .revolver__terminal-session-store ul li:even {
-
-}
-
-#RevolverRoot .revolver__terminal-session-store ul li:odd {
-
-}
-
 /* Globals */
 .published {
 
@@ -370,17 +369,17 @@ body {
 
 .revolver__tabs {
 
-	width: 100%;
 	margin: 2vw auto 0;
+	width: 100%;
 
 }
 
 	.revolver__tabs li {
 
 		text-shadow: -.1vw .1vw .2vw #dcdcdc !important;
+		font: normal 1.1vw 'Verdana' !important;
 		border-radius: .7vw .7vw 0 0;
 		padding: 1.2vw 1.5vw;
-		font: normal 1.1vw 'Verdana' !important;
 		letter-spacing: .1vw;
 		margin: 0 .4vw 0 0;
 		color: #8675bc;
@@ -405,9 +404,9 @@ body {
 
 		.revolver__tabs form div {
 
-			width: auto;
 			padding: 4vw 4vw 2vw 2vw;
 			margin: 0 1vw 2vw 0;
+			width: auto;
 
 		}
 
@@ -443,11 +442,11 @@ body {
 #RevolverRoot .revolver__users-list h2 {
 
 	background: linear-gradient(to left, rgba(228, 228, 228, 0.24) 0%, rgba(225, 220, 198, 0.74) 100%);
-	border-bottom: 1px dashed #7777776b;
-	border-left: 1px dashed #7777776b;
+	font: bold .9vw Verdana, sans-serif;
+	border-bottom: .1vw dashed #7777776b;
+	border-left: .1vw dashed #7777776b;
 	text-shadow: 0 0 .1vw #fff;
 	padding: .5vw 0 .5vw .8vw;
-	font: bold .9vw Verdana, sans-serif;
 	letter-spacing: .2vw;
 	margin: .5vw 0 2vw;
 	color: #77441fb3;
@@ -484,12 +483,10 @@ body {
 #RevolverRoot .revolver__user-info {
 
 	display: inline-block;
-	margin: 0.2vw 0;
-	padding: 0 2vw;
-
 	padding-right: 0;
 	margin-right: 0;
-
+	margin: 0.2vw 0;
+	padding: 0 2vw;
 	width: 82vw;
 
 }
@@ -497,12 +494,12 @@ body {
 #RevolverRoot .revolver__tabs .revolver__user-info li {
 
 	line-height: 2vw !important;
+	overflow-x: hidden;
 	text-align: left;
 	border-radius: 0;
 	display: block;
 	padding: 0;
 
-	overflow-x: hidden;
 
 }
 
@@ -510,23 +507,14 @@ body {
 
 	/* -25deg (!) */
 	background: linear-gradient(to left, rgba(228, 228, 228, 0.24) 0%, rgb(204, 204, 204) 100%), #fff repeating-linear-gradient(45deg, transparent, transparent .01vw, #aeaeae69 .01vw, #ffffff75 .5vw);
-
 	transition: all .7s ease-in-out;
-
 	border: .1vw dashed #a2a2a278;
-
 	list-style-type: square;
-
-	line-height: 2vw;
-
-	padding: .2vw 1vw;
-
-	color: #277d97de;
-
-	margin: .5vw 0;
-
 	position: relative;
-
+	padding: .2vw 1vw;
+	line-height: 2vw;
+	color: #277d97de;
+	margin: .5vw 0;
 	z-index: 1000;
 
 }
@@ -541,11 +529,8 @@ body {
 .revolver__user-info li .marker {
 
 	text-shadow: 0 0 .1vw #fff;
-
 	letter-spacing: .2vw;
-
 	font-family: Tahoma;
-
 	color: #623d8fcc;
 
 }
@@ -553,9 +538,7 @@ body {
 .revolver__user-info li strong {
 
 	text-shadow: -.2vw .2vw .1vw #a6a6a65e;
-
 	float: right;
-
 	color: #777;
 
 }
@@ -563,11 +546,8 @@ body {
 .revolver__user-info-avatar {
 
 	box-shadow: .8vw 1vw .5vw #40404045;
-
 	margin-left: 2vw;
-
 	float: left;
-
 	width: 5vw;
 
 }
@@ -626,25 +606,25 @@ h4.revolver__collapse-form-legend ~ .revolver__collapse-form-contents {
 
 	.revolver__allowed-files-description-table .revolver__table-header {
 
-		padding: .3vw 0;
 		background: #dcdcdc !important;
+		padding: .3vw 0;
 
 	}
 
 		.revolver__allowed-files-description-table .revolver__table-header span {
 
-			font-weight: bold;
 			color: #000 !important;
+			font-weight: bold;
 
 		}
 
 	.revolver__allowed-files-description-table li,
 	.revolver__allowed-files-description-table li:hover {
 
-		display: table-row;
-		width: 100%;
 		box-shadow: none !important;
 		border: 0 !important;
+		display: table-row;
+		width: 100%;
 
 	}
 
@@ -716,22 +696,22 @@ fieldset legend::before {
 
 .revolver__collapse-form-legend::before { 
 
-	float: left;
 	margin-right: .5vw;
+	float: left;
 
 }
 
 .revolver__collapse-form-legend.collapse-expanded::after {
 
-	float: right;
 	transform: rotate(90deg);
+	float: right;
 
 }
 
 .revolver__collapse-form-legend.collapse-expanded::before {
 
-	float: left;
 	transform: rotate(-90deg);
+	float: left;
 
 }
 
@@ -762,8 +742,8 @@ fieldset legend::before {
 
 .revolver__form-option-target {
 
-	top: -1.5vw;
 	position: relative;
+	top: -1.5vw;
 
 }
 
@@ -782,14 +762,14 @@ fieldset legend::before {
 
 .styled-select .revolver__form-options-container .revolver__form-option-replacer {
 
-	display: block;
-	border-radius: .5vw;
-	font-size: 1.2vw;
-	padding: 1vw;
-	width: auto !important;
 	box-shadow: none !important;
 	color: inherit !important;
 	background: transparent;
+	width: auto !important;
+	border-radius: .5vw;
+	font-size: 1.2vw;
+	display: block;
+	padding: 1vw;
 
 	font-size: calc(1.2vw * var(--scale-factor));
 
@@ -839,9 +819,9 @@ fieldset legend::before {
 .captcha_pattern_2 {
 
 	display: inline-block;
+	transform: scale(1.5);
 	margin-right: 2vw;
 	margin-top: 1.8vw;
-	transform: scale(1.5);
 
 }
 
@@ -856,48 +836,48 @@ fieldset legend::before {
 
 .revolver__captcha {
 
-	height: 10vw;
 	padding-left: 3vw;
+	height: 10vw;
 
 }
 
 .revolver__captcha-pattern {
 
-	margin-top: 1vw;
 	margin-bottom: 1vw;
 	text-align: center;
+	margin-top: 1vw;
 
 }
 
 .revolver__captcha #drawpane {
 
-	width: 5vw;
-	height: 5vw;
-	display: grid;
 	grid-template-columns: repeat(4, 1.2vw);
-	grid-auto-rows: 1.2vw;
 	grid-column-gap: .05vw;
+	grid-auto-rows: 1.2vw;
 	grid-row-gap: .05vw;
-	margin: 0 auto;
-	top: .1vw; 
+
 	position: relative;
+	margin: 0 auto;
+	display: grid;
+	height: 5vw;
+	width: 5vw;
+	top: .1vw; 
 
 }
 
 .revolver__captcha canvas {
 
-	width: 5vw;
-	height: 5vw;
 	display: inline-block;
-
+	height: 5vw;
+	width: 5vw;
 }
 
 .revolver__captcha #drawpane div {
 
-	background: #a2a2a2;
-	display: inline-block;
-	cursor: pointer;
 	transition: all .5s ease-in-out;
+	display: inline-block;
+	background: #a2a2a2;
+	cursor: pointer;
 
 }
 
@@ -1155,7 +1135,8 @@ fieldset legend::before {
 .revolver__status a,
 .revolver__notice a {
 
-	text-decoration: none;
+	text-decoration: underline;
+	color: #d40404;
 
 }
 
@@ -1172,6 +1153,29 @@ fieldset legend::before {
 		vertical-align: middle;
 		display: table-cell;
 		padding: 0 1vw 0 0;
+
+	}
+
+	.revolver__mobile-friendly .revolver__logo {
+
+		position: relative;
+		top: -1.6vw;
+
+	}
+
+	@media (orientation: landscape) {
+
+		.revolver__mobile-friendly .revolver__logo {
+
+			top: -1vw;
+
+		}
+
+	}
+
+	.revolver__mobile-friendly .revolver__site-description {
+
+		display: none;
 
 	}
 
@@ -1235,14 +1239,21 @@ fieldset legend::before {
 	/* Animate slogan */
 	.revolver__site-description {
 
+		transform: skewX(-15deg) translate(-.5vw, 0);
 		text-shadow: -.1vw -.1vw 0 #375733;
+		outline: .2vw dashed #ffffff57;
+		border: .1vw dashed #8a9686b0;
+		font-stretch: ultra-condensed;
 		letter-spacing: .2vw;
+		background: #d6d6d6;
+		position: absolute;
 		color: #86868685;
 		font-size: 1.4vw;
-		position: absolute;
-		right: 2vw;
-		top: 9vw;
+		z-index: 300000;
+		padding: 1vw;
 		opacity: .3;
+		right: 2vw;
+		top: 7vw;
 
 	}
 
@@ -1337,21 +1348,94 @@ fieldset legend::before {
 
 		padding: .4vw .8vw !important;
 		text-shadow: 0 .1vw #fff;
+		display: none !important;
 		margin: 0 0 0 .4vw;
 		font-size: .9vw;
-		display: none !important;
 
 	}
 
 .revolver__nav-bar {
 
+	position: relative;
 	margin: 0 auto;
-	width: 96vw;
 	display: table;
 	padding: 0 2%;
 	height: 4.2vw;
+	width: 96vw;
+	z-index: -1;
 
 }
+	
+	/* RevolveR :: breadcrumb styles */
+	.revolver__breadcrumb {
+
+		margin: -1vw auto 1vw;
+		position: relative;
+		display: table;
+		padding: 0 2%;
+		height: 2.2vw;
+		width: 95vw;
+
+	}
+
+	.revolver__main-breadcrumb {
+
+		vertical-align: middle;
+		display: table-cell;
+
+	}
+
+		.revolver__main-breadcrumb ul {
+
+			list-style: none;
+			display: block;
+
+			font-size: calc(.8vw * var(--scale-factor));
+
+		}
+
+			.revolver__mobile-friendly .revolver__main-breadcrumb ul {
+
+				margin: 1.4vw;
+				font-size: calc(.5vw * var(--scale-factor));
+
+			}
+
+			.revolver__main-breadcrumb ul li {
+
+				display: inline-block;
+				list-style: none;
+
+			}
+
+				.revolver__main-breadcrumb ul li a {
+
+					color: #006400cf;
+					text-decoration: none;
+					text-shadow: 0 0 #fff;
+
+				}
+
+				.revolver__main-breadcrumb ul li a:hover {
+
+					color: #006400cf;
+					text-decoration: underline;
+
+				}
+
+				.revolver__main-breadcrumb ul li span {
+
+					font-weight: bold;
+					color: #666c;
+
+				}
+
+				.revolver__main-breadcrumb ul li em {
+
+					font-weight: normal;
+					color: #333;
+
+				}
 
 	/* RevolveR :: main menues styles */
 	.revolver__main-menu {
@@ -1366,26 +1450,38 @@ fieldset legend::before {
 
 	.revolver__nav-bar .revolver__main-menu  {
 
+		padding: 1vw 1vw 1vw 0;
 		display: table-cell;
 		vertical-align: top;
-		text-align: left;
 		padding-top: .3vw;
-		top: 0;
+		text-align: left;
 		display: table;
 		width: 95vw;
-		padding: 1vw 1vw 1vw 0;
+		top: 0;
 
 	}
 
 	.revolver__main-menu ul { 
 
-		list-style: none;
-		position: relative;
-		width: 300vw;
-		border: .02vw dashed #fff;
-		padding: 1vw;
 		box-shadow: inset 0 0 0.2vw #888;
+		border: .02vw dashed #fff;
+		position: relative;
+		list-style: none;
+		width: 300vw;
+		padding: 1vw;
 		top: -1.3vw;
+
+	}
+
+
+	@media (orientation: portrait) {
+
+		.revolver__mobile-friendly .revolver__main-menu ul li a {
+
+			top: -.7vw !important;
+			position: relative;
+
+		}
 
 	}
 
@@ -1411,21 +1507,16 @@ fieldset legend::before {
 	#RevolverRoot .revolver__main-menu ul li.route-active a {
 
 		text-shadow: 0.05vw -0.05vw 0.05vw #ffffff;
-		color: #841111 !important;
+		box-shadow: inset 0 0 0.3vw #42212199;
+		border: .05vw solid #887a7cb5;
+		color: #841111f5 !important;
+		transform: rotateY(20deg);
 		letter-spacing: .14vw;
 		background: #ffffff82;
-		padding: .5vw;
-		transform: rotateY(20deg);
-		border: .01vw dashed #8677ce;
-		box-shadow: inset 0 0 0.3vw #af92ef;
 		border-radius: .7vw;
+		padding: .5vw;
 
 	}
-
-	.revolver__nav-bar .revolver__main-menu ul li a {
-
-	}
-
 
 	#RevolverRoot .revolver__main-menu ul li a:before,
 	#RevolverRoot .revolver__main-menu ul li a:after {
@@ -1474,9 +1565,9 @@ fieldset legend::before {
 	#RevolverRoot .revolver__footer .revolver__main-menu ul li a:before {
 
 		display: inline-block;
+		color: transparent;
 		margin-right: .2vw;
 		margin-left: .2vw;
-		color: transparent;
 		content: '...';
 
 	}
@@ -1493,8 +1584,8 @@ fieldset legend::before {
 
 	.revolver__main-menu ul li:hover {
 
-		top: 15px;
 		transition: all .4s ease-in-out;
+		top: .15vw;
 
 	}
 
@@ -1524,8 +1615,27 @@ fieldset legend::before {
 		text-shadow: -.1vw 0 .2vw #fff;
 		letter-spacing: .05vw;
 		text-decoration: none;
+		color: #000000f2;
 		font-size: .8vw;
-		color: #4363ae;
+
+	}
+
+	.revolver__article-footer div {
+
+		display: none;
+
+	}
+
+	.revolver__mobile-friendly .revolver__notice p {
+
+		font-size: 1.2vw;
+
+	}
+
+	.revolver__mobile-friendly .revolver__main-menu ul li {
+
+		margin: 0 1.6vw 0 0;
+
 	}
 
 	.revolver__mobile-friendly .revolver__main-menu ul li a {
@@ -1622,8 +1732,8 @@ fieldset legend::before {
 
 				.revolver__messages .revolver__messages-message .revolver__messages-body header b {
 
-					font-family: 'Verdana', sans-serif;
 					text-shadow: .05vw .05vw .1vw #fff8;
+					font-family: 'Verdana', sans-serif;
 					border-bottom: .2vw dotted #fff8;
 					border-left: .2vw dotted #fff8;
 					padding: .1vw 0 .3vw .6vw;
@@ -1871,9 +1981,9 @@ fieldset legend::before {
 
     	border: .1vw dashed rgb(185, 127, 141);
     	box-shadow: 0.3vw 0.3vw 0.5vw #868686;
+		width: 101% !important;
     	margin: 2vw 0 3vw;
 
-		width: 101% !important;
 		opacity: .6;
 
 	}
@@ -1946,10 +2056,12 @@ fieldset legend::before {
 				vertical-align: middle;
 				letter-spacing: .05vw;
 				display: table-cell;
-				font-size: 1.2vw;
+				font-size: 1.4vw;
 				padding: 0 .5vw;
 				height: 100%;
 				color: #666;
+
+				font-stretch: ultra-condensed;
 
 				font-size: calc(1.2vw * var(--scale-factor));
 
@@ -1970,10 +2082,10 @@ fieldset legend::before {
 
 					text-shadow: -.1vw 0 0.2vw #bbb;
 					text-decoration: none;
-					font-size: 1.3vw;
+					font-size: 1.4vw;
 					color: #b04900;
 
-					font-size: calc(1.3vw * var(--scale-factor));
+					font-size: calc(1.4vw * var(--scale-factor));
 
 				}
 
@@ -1990,7 +2102,20 @@ fieldset legend::before {
 				.revolver__mobile-friendly .revolver__scalable-main .revolver__comments-header h2 a,
 				.revolver__mobile-friendly .revolver__scalable-main .revolver__article-header h2 a {
 
-					font-size: calc(.6vw * var(--scale-factor));
+					font-size: calc(.9vw * var(--scale-factor));
+
+				}
+
+				.revolver__mobile-friendly .revolver__scalable-main .revolver__comments-header h2 a {
+
+					font-size: calc(.3vw * var(--scale-factor));
+
+				}
+
+				.revolver__mobile-friendly .article-id-forum-room-inner .revolver__comments-avatar {
+
+					text-align: center;
+    				width: 7vw;
 
 				}
 
@@ -1998,8 +2123,8 @@ fieldset legend::before {
 				.revolver__comments-header h2 a:hover {
 
 					border-bottom: .1vw dashed #999;
-					color: #666;
 					text-shadow: -.1vw 0 .2vw #fff;
+					color: #666;
 
 				}
 
@@ -2031,30 +2156,91 @@ fieldset legend::before {
 		}
 
 			/* Query box results */
+			.revolver__article-contents .revolver__search_results ol,
+			.revolver__article-contents .revolver__search_results ul {
+
+				font-stretch: ultra-condensed;
+				text-shadow: 0 0 .1vw #fff;
+				color: #333;
+
+			}
+
+			.revolver__article-contents .revolver__search_results li {
+
+				background: linear-gradient(to right, rgba(254, 255, 232, 0) 0%, rgb(219 191 195 / 36%) 100%);
+				box-shadow: inset 0 0 0.4vw #00000061;
+				border: .1vw dotted #fff;
+				list-style: square;
+				margin-top: 1vw;
+				padding: 1vw;
+
+			}
+
 			.revolver__article-contents .revolver__search_results li a {
 
-				display: block;
-				font-size: 1.1vw;
-				color: #2b651d;
 				letter-spacing: .1vw;
 				margin: .5vw .6vw;
+				font-size: 1.1vw;
+				display: block;
+				color: #2b651d;
 
 				font-size: calc(1.1vw * var(--scale-factor));
 
+			}
+
+			.revolver__mobile-friendly .revolver__article-contents .revolver__search_results li a {
+
+				font-size: calc(.6vw * var(--scale-factor));
+
 			} 
+
+			.revolver__article-contents .revolver__search_results li em {
+
+				margin: -1.7vw 1.1vw;
+				font-style: normal;
+				font-size: .9vw;
+				float: right;
+
+			}
+
+			.revolver__search-snippet  {
+
+				border-bottom: .1vw dashed #999;
+				border-right: .1vw dashed #999;
+				border-top: .1vw dashed #999;
+				padding: 1vw 2vw;
+				margin-top: 1vw;
+
+			}
 
 			.revolver__article-contents .revolver__search_results li span,
 			.revolver__article-contents .revolver__search_results li dfn {
 
+				line-height: 1.2vw;
 				margin: .4vw .7vw;
+				font-size: .9vw;
 				display: block;
 
 			}
 
-			.revolver__article-contents .revolver__search_results li dfn span {
 
-				margin: 0;
+			.revolver__mobile-friendly .revolver__article-contents .revolver__search-snippet,
+			.revolver__mobile-friendly .revolver__article-contents .revolver__search_results li span  {
+
+				line-height: calc(.8vw * var(--scale-factor));
+				font-size: calc(.5vw * var(--scale-factor));
+
+			}
+
+			.revolver__article-contents .revolver__search_results li span {
+
+				border-left: .1vw dashed #999;
 				display: inline-block;
+				padding-bottom: .5vw;
+				position: relative;
+				padding-left: 1vw;
+				color: #222b6fe0;
+				top: .8vw;
 
 			}
 
@@ -2062,8 +2248,7 @@ fieldset legend::before {
 			.revolver__article-contents h2 {
 
 				font-family: Verdana, sans-serif;
-				text-shadow: 0 0 4px #fff;
-				font-size: 16px;
+				text-shadow: 0 0 .2vw #fff;
 				color: #777;
 
 				font-size: calc(1vw * var(--scale-factor));
@@ -2095,18 +2280,18 @@ fieldset legend::before {
 
 				text-shadow: 0 0 .1vw #fff;
 				letter-spacing: .04vw;
-				text-align: justify;
 				padding-right: .6vw;
 				line-height: 1.4vw;
 				color: #6c6c6c;
-				font-size: 1vw;
 				
 				word-wrap: break-word;
+				font-stretch: ultra-condensed;
 				text-rendering: optimizeLegibility;
 				font-family: Helvetica, Arial, sans-serif;
 
-				font-size: calc(1vw * var(--scale-factor));
-				line-height: calc(1.4vw * var(--scale-factor));
+				font-size: calc(1.35vw * var(--scale-factor));
+
+				line-height: calc(1.6vw * var(--scale-factor));
 
 			}
 
@@ -2114,8 +2299,8 @@ fieldset legend::before {
 			.revolver__mobile-friendly .revolver__scalable-main .revolver__comments-contents p,
 			.revolver__mobile-friendly .revolver__scalable-main .revolver__comments-contents {
 
-				font-size: calc(.5vw * var(--scale-factor));
-				line-height: calc(.8vw * var(--scale-factor));
+				font-size: calc(.8vw * var(--scale-factor));
+				line-height: calc(1vw * var(--scale-factor));
 
 			}
 
@@ -2157,6 +2342,7 @@ fieldset legend::before {
 				.revolver__article-contents figure figcaption {
 
 					text-shadow: -.1vw 0 .2vw #fff;
+					font-stretch: ultra-condensed;
 					font: bold 1.1vw Arial;
 					letter-spacing: .1vw;
 					padding-top: 2vw;
@@ -2177,8 +2363,8 @@ fieldset legend::before {
 			.revolver__article-contents a:hover,
 			.revolver__comments-contents a:hover {
 
-				color: #a9843f;
 				text-decoration: underline;
+				color: #a9843f;
 
 			}
 
@@ -2209,6 +2395,13 @@ fieldset legend::before {
 			border-radius: .3vw 0 0 .3vw;
 			padding: .1vw 0;
 			height: 1.8vw;
+			clear: both;
+
+		}
+
+		.revolver__article-footer div {
+
+			display: table-column;
 
 		}
 
@@ -2226,8 +2419,8 @@ fieldset legend::before {
 		.revolver__comments-footer ul li {
 
 			display: inline-block;
-			float: right;
 			margin: 0 2vw 0 0;
+			float: right;
 
 		}
 
@@ -2246,6 +2439,15 @@ fieldset legend::before {
 			text-decoration: none;
 			font-size: 1vw;
 			color: #006400;
+
+		}
+
+		.revolver__mobile-friendly .revolver__article-footer ul li a {
+
+			position: relative;
+			top: -3vw;
+
+			font-size: calc(1vw * var(--scale-factor));
 
 		}
 
@@ -2281,11 +2483,11 @@ fieldset legend::before {
 		.revolver__user-profile-avatar,
 		.revolver__comments-avatar {
 
-			float: left;
-			display: table-cell;
-			height: 5vw;
-			overflow: hidden;
 			padding: 0 1vw 0 1vw;
+			display: table-cell;
+			overflow: hidden;
+			float: left;
+			height: 6vw;
 
 		}
 
@@ -2349,11 +2551,8 @@ fieldset legend::before {
 		#RevolverRoot .revolver__feedback-feedback-processing .revolver__feedback {
 
 			border-right: .3vw dotted #b4b2b2 !important;
-
 			display: inline-block;
-
 			margin-bottom: 5vw;
-
 			position: relative;
 
 		}
@@ -2361,7 +2560,6 @@ fieldset legend::before {
 		#RevolverRoot .revolver__feedback-feedback-processing .revolver__feedback {
 
 			margin-bottom: 7vw;
-
 			width: 100vw;
 
 		}
@@ -2382,19 +2580,12 @@ fieldset legend::before {
 		#RevolverRoot .revolver__feedback-feedback-processing .revolver__article-contents {
 
 			display: inline-block !important;
-
 			width: 75vw !important;
-
 			display: inline-block;
-
 			padding: 0 0 0 1vw;
-
 			background: none;
-
 			box-shadow: none;
-
 			border: 0;
-
 			margin: 0;
 
 		}
@@ -2415,25 +2606,25 @@ fieldset legend::before {
 		#RevolverRoot .revolver__moderation_form .revolver__moderation-flags,
 		#RevolverRoot .revolver__feedback-feedback-processing .revolver__moderation-flags {
 
-			box-shadow: inset .5vw 0 .3vw #938579;
 			background: linear-gradient(to left, rgba(254, 255, 232, 0), rgba(186, 160, 126, 0.37)) !important;
-			padding: 1vw 0 0 2.5vw;
+			border-bottom: .3vw dotted #b4b2b2 !important;
+			border-left: .3vw dotted #b4b2b2 !important;
+			border-top: .3vw dotted #b4b2b2 !important;
+			box-shadow: inset .5vw 0 .3vw #938579;
 			width: 84.5vw !important;
+			padding: 1vw 0 0 2.5vw;
 			transform: scale(.9);
 			padding-left: 12.8vw;
-			position: absolute;
 			margin: 6vw 0 2vw 0;
+			padding-right: .2vw;
+			position: absolute;
 			text-align: left;
 			margin-bottom: 0;
 			margin-top: 5vw;
+			bottom: -5.5vw;
 			display: block;
 			right: -5vw;
-			bottom: -5.5vw;
 			border: 0;
-			border-top: .3vw dotted #b4b2b2 !important;
-			border-bottom: .3vw dotted #b4b2b2 !important;
-			border-left: .3vw dotted #b4b2b2 !important;
-			padding-right: .2vw;
 
 		}
 
@@ -2473,25 +2664,15 @@ fieldset legend::before {
 		#RevolverRoot .revolver__feedback-feedback-processing .revolver__moderation-flags a {
 
 			background: linear-gradient(45deg, rgba(179, 190, 173, .7) 0, rgba(223, 229, 215, .4) 60%, rgba(252, 255, 244, .2) 100%);
-
 			box-shadow: inset 0 0 .2vw rgba(0, 0, 0, .1);
-
 			border: .1vw solid #e2e2e2;
-
 			font: normal 1vw 'Verdana';
-
 			text-decoration: none;
-
 			text-align: center;
-
 			padding: .9vw 1vw;
-
 			margin-top: .28vw;
-
 			float: right;
-
 			color: #666;
-
 			width: 21%;
 
 		}
@@ -2507,11 +2688,11 @@ fieldset legend::before {
 		.revolver__comments.moderation-section .revolver__comments-footer li,
 		.revolver__comments.moderation-section .revolver__comments-footer li:hover {
 
+			background: none;
+			box-shadow: none;
 			padding: 0;
 			margin: 0;
 			border: 0;
-			background: none;
-			box-shadow: none;
 
 		}
 
@@ -2578,11 +2759,11 @@ fieldset legend::before {
 
 			.revolver__similar-links ul li a {
 
-				text-decoration: none;
-				color: #777;
 				text-shadow: -.2vw -.1vw .2vw #fff;
+				text-decoration: none;
 				letter-spacing: .1vw;
 				font-size: 1vw;
+				color: #777;
 
 			}
 
@@ -2594,17 +2775,17 @@ fieldset legend::before {
 
 			.revolver__similar-links--previous a::before {
 
-				content: '⇐  ';
 				display: inline-block;
 				margin-left: .4vw;
+				content: '⇐   ';
 
 			}
 
 			.revolver__similar-links--next a::after {
 
-				content: '  ⇒';
 				display: inline-block;
 				margin-right: .4vw;
+				content: '   ⇒';
 
 			}
 
@@ -2628,9 +2809,8 @@ fieldset legend::before {
 
 		background: rgba(237, 237, 237, .6);
 		border-right: .2vw dashed #fff;
-		box-shadow: 0 0 .5vw #d1d1d1;
+		box-shadow: 0 0 .5vw #7d7d7dcf;
 		border: .1vw dotted #cdcdcd;
-		border-radius: .4vw 0 0 0;
 		padding: 0 0 1vw;
 		margin: 1.5vw 0;
 		display: block;
@@ -2642,12 +2822,11 @@ fieldset legend::before {
 
 			background: linear-gradient(to left, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 1) 100%);
 			text-shadow: -.1vw 0 .05vw #d7d1ef;
-			border-radius: .4vw 0 0 0;
 			letter-spacing: .07vw;
 			font-family: Arial;
 			font-size: 1.25vw;
 			padding: .5vw 1vw;
-			color: #366ea4;
+			color: #a44a36e8;
 			margin: 0;
 
 			font-size: calc(1.25vw * var(--scale-factor));
@@ -2694,8 +2873,10 @@ fieldset legend::before {
 
 		.revolver__mobile-friendly .revolver__scalable-main .revolver__related div ul li,
 		.revolver__mobile-friendly .revolver__scalable-main .revolver__related div ul li a {
+
 			font-size: calc(.5vw * var(--scale-factor));
 			line-height: calc(.7vw * var(--scale-factor));
+
 		}
 
 		.revolver__related div ul li a:hover {
@@ -2734,8 +2915,8 @@ fieldset legend::before {
 /* Revolver attendance statistics */
 .revolver__attendance-panel {
 
-	margin: 2vw auto;
 	text-align: center;
+	margin: 2vw auto;
 
 }
 
@@ -2767,8 +2948,8 @@ dl.revolver__stats-list {
 		.revolver__stats-list dt dfn .revolver__stats-group-time,
 		.revolver__stats-list dt dfn .revolver__stats-group-ip {
 
-			display: table-cell;
 			vertical-align: middle;
+			display: table-cell;
 
 		}
 
@@ -2849,49 +3030,48 @@ dl.revolver__stats-list {
 
 			#RevolverRoot .revolver__stats-ua {
 
-				color: #b00000;
 				margin-right: .4vw;
+				color: #b00000;
 
 			}
 
 			#RevolverRoot .revolver__stats-system {
 
-				color: #4246b0;
 				margin-right: .4vw;
+				color: #4246b0;
 
 			}
 
 			#RevolverRoot .revolver__stats-country {
 
-				color: #317c1a;
 				margin-left: .4vw;
+				color: #317c1a;
 
 			}
 
 			#RevolverRoot .revolver__stats-time {
 
 				font-style: normal;
-				color: #647da6c5;
-				font-family: Arial;			
+				font-family: Arial;
+				color: #647da6c5;			
 
 			}
 
 			#RevolverRoot .revolver__stats-ip-address {
 
 				box-shadow: inset 0 0 1vw #ceeabade;
-				border: 1px dashed #bdb3b3;
+				border: .1vw dashed #bdb3b3;
 				font-style: normal;
 				background: #f4f5f1;
 				position: relative;
+				text-align: center;
 				color: #00aab0cc;
 				padding: 0 .4vw;
-				z-index: 1000;
-				float: right;
-
-				text-align: center;
 				font-size: .8vw;
 				padding: .2vw 0;
 				width: 20vw;
+				z-index: 1000;
+				float: right;
 
 			}
 
@@ -2910,8 +3090,6 @@ dl.revolver__stats-list {
 				margin: 0;
 				border: 0;
 				
-				
-
 				font-size: calc(1vw * var(--scale-factor));
 			
 			}
@@ -3016,20 +3194,18 @@ dl.revolver__stats-list {
 				border: .1vw dashed #998d8d61;
 				display: inline-block;
 				margin-bottom: .4vw;
+				border-radius: .3vw;
 				text-align: center;
 				margin-right: 4vw;
-				
 				height: 10vw;
 				width: 40vw;
-
-				border-radius: .3vw;
 
 			}
 
 			.revolver__mobile-friendly .revolver__scalable-main .revolver__stats-total-counters {
 
-				margin-right: 0;
 				margin-bottom: 1.4vw;
+				margin-right: 0;
 				height: 14vw;
 				width: 60vw;
 
@@ -3192,19 +3368,17 @@ table.revolver__calendar {
 
 table.revolver__calendar caption {
 
-	border: .1vw solid #999d;
-	border-bottom: 0;
-	padding: .8vw;
-
-	font: bold 1vw Verdana;
-	letter-spacing: .6vw;
-	color: #917552;
 
 	background: radial-gradient(circle at 34% 75%, rgba(142, 142, 142,0.06) 0%, rgba(142, 142, 142,0.06) 50%, rgba(11, 11, 11,0.06) 50%, rgba(11, 11, 11,0.06) 100%), radial-gradient(circle at 40% 51%, rgba(12, 12, 12,0.06) 0%, rgba(12, 12, 12,0.06) 50%, rgba(242, 242, 242,0.06) 50%, rgba(242, 242, 242,0.06) 100%), radial-gradient(circle at 50% 87%, rgba(189, 189, 189,0.06) 0%, rgba(189, 189, 189,0.06) 50%,rgba(0, 0, 0,0.06) 50%, rgba(0, 0, 0,0.06) 100%), linear-gradient(90deg, hsl(35,0%,96%), hsl(35, 0%, 96%));
-
-	z-index: 100;
-	margin-bottom: -.1vw;
 	box-shadow: inset 0 .1vw .3vw #91919191;
+	border: .1vw solid #999d;
+	font: bold 1vw Verdana;
+	letter-spacing: .6vw;
+	margin-bottom: -.1vw;
+	border-bottom: 0;
+	padding: .8vw;
+	color: #917552;
+	z-index: 100;
 
 }
 
@@ -3231,15 +3405,15 @@ table.revolver__calendar tr:first-child th {
 
 table.revolver__calendar thead th:hover {
 
-	opacity: 1;
 	border-top-color: #999;
+	opacity: 1;
 
 }
 
 table.revolver__calendar tfoot th:hover {
 	
-	opacity: 1;
 	border-bottom-color: #999;
+	opacity: 1;
 
 }
 
@@ -3260,8 +3434,8 @@ table.revolver__calendar td.active-scope:not(.active-day-cell):not(.calendar-day
 
 table.revolver__calendar td.active-scope {
 
-	border-top-width: .1vw !important;
 	border-bottom-width: .1vw !important;
+	border-top-width: .1vw !important;
 
 }
 
@@ -3426,7 +3600,6 @@ table.revolver__calendar thead th,
 table.revolver__calendar tfoot th { 
 	
 	border: .1vw solid #999;
-
 	letter-spacing: .1vw;
 	font-family: Verdana;
 	text-align: center; 
@@ -3553,15 +3726,15 @@ div.day-number a::after {
 
 div.day-number a:before {
 
-	content: '◄';
 	transform: rotate(-180deg) scale(.5);
+	content: '◄';
 
 }
 
 div.day-number a::after {
 
-	content: '►';
 	transform: rotate(180deg) scale(.5);
+	content: '►';
 
 }
 
@@ -3605,7 +3778,6 @@ div.day-number:hover a i {
 div.highlight-date span {
 
 	transition: all .4s ease-in-out;
-	text-shadow: -.1vw .1vw .1vw #957539;
 	color: #2a3297ab;
 
 }
@@ -3641,31 +3813,30 @@ div.highlight-date:hover span::after {
 
 div.highlight-date span::before {
 
-	content: '⇒[';
 	margin-right: .3vw;
+	content: '⇒[';
 
 }
 
 div.highlight-date span::after {
 
-	content: ']⇐';
 	margin-left: .3vw;
+	content: ']⇐';
 
 }
 
 div.highlight-date span::before,
 div.highlight-date span::after {
 
-	position: relative;
-	top: -.1vw;
-
-	display: inline-block;
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: infinite;
 	animation-direction: normal;		
 	animation-name: rithm;
 	animation-duration: 2s;
+	display: inline-block;
 	animation-delay: 2s;
+	position: relative;
+	top: -.1vw;
 
 } 
 
@@ -3703,28 +3874,29 @@ div.day-future:hover {
 	.revolver__footer p {
 
 		vertical-align: middle;
+		padding-bottom: 1.5vw;
 		display: table-cell;
 		padding-left: .1vw;
+		padding-top: 1vw;
 		font-size: .8vw;
 		height: 4.5vw;
 		color: #666;
-		padding-bottom: 1.5vw;
-		padding-top: 1vw;
+
 
 	}
 
 	.revolver__footer .revolver__main-menu {
 
-		padding-top: .3vw;
-		position: fixed;
-		bottom: .4vw;
-		display: table;
-		width: 95vw;
-		padding: 1vw 1vw 1vw 0;
-		text-align: left;
 		background: linear-gradient(to right, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 1) 100%);
 		border-top-right-radius: 1vw;
+		padding: 1vw 1vw 1vw 0;
+		padding-top: .3vw;
+		text-align: left;
+		position: fixed;
+		display: table;
+		bottom: .4vw;
 		right: -30vw;
+		width: 95vw;
 
 	}
 
@@ -3753,7 +3925,6 @@ div.day-future:hover {
 .revolver__scalable-main .revolver__footer {
 
 	width: 96vw !important;
-
 	padding: 0 2%;
 
 }
@@ -3776,8 +3947,8 @@ div.day-future:hover {
 
 .revolver__scalable-main .revolver__related div {
 
-	width: 100%;
 	border-right: 0;
+	width: 100%;
 
 }
 
@@ -3800,6 +3971,14 @@ div.day-future:hover {
 	position: absolute;
     text-align: right;
     right: 5%;
+
+}
+
+.revolver__mobile-friendly #mBoxClose {
+
+	position: relative;
+	left: -2vw;
+	top: 2vw;
 
 }
 
@@ -3846,7 +4025,7 @@ div.day-future:hover {
 
 .revolver__mobile-friendly .revolver__scalable-main .revolver__form-wrapper form fieldset legend {
 
-	font-size: calc(.4vw * var(--scale-factor));
+	font-size: calc(.7vw * var(--scale-factor));
 
 }
 
@@ -3908,13 +4087,13 @@ div.day-future:hover {
 
 .revolver__mobile-friendly .revolver__scalable-main .revolver__form-wrapper form fieldset label {
 
-	font-size: calc(.4vw * var(--scale-factor)) !important;
+	font-size: calc(.6vw * var(--scale-factor)) !important;
 
 }
 
 .revolver__mobile-friendly .revolver__scalable-main .revolver__editor_buttons i {
 
-	font-size: calc(.4vw * var(--scale-factor)) !important;
+	font-size: calc(.5vw * var(--scale-factor)) !important;
 
 }
 
@@ -3939,14 +4118,14 @@ div.day-future:hover {
 	font: normal 1.2vw 'Verdana';
 	outline: .1vw dotted #fff;
 	padding: .2vw 0 .3vw 0;
+	word-wrap: break-word;
 	letter-spacing: .1vw;
 	margin: .7vw 0 0 0;
 	text-align: center;
-	top: -1vw;
+	overflow-y: hidden;
 	line-height: 1.5vw;
 	height: 1.5vw;
-	overflow-y: hidden;
-	word-wrap: break-word;
+	top: -1vw;
 
 	font-size: calc(1.2vw * var(--scale-factor));
 
@@ -4053,8 +4232,8 @@ div.day-future:hover {
 .revolver__scalable-main .revolver__comments_add .revolver__form-wrapper,
 .revolver__scalable-main .revolver__form-wrapper input[type="submit"] {
 
-	width: 100%;
 	padding-right: 0;
+	width: 100%;
 
 }
 
@@ -4175,8 +4354,8 @@ div.day-future:hover {
 	border: .1vw solid rgba(255, 255, 255, .51);
 	box-shadow: inset 0 0 .2vw #867a7aad;
 	transition: all 1s ease-in-out;
-	font: normal 1vw 'Verdana';
 	outline: .1vw dotted #ffffff59;
+	font: normal 1vw 'Verdana';
 	text-shadow: 0 .1vw #fff;
 	letter-spacing: .1vw;
 	padding: .6vw .4vw;
@@ -4289,11 +4468,17 @@ div.day-future:hover {
 .revolver__forum-topic-list {
 
 	box-shadow: 0 0 0.3vw #928989;
+	border: 0.05vw dashed #ab8f41;
+	background: #d8d7d5;
 	display: table;
 	width: 94vw;
-    border: 0.05vw dashed #ab8f41;
-    background: #d8d7d5;
-    margin: 0;
+	margin: 0;
+
+}
+
+.revolver__mobile-friendly .revolver__forum-topic-list {
+
+	font-size: calc(.3vw * var(--scale-factor));
 
 }
 
@@ -4313,16 +4498,16 @@ div.day-future:hover {
 
 		display: table-row;
 		color: #7b74a294;
-		width: 100%;
 		padding: .5vw;
+		width: 100%;
 		background: linear-gradient(to left, rgba(254, 255, 232, 0) 0%, rgba(214, 219, 191, 1) 100%);
 
 	}
 
 		.revolver__forum-topic-list dt span {
 
-			padding: .5vw;
 			border-bottom: .05vw dashed #ab8f41;
+			padding: .5vw;
 
 		}
 
@@ -4336,8 +4521,8 @@ div.day-future:hover {
 		.revolver__forum-topic-list dt span:last-child {
 
 			display: table-cell;
-			width: 30%;
 			text-align: right;
+			width: 30%;
 
 		}
 
@@ -4351,15 +4536,15 @@ div.day-future:hover {
 
 		.revolver__forum-topic-list dd div {
 
-			padding: .5vw;
 			display: table-cell;
+			padding: .5vw;
 
 		}
 
 		.revolver__forum-topic-list dd div:first-child {
 
 
-		} 
+		}
 
 		.revolver__forum-topic-list dd div:last-child {
 
@@ -4372,27 +4557,27 @@ div.day-future:hover {
 
 			.revolver__forum-topic-list dd div:last-child span:first-child {
 
+				border-right: .05vw dashed #ab8f41;
 				display: inline-block;
+				text-align: center;
 				float: left;
 				width: 12vw;
-				text-align: center;
-				border-right: .05vw dashed #ab8f41;
 
 			}
 
 			.revolver__forum-topic-list dd div:last-child em {
 
 				border-right: .05vw dashed #ab8f41;
+				display: inline-block;
 				padding-right: 01vw;
-    			display: inline-block;
 
 			}
 
 			.revolver__forum-topic-list dd div:last-child span:last-child {
 
 				display: inline-block;
-				float: right;
 				text-align: center;
+				float: right;
 				width: 5vw;
 
 			}
@@ -4433,7 +4618,7 @@ div.day-future:hover {
 .revolver__mobile-friendly .revolver__profile-form i.state-attribution,
 .revolver__mobile-friendly .revolver__register-form i.state-attribution {
 
-	top: 0vw !important;
+	top: .5vw !important;
 
 }
 
@@ -4445,7 +4630,8 @@ div.day-future:hover {
 
 }
 
-.revolver__mobile-friendly .article-id-categories i.state-attribution {
+.revolver__mobile-friendly .article-id-categories i.state-attribution,
+.revolver__mobile-friendly .article-id-wiki i.state-attribution {
 
 	margin-left: 17vw !important;
 	top: -.18vw !important;

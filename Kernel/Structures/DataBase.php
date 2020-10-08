@@ -1188,6 +1188,68 @@ $STRUCT_SUBSCRIPTIONS = [
 
 ];
 
+$STRUCT_BLOG_SUBSCRIPTIONS = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // big int
+		'auto'   => true,     // auto increment
+		'length' => 255
+
+	],
+
+	'field_node_id' => [
+
+		'type'   => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_user_id' => [
+
+		'type'   => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_user_name' => [
+
+		'type'   => 'text', // varchar
+		'length' => 150,
+		'fill'	 => true
+
+	],
+
+	'field_user_email' => [
+
+		'type'   => 'text', // varchar
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	]
+
+];
+
 $STRUCT_STATISTICS = [
 
 	'field_id' => [
@@ -1310,37 +1372,38 @@ $STRUCT_TEST = [
 // Compare DBX Schema
 $DBX_KERNEL_SCHEMA = [
 
-	'settings'		  => $STRUCT_SITE,
-	'extensions'	  => $STRUCT_EXTENSIONS,
+	'settings'		     => $STRUCT_SITE,
+	'extensions'	     => $STRUCT_EXTENSIONS,
 
-	'statistics'	  => $STRUCT_STATISTICS,
+	'statistics'	     => $STRUCT_STATISTICS,
 
-	'forums'		  => $STRUCT_FORUMS,
-	'forum_rooms'	  => $STRUCT_FORUM_ROOMS,
-	'froom_files'	  => $STRUCT_FROOM_FILES,
-	'froom_comments'  => $STRUCT_FORUM_COMMENTS,
+	'forums'		     => $STRUCT_FORUMS,
+	'forum_rooms'	     => $STRUCT_FORUM_ROOMS,
+	'froom_files'	     => $STRUCT_FROOM_FILES,
+	'froom_comments'     => $STRUCT_FORUM_COMMENTS,
 
-	'categories'	  => $STRUCT_CATEGORIES,
-	'nodes'			  => $STRUCT_NODES,
-	'files'			  => $STRUCT_FILES,
-	'comments'		  => $STRUCT_COMMENTS,
-	'subscriptions'	  => $STRUCT_SUBSCRIPTIONS,
+	'categories'	     => $STRUCT_CATEGORIES,
+	'nodes'			     => $STRUCT_NODES,
+	'files'			     => $STRUCT_FILES,
+	'comments'		     => $STRUCT_COMMENTS,
+	'subscriptions'	     => $STRUCT_SUBSCRIPTIONS,
+	'blog_subscriptions' => $STRUCT_BLOG_SUBSCRIPTIONS,
 
-	'blog_nodes'	  => $STRUCT_BLOG_NODES,
-	'blog_files'	  => $STRUCT_BLOG_FILES,
-	'blog_comments'	  => $STRUCT_BLOG_COMMENTS,
+	'blog_nodes'	     => $STRUCT_BLOG_NODES,
+	'blog_files'	     => $STRUCT_BLOG_FILES,
+	'blog_comments'	     => $STRUCT_BLOG_COMMENTS,
 
-	'wiki_categories' => $STRUCT_CATEGORIES,
-	'wiki_nodes'	  => $STRUCT_WIKI_NODES,
-	'wiki_files'	  => $STRUCT_FILES,
+	'wiki_categories'    => $STRUCT_CATEGORIES,
+	'wiki_nodes'	     => $STRUCT_WIKI_NODES,
+	'wiki_files'	     => $STRUCT_FILES,
 
-	'users'			  => $STRUCT_USER,
-	'roles'			  => $STRUCT_ROLES,
+	'users'			     => $STRUCT_USER,
+	'roles'			     => $STRUCT_ROLES,
 
-	'messages'		  => $STRUCT_MESSAGES,
-	'messages_files'  => $STRUCT_MESSAGES_FILES,
+	'messages'		     => $STRUCT_MESSAGES,
+	'messages_files'     => $STRUCT_MESSAGES_FILES,
 
-	'test'			  => $STRUCT_TEST
+	'test'			     => $STRUCT_TEST
 
 ];
 

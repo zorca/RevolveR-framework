@@ -34,6 +34,9 @@
 
     <body>
 
+        <div class="preloader" style="position: fixed; width: 100%; height: 100%; background: repeating-linear-gradient(45deg, transparent, transparent .1vw, #ffffff45 .1vw, #b7754594 .25vw), linear-gradient(to bottom, #eeeeee5c, #bfbfbf1a), transparent url('/Interface/preloader.svg') 50% 50% no-repeat; z-index: 100000"></div>
+
+
         <!-- RevolveR :: root -->
         <main id="RevolverRoot" class="<?php print $main_class; ?>">
 

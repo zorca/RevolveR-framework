@@ -106,6 +106,26 @@ $form_parameters = [
 
 				],
 
+				'label_5' => [
+
+					'title'  =>  'Subscribe',
+					'access' => 'comment',
+					'auth'	 => 'all',
+
+					'fields' => [
+
+						0 => [
+
+							'type' 			=> 'input:checkbox:unchecked', //( (int)$n['subscription'] > 0 ? 'checked' : 'unchecked' ),
+							'name' 			=> 'revolver_comment_subscription',
+							'value'			=> ''
+
+						],
+
+					],
+
+				]
+
 			],
 
 		],
