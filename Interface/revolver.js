@@ -3,7 +3,7 @@
   *
   * RevolveR CMF interface :: ECMA Script 7
   *
-  * v.1.9.4
+  * v.1.9.4.6
   *
   * RevolveR ECMA Script is a fast, simple and
   *
@@ -3478,11 +3478,11 @@
 
 					}
 
-					if( RR.isO(p) && p.length > 0) {
+					if( RR.isO(p) && p.length > 0 ) {
 
 						for(let i in p) {
 
-							args[i] = RR.arguments(p[i], '=');
+							args[ i ] = RR.arguments(p[ i ], '=');
 
 						}
 
@@ -3490,7 +3490,7 @@
 
 					for(let i in args) {
 
-						localStorage.setItem(args[i][0].trim(), args[i][1].trim());
+						localStorage.setItem(args[ i ][ 0 ].trim(), args[ i ][1].trim());
 
 					};
 
@@ -3518,7 +3518,7 @@
 
 						for(let i in p) { 
 
-							localStorage.removeItem(p[i].trim());
+							localStorage.removeItem(p[ i ].trim());
 
 						}
 

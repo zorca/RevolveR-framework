@@ -3,7 +3,7 @@
  /* 
   * RevolveR Node
   *
-  * v.1.9.4
+  * v.1.9.4.6
   *
   *
   *
@@ -118,6 +118,37 @@ if( CONTENTS_FLAG ) {
 
 		$language = $lang::getLanguageData( $node['country'] );
 
+		$rating = iterator_to_array(
+
+					$model::get( 'nodes_ratings', [
+
+						'criterion'	=> 'node_id::'. $node['id'],
+						'course'	=> 'backward',
+						'sort'		=> 'id'
+
+					])
+
+				)['model::nodes_ratings'];
+
+		$rate = 0;
+
+		if( $rating ) {
+
+			foreach( $rating as $r => $rv ) {
+
+				$rate += $rv['rate'];
+
+			}
+
+			$rate /= count( $rating ); 
+
+		} 
+		else {
+
+			$rating = [];
+
+		}
+
 		// Current item
 		$CNODE = [
 
@@ -140,6 +171,8 @@ if( CONTENTS_FLAG ) {
 			'category'	  => $node['category'],
 			'author'	  => $node['user'],
 			'language'	  => $language,
+			'rating'	  => floor($rate),
+			'rates'		  => count( $rating ),
 
 			'similar'	  => [
 
@@ -225,6 +258,38 @@ if( CONTENTS_FLAG ) {
 
 						$c = $c['comments'];
 
+						/* Comments rating */
+						$crating = iterator_to_array(
+
+									$model::get( 'comments_ratings', [
+
+										'criterion'	=> 'comment_id::'. $c['id'],
+										'course'	=> 'backward',
+										'sort'		=> 'id'
+
+									])
+
+								)['model::comments_ratings'];
+
+						$crate = 0;
+
+						if( $crating ) {
+
+							foreach( $crating as $r => $rv ) {
+
+								$crate += $rv['rate'];
+
+							}
+
+							$crate /= count( $crating ); 
+
+						} 
+						else {
+
+							$crating = [];
+
+						}
+
 						$guest = true;
 
 						foreach( users as $u => $v ) {
@@ -249,7 +314,9 @@ if( CONTENTS_FLAG ) {
 
 									'comment_user_name'   => $c['user_name'],
 									'comment_user_avatar' => $v['avatar'],
-									'comment_published'   => $c['published']
+									'comment_published'   => $c['published'],
+									'rating'			  => floor( $crate ),
+									'rates'				  => count( $crating ),
 
 								];
 
@@ -279,7 +346,9 @@ if( CONTENTS_FLAG ) {
 
 								'comment_user_name'   => '[guest] '. $c['user_name'],
 								'comment_user_avatar' => 'default',
-								'comment_published'   => $c['published']
+								'comment_published'   => $c['published'],
+								'rating'			  => floor( $crate ),
+								'rates'				  => count( $crating ),
 
 							];
 

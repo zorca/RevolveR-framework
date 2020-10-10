@@ -447,6 +447,45 @@ define('main_nodes', array_merge([
 
 		],
 
+		/* Services notes
+		TRANSLATIONS[ $ipl ]['Services'] => [
+
+			'title' => TRANSLATIONS[ $ipl ]['Services'],
+			'descr'	=> 'Company services',
+
+			'param_check' => [
+
+				'menu' 		=> 1
+
+			],
+
+			'route'	=> '/services-en/',
+			'node' 	=> '#services-en',
+			'type'	=> 'node',
+			'id'   	=> 'services-en'
+
+		],
+		*/
+
+		// Services RU
+		'Услуги' => [
+
+			'title' => 'Услуги',
+			'descr'	=> 'Услуги компании',
+
+			'param_check' => [
+
+				'menu' 		=> 1
+
+			],
+
+			'route'	=> '/services-ru/',
+			'node' 	=> '#services-ru',
+			'type'	=> 'node',
+			'id'   	=> 'services-ru'
+
+		],
+
 		// Privacy notes
 		TRANSLATIONS[ $ipl ]['Privacy notes'] => [
 
@@ -738,6 +777,25 @@ define('main_nodes', array_merge([
 			'node'   => '#wiki-node-d',
 			'type'	 => 'service',
 			'id'	 => 'wiki-node-d',
+
+		],
+
+		// Rating dispatch
+		'rating-d' => [
+
+			'title' => 'Contents rating dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/rating-d/',
+			'node'   => '#rating-d',
+			'type'	 => 'service',
+			'id'	 => 'rating-d',
 
 		],
 

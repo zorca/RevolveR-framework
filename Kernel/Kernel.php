@@ -30,7 +30,7 @@
   * License: Apache 2.0
   *
   */
- 
+
 // Kernel version
 define('rr_version', '1.9.4.5');
 

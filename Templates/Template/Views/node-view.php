@@ -42,7 +42,7 @@
 
 		$datetime = explode( '.', str_replace( '-', '.', explode(' ', $n['time'])[0] ) );
 
-		$render_node .= '<time itemprop="datePublished" datetime="'. $datetime[2] .'-'. $datetime[1] .'-'. $datetime[0] .'">'. $n['time'] .'</time>';
+		$render_node .= '<time itemprop="datePublished dateModified" datetime="'. $datetime[2] .'-'. $datetime[1] .'-'. $datetime[0] .'">'. $n['time'] .'</time>';
 
 	}
 
@@ -90,12 +90,12 @@
 
 				$render_node .= '</figure>';
 
-				$render_node .= '<div itemprop="articleBody" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
+				$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
 
 			}
 			else {
 
-				$render_node .= '<div itemprop="articleBody" class="revolver__article-contents">'. $n['contents'] .'</div>';
+				$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents">'. $n['contents'] .'</div>';
 
 			}
 
@@ -103,15 +103,52 @@
 		}
 		else {
 
-			$render_node .= '<div itemprop="articleBody" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
+			$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
 
 		}
 
 	}
 
+
 	$render_node .= '<footer class="revolver__article-footer">';
 
-	$render_node .= '<div itemprop="author">'. $n['author'] .'</div>';
+	if( isset($n['rating']) ) {
+
+		$tpe = PASS[ 1 ] === 'blog' ? 'blog' : 'node';
+
+		$render_node .= '<div itemscope itemtype="https://schema.org/AggregateRating" class="revolver-rating">';
+		$render_node .= '<ul class="rated-'. $n['rating'] .'" data-node="'. $n['id'] .'" data-user="'. USER['id'] .'" data-type="'. $tpe .'">';
+			$render_node .= '<li data-rated="1">1</li>';
+			$render_node .= '<li data-rated="2">2</li>';
+			$render_node .= '<li data-rated="3">3</li>';
+			$render_node .= '<li data-rated="4">4</li>';
+			$render_node .= '<li data-rated="5">5</li>';
+		$render_node .= '</ul>';
+
+		$render_node .= '<div class="meta" itemprop="itemReviewed" itemscope itemtype="http://schema.org/Article">';
+		$render_node .= '<meta itemprop="name" content="'. $n['title'] .'" />';
+		$render_node .= '</div>';
+
+		$render_node .= '<span itemprop="ratingValue">'. $n['rating'] .'</span> / <span itemprop="bestRating">5</span> #<span class="closest" itemprop="ratingCount">'. $n['rates'] .'</span>';
+		$render_node .= '<meta itemprop="worstRating" content="1" />';
+		$render_node .= '</div>';
+
+	}
+
+		$render_node .= '<div itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+		$render_node .= '<meta itemprop="height" content="435">';
+		$render_node .= '<meta itemprop="width" content="432">';
+		$render_node .= '<meta itemprop="url" content="'. site_host .'/Interface/ArticlePostImage.png">';
+		$render_node .= '</div>';
+
+		$render_node .= '<div class="meta" itemprop="author publisher" itemscope itemtype="http://schema.org/Organization">';
+
+		$render_node .= '<div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">';
+		$render_node .= '<meta itemprop="url" content="'. site_host .'/Interface/ArticlePostImage.png" />';
+		$render_node .= '</div>';
+		$render_node .= '<span itemprop="name">'. $n['author'] .'</span>';
+
+		$render_node .= '</div>';
 
 	if( $n['footer'] ) {
 

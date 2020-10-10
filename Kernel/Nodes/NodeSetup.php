@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Setup
   *
-  * v.1.9.4
+  * v.1.9.4.6
   *
   *
   *
@@ -525,6 +525,8 @@ if( !empty(SV['p']) ) {
 
 			]);
 
+			// Create nodes ratings
+			$dbx::query('c', 'revolver__nodes_ratings', $STRUCT_NODES_RATINGS);
 
 			// Create table users
 			$dbx::query('c', 'revolver__users', $STRUCT_USER);
@@ -585,6 +587,9 @@ if( !empty(SV['p']) ) {
 			// Create table comments
 			$dbx::query('c', 'revolver__comments', $STRUCT_COMMENTS);
 
+			// Create comments ratings
+			$dbx::query('c', 'revolver__comments_ratings', $STRUCT_COMMENTS_RATINGS);
+
 			// Create table subscriptions
 			$dbx::query('c', 'revolver__subscriptions', $STRUCT_SUBSCRIPTIONS);
 
@@ -593,6 +598,13 @@ if( !empty(SV['p']) ) {
 
 			// Create table blog nodes
 			$dbx::query('c', 'revolver__blog_nodes', $STRUCT_BLOG_NODES);
+
+			// Create blog ratings
+			$dbx::query('c', 'revolver__blog_ratings', $STRUCT_NODES_RATINGS);
+
+
+			// Create blog comments ratings
+			$dbx::query('c', 'revolver__blog_comments_ratings', $STRUCT_COMMENTS_RATINGS);
 			
 			// Create table blog files
 			$dbx::query('c', 'revolver__blog_files', $STRUCT_BLOG_FILES);

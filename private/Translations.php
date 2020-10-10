@@ -39,6 +39,10 @@ define('TRANSLATIONS', [
 
 	'EN' => [
 
+		/* Services */
+		'Services'									=> 'Services',
+		'Company services'							=> 'Company services',
+
 		/* Notification */
 		'Passwords not match'						=> 'Passwords not match',
 		'Security check not pass'					=> 'Security check not pass',
@@ -602,6 +606,10 @@ define('TRANSLATIONS', [
 	],
 
 	'RU' => [
+
+		/* Услуги */
+		'Services'									=> 'Услуги',
+		'Company services'							=> 'Услуги компании',
 
 		/* Уведомления */
 		'Passwords not match'						=> 'Пароли не совпадают',

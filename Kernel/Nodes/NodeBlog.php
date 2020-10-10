@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Blog
   *
-  * v.1.9.4
+  * v.1.9.4.6
   *
   *
   *
@@ -35,6 +35,10 @@
   * License: Apache 2.0
   *
   */
+
+			// Create blog comments ratings
+			$dbx::query('c', 'revolver__blog_comments_ratings', $STRUCT_COMMENTS_RATINGS);
+
 
 $contents = '';
 
@@ -492,12 +496,12 @@ if( !$blog_items ) {
 $node_data[] = [
 
 	'title'		  => $title,
-	'contents'    => '<p>'. TRANSLATIONS[ $ipl ]['Welcome blogs'] .'</p>'. $contents,
-	'id'	      => 'blog',
-	'route'       => '/blog/',
-	'teaser'      => null,
-	'footer'      => null,
-	'published'   => 1
+	'contents'	  => '<p>'. TRANSLATIONS[ $ipl ]['Welcome blogs'] .'!</p>'. $contents,
+	'id'		  => 'blog',
+	'route'		  => '/blog/',
+	'teaser'	  => null,
+	'footer'	  => null,
+	'published'	  => 1
 
 ];
 
@@ -553,6 +557,37 @@ if( $blog_items ) {
 
 		if( !isset( ROUTE['edit'] ) ) {
 
+			$rating = iterator_to_array(
+
+						$model::get( 'blog_ratings', [
+
+							'criterion'	=> 'node_id::'. $bi['id'],
+							'course'	=> 'backward',
+							'sort'		=> 'id'
+
+						])
+
+					)['model::blog_ratings'];
+
+			$rate = 0;
+
+			if( $rating ) {
+
+				foreach( $rating as $r => $rv ) {
+
+					$rate += $rv['rate'];
+
+				}
+
+				$rate /= count( $rating ); 
+
+			} 
+			else {
+
+				$rating = [];
+
+			}
+
 			if( !empty(PASS[2]) && RQST === $bi['route'] ) {
 
 				$descr = $bi['description'];
@@ -560,12 +595,14 @@ if( $blog_items ) {
 				$node_data[0] = [
 
 					'title'		  => $bi['title'],
-					'id'		  => 'blog-'. $bi['id'],
+					'id'		  => $bi['id'],
 					'description' => $bi['description'],
 					'contents'	  => $item_content,
 					'author'	  => $bi['user'],
 					'route'		  => $bi['route'],
-					'time'		  => $bi['time'], 
+					'time'		  => $bi['time'],
+					'rating'	  => floor($rate),
+					'rates'		  => count( $rating ),
 					'teaser'      => false,
 					'footer'      => true,
 					'editor'      => $editor,
@@ -587,12 +624,14 @@ if( $blog_items ) {
 					$node_data[] = [
 
 						'title'		  => $bi['title'],
-						'id'		  => 'blog-'. $bi['id'],
+						'id'		  => $bi['id'],
 						'description' => $bi['description'],
 						'contents'	  => $item_content,
 						'author'	  => $bi['user'],
 						'route'		  => $bi['route'],
-						'time'		  => $bi['time'], 
+						'time'		  => $bi['time'],
+						'rating'	  => floor($rate),
+						'rates'		  => count( $rating ),
 						'teaser'      => false,
 						'footer'      => true,
 						'editor'      => $editor,

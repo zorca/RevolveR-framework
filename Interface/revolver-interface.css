@@ -2,7 +2,7 @@
 /* 
  * RevolveR CMF main interface
  *
- * v.1.9.4
+ * v.1.9.4.6
  *
  *
  *			          ^
@@ -200,6 +200,160 @@ article {
 	border-left: none;
 
 }
+
+/* Fivestar rating */
+
+.revolver__article-footer {
+
+	margin-bottom: .5vw;
+
+}
+
+.revolver__mobile-friendly .revolver-rating  {
+
+	background: transparent;
+	left: 0 !important;
+	box-shadow: none;
+	border: none;
+
+	font-size: calc(.5vw * var(--scale-factor));
+
+}
+
+.revolver__article-footer nav {
+
+	display: inline-block;
+	float: right;
+
+}
+
+.revolver-rating {
+
+	box-shadow: 0 0 0.1vw #000000d4, inset 0 0 0.1vw #00000094;
+	display: inline-block !important;
+	border: .2vw dashed #fff5f5;
+	background: #e2baba94;
+	border-radius: 0 1vw 1vw 0;
+	position: relative;
+	text-align: center;
+	padding-left: 1vw;
+	float: left;
+	left: -.8vw;
+	top: 0;
+
+	font-size: calc(.8vw * var(--scale-factor));
+
+}
+
+.revolver__comments-footer .revolver-rating {
+
+	left: .8vw !important;
+    top: .8vw !important;
+
+}
+
+.revolver-rating .meta {
+
+	display: none;
+
+}
+
+.revolver-rating ul {
+
+	display: inline !important;
+
+	list-style: none;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+
+}
+
+.revolver-rating span {
+
+	display: inline-block;
+	margin-top: .1vw;
+	color: #b00000;
+
+}
+
+.revolver-rating span.closest {
+
+	margin-right: 1vw;
+
+}
+
+.revolver-rating li {
+
+	background: #000 url('/Interface/stars.png');
+	background-position-y: 1.1vw;
+	margin: 0 1vw 0 0 !important;
+	background-position-x: 50%;
+	box-shadow: 0 0 .05vw #000;
+	background-size: cover;
+	float: left !important;
+	border: 1px solid #fff;
+	display: inline-block;
+	text-indent: -1000vw;
+	border-radius: 1vw;
+	height: 1.1vw;
+	width: 1.1vw;
+	padding: 0;
+
+	transition: all .6s ease-in-out;
+
+}
+
+.revolver-rating li.point,
+.revolver-rating li.rated,
+.revolver-rating li:hover {
+
+	transform: rotate(180deg) scale(1.2);
+	background-position-y: 5%;
+	cursor: pointer;
+
+}
+
+.rated-1 li:nth-child(1) {
+
+	background-position-y: 5%;
+
+}
+
+.rated-2 li:nth-child(1),
+.rated-2 li:nth-child(2) {
+
+	background-position-y: 5%;
+
+}
+
+.rated-3 li:nth-child(1),
+.rated-3 li:nth-child(2),
+.rated-3 li:nth-child(3) {
+
+	background-position-y: 5%;
+
+}
+
+.rated-4 li:nth-child(1),
+.rated-4 li:nth-child(2),
+.rated-4 li:nth-child(3),
+.rated-4 li:nth-child(4) {
+
+	background-position-y: 5%;
+
+}
+
+.rated-5 li:nth-child(1),
+.rated-5 li:nth-child(2),
+.rated-5 li:nth-child(3),
+.rated-5 li:nth-child(4),
+.rated-5 li:nth-child(5) {
+
+	background-position-y: 5%;
+
+}
+
 
 body {
 

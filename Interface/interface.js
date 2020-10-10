@@ -2,7 +2,7 @@
  /* 
   * RevolveR Front-end :: main interface
   *
-  * v.1.9.4
+  * v.1.9.4.6
   *
   *			          ^
   *			         | |
@@ -498,6 +498,53 @@ R.fetchRoute = ( intro ) => {
 
 	}, 1500);
 
+
+	setTimeout(() => {
+
+		R.event('.revolver-rating li', 'click::lock', (e) => {
+
+			e.preventDefault();
+
+			let paramsBlock = e.target.closest('ul');
+			let rateValue	= e.target.dataset.rated;
+			let ratingType 	= paramsBlock.dataset.type;
+
+			if( !R.storage('rate-'+ ratingType +'-'+ paramsBlock.dataset.node, 'get') ) {
+
+				RR.removeClass(paramsBlock.querySelectorAll('li'), 'point');
+
+				R.addClass([ e.target ], 'point');
+
+				let data = new FormData();
+
+				data.append( btoa('revolver_rating_node'), RR.utoa( paramsBlock.dataset.node +'~:::~text~:::~'+ -1) );
+				data.append( btoa('revolver_rating_user'), RR.utoa( paramsBlock.dataset.user +'~:::~text~:::~'+ -1) );
+				data.append( btoa('revolver_rating_value'), RR.utoa( rateValue +'~:::~text~:::~'+ -1) );
+				data.append( btoa('revolver_rating_type'), RR.utoa( paramsBlock.dataset.type +'~:::~text~:::~'+ -1) );
+
+				R.FormData = data;
+
+				// Perform parameterized fetch request
+				R.fetch('/rating-d/', 'POST', 'text', true, function() {
+
+					R.storage('rate-'+ ratingType +'-'+ paramsBlock.dataset.node +'=1', 'set');
+
+					R.FormData = null;
+
+					console.log('Node rated :: '+ paramsBlock.dataset.node +'::'+ paramsBlock.dataset.user +'::'+ rateValue);
+
+				});
+
+			} 
+			else {
+
+				console.log('You already rate node '+ paramsBlock.dataset.node);
+
+			}
+
+		});
+
+	}, 1000);
 
 	R.event(R.mainMenues, 'mousedown', (e) => {
 

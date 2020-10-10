@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Data Base schema
   *
-  * v.1.9.4
+  * v.1.9.4.6
   *
   *
   *
@@ -733,6 +733,91 @@ $STRUCT_NODES = [
 
 ];
 
+$STRUCT_NODES_RATINGS = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // big int
+		'auto'   => true,     // auto increment
+		'length' => 255
+
+	],
+
+	'field_user_id' => [
+
+		'type'   => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true
+
+	],
+
+	'field_node_id' => [
+
+		'type'   => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_rate' => [
+
+		'type'   => 'minnum', // big int
+		'length' => 1,
+		'fill'	 => true
+
+	]
+
+];
+
+$STRUCT_COMMENTS_RATINGS = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // big int
+		'auto'   => true,     // auto increment
+		'length' => 255
+
+	],
+
+	'field_user_id' => [
+
+		'type'   => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true
+
+	],
+
+	'field_comment_id' => [
+
+		'type'   => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_rate' => [
+
+		'type'   => 'minnum', // big int
+		'length' => 1,
+		'fill'	 => true
+
+	]
+
+
+];
+
 $STRUCT_WIKI_NODES = [
 
 	'field_id' => [
@@ -1372,38 +1457,43 @@ $STRUCT_TEST = [
 // Compare DBX Schema
 $DBX_KERNEL_SCHEMA = [
 
-	'settings'		     => $STRUCT_SITE,
-	'extensions'	     => $STRUCT_EXTENSIONS,
+	'settings'		     	 => $STRUCT_SITE,
+	'extensions'	    	 => $STRUCT_EXTENSIONS,
 
-	'statistics'	     => $STRUCT_STATISTICS,
+	'statistics'			 => $STRUCT_STATISTICS,
 
-	'forums'		     => $STRUCT_FORUMS,
-	'forum_rooms'	     => $STRUCT_FORUM_ROOMS,
-	'froom_files'	     => $STRUCT_FROOM_FILES,
-	'froom_comments'     => $STRUCT_FORUM_COMMENTS,
+	'forums'		   		 => $STRUCT_FORUMS,
+	'forum_rooms'	     	 => $STRUCT_FORUM_ROOMS,
+	'froom_files'	    	 => $STRUCT_FROOM_FILES,
+	'froom_comments'     	 => $STRUCT_FORUM_COMMENTS,
 
-	'categories'	     => $STRUCT_CATEGORIES,
-	'nodes'			     => $STRUCT_NODES,
-	'files'			     => $STRUCT_FILES,
-	'comments'		     => $STRUCT_COMMENTS,
-	'subscriptions'	     => $STRUCT_SUBSCRIPTIONS,
-	'blog_subscriptions' => $STRUCT_BLOG_SUBSCRIPTIONS,
+	'categories'	    	 => $STRUCT_CATEGORIES,
 
-	'blog_nodes'	     => $STRUCT_BLOG_NODES,
-	'blog_files'	     => $STRUCT_BLOG_FILES,
-	'blog_comments'	     => $STRUCT_BLOG_COMMENTS,
+	'nodes'			    	 => $STRUCT_NODES,
+	'nodes_ratings'			 => $STRUCT_NODES_RATINGS,
+	'files'			    	 => $STRUCT_FILES,
+	'comments'		    	 => $STRUCT_COMMENTS,
+	'comments_ratings'		 => $STRUCT_COMMENTS_RATINGS,
+	'subscriptions'	    	 => $STRUCT_SUBSCRIPTIONS,
 
-	'wiki_categories'    => $STRUCT_CATEGORIES,
-	'wiki_nodes'	     => $STRUCT_WIKI_NODES,
-	'wiki_files'	     => $STRUCT_FILES,
+	'blog_nodes'	    	 => $STRUCT_BLOG_NODES,
+	'blog_ratings'			 => $STRUCT_NODES_RATINGS,
+	'blog_files'	    	 => $STRUCT_BLOG_FILES,
+	'blog_comments'	    	 => $STRUCT_BLOG_COMMENTS,
+	'blog_comments_ratings'	 => $STRUCT_COMMENTS_RATINGS,
+	'blog_subscriptions'	 => $STRUCT_BLOG_SUBSCRIPTIONS,
 
-	'users'			     => $STRUCT_USER,
-	'roles'			     => $STRUCT_ROLES,
+	'wiki_categories'   	 => $STRUCT_CATEGORIES,
+	'wiki_nodes'	    	 => $STRUCT_WIKI_NODES,
+	'wiki_files'	    	 => $STRUCT_FILES,
 
-	'messages'		     => $STRUCT_MESSAGES,
-	'messages_files'     => $STRUCT_MESSAGES_FILES,
+	'users'			    	 => $STRUCT_USER,
+	'roles'			    	 => $STRUCT_ROLES,
 
-	'test'			     => $STRUCT_TEST
+	'messages'		    	 => $STRUCT_MESSAGES,
+	'messages_files'    	 => $STRUCT_MESSAGES_FILES,
+
+	'test'			    	 => $STRUCT_TEST
 
 ];
 

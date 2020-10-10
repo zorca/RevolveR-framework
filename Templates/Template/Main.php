@@ -350,7 +350,7 @@ if( $pages_count > 1 && pagination['allow'] ) {
 
 	// Redirect broken or 404
 
-	if( !(bool)$nodeLoaded ) {
+	if( !(bool)$nodeLoaded && PASS[ count(PASS) - 2 ] !== 'edit' &&  PASS[ 1 ] !== 'forum' ) {
 
 
 		$render_node .= '<article class="revolver__article article-id-404">';

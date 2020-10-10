@@ -43,18 +43,36 @@
 
 			$datetime = explode( '-', explode(' ', $n['time'])[0] );
 
-			$render_node .= '<time itemprop="datePublished" datetime="'. $datetime[2] .'-'. $datetime[1] .'-'. $datetime[0] .'">'. $n['time'] .'</time>';
+			$render_node .= '<time itemprop="datePublished dateModified" datetime="'. $datetime[2] .'-'. $datetime[1] .'-'. $datetime[0] .'">'. $n['time'] .'</time>';
 
 		}
 
 		$render_node .= '</header>';
 
-		$render_node .= '<div itemprop="articleBody" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
+		$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
 
 
 		if( $n['footer'] ) {
 
-			$render_node .= '<footer class="revolver__article-footer"><nav>';
+			$render_node .= '<footer class="revolver__article-footer">';
+
+			$render_node .= '<div itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+			$render_node .= '<meta itemprop="height" content="435">';
+			$render_node .= '<meta itemprop="width" content="432">';
+			$render_node .= '<meta itemprop="url" content="'. site_host .'/Interface/ArticlePostImage.png">';
+			$render_node .= '</div>';
+
+			$render_node .= '<div class="meta" itemprop="author publisher" itemscope itemtype="http://schema.org/Organization">';
+
+			$render_node .= '<div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">';
+			$render_node .= '<meta itemprop="url" content="'. site_host .'/Interface/ArticlePostImage.png" />';
+			$render_node .= '</div>';
+			$render_node .= '<span itemprop="name">'. $n['author'] .'</span>';
+
+			$render_node .= '</div>';
+
+
+			$render_node .= '<nav>';
 
 			$render_node .= '<ul>';
 

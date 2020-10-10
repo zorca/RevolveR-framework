@@ -38,6 +38,38 @@ if( $comments ) {
 
 	foreach( $comments as $c ) {
 
+		/* Comments rating */
+		$crating = iterator_to_array(
+
+					$model::get( 'blog_comments_ratings', [
+
+						'criterion'	=> 'comment_id::'. $c['id'],
+						'course'	=> 'backward',
+						'sort'		=> 'id'
+
+					])
+
+				)['model::blog_comments_ratings'];
+
+		$crate = 0;
+
+		if( $crating ) {
+
+			foreach( $crating as $r => $rv ) {
+
+				$crate += $rv['rate'];
+
+			}
+
+			$crate /= count( $crating ); 
+
+		}
+		else {
+
+			$crating = [];
+
+		}
+
 		$comment_user = iterator_to_array(
 
 				$model::get('users', [
@@ -125,9 +157,29 @@ if( $comments ) {
 					), [ 'lazy' => 1 ] ) .'</div>';
 
 
+		$render_node .= '<footer class="revolver__comments-footer">';
+
+		$tpe = 'blog-comment';
+
+		$render_node .= '<div itemscope itemtype="https://schema.org/AggregateRating" class="revolver-rating">';
+		$render_node .= '<ul class="rated-'. floor($crate) .'" data-node="'. $c['id'] .'" data-user="'. USER['id'] .'" data-type="'. $tpe .'">';
+
+			$render_node .= '<li data-rated="1">1</li>';
+			$render_node .= '<li data-rated="2">2</li>';
+			$render_node .= '<li data-rated="3">3</li>';
+			$render_node .= '<li data-rated="4">4</li>';
+			$render_node .= '<li data-rated="5">5</li>';
+
+		$render_node .= '</ul>';
+
+		$render_node .= '<span itemprop="ratingValue">'. floor($crate) .'</span> / <span itemprop="bestRating">5</span> #<span class="closest" itemprop="ratingCount">'. count($crating) .'</span>';
+		$render_node .= '<meta itemprop="worstRating" content="1" />';
+		$render_node .= '</div>';
+
+
 		if( $n['editor'] ) {
 
-			$render_node .= '<footer class="revolver__comments-footer"><nav><ul>';
+			$render_node .= '<nav><ul>';
 
 			if( $comment_user['id'] === USER['id'] || in_array(ROLE, ['Admin', 'Writer']) ) {
 
@@ -135,9 +187,11 @@ if( $comments ) {
 
 			}
 
-			$render_node .= '</ul></nav></footer>';
+			$render_node .= '</ul></nav>';
 
 		}
+
+		$render_node .= '</footer>';
 
 		$render_node .= '</article>';
 

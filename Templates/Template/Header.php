@@ -36,8 +36,12 @@
 
 </section>
 
+<?php if( RQST !== '/' ): ?>
+
 <section class="revolver__breadcrumb">
 
 	<?php require('Breadcrumb.php') ?>
 
 </section>
+
+<?php endif;?>

@@ -104,15 +104,41 @@ if( is_array( $node_comments ) ) {
 				), [ 'lazy' => 1 ] ) .'</div>';
 
 
+		$render_node .= '<footer class="revolver__comments-footer">';
+
+
+		if( isset($n['rating']) ) {
+
+			$tpe = PASS[ 1 ] === 'blog' ? 'blog-comment' : 'node-comment';
+
+			$render_node .= '<div itemscope itemtype="https://schema.org/AggregateRating" class="revolver-rating">';
+			$render_node .= '<ul class="rated-'. $c['rating'] .'" data-node="'. $c['comment_id']  .'" data-user="'. USER['id'] .'" data-type="'. $tpe .'">';
+
+				$render_node .= '<li data-rated="1">1</li>';
+				$render_node .= '<li data-rated="2">2</li>';
+				$render_node .= '<li data-rated="3">3</li>';
+				$render_node .= '<li data-rated="4">4</li>';
+				$render_node .= '<li data-rated="5">5</li>';
+
+			$render_node .= '</ul>';
+
+			$render_node .= '<span itemprop="ratingValue">'. $c['rating'] .'</span> / <span itemprop="bestRating">5</span> #<span class="closest" itemprop="ratingCount">'. $c['rates'] .'</span>';
+			$render_node .= '<meta itemprop="worstRating" content="1" />';
+			$render_node .= '</div>';
+
+		}
+
 		if( $n['editor'] ) {
 
-			$render_node .= '<footer class="revolver__comments-footer"><nav><ul>';
+			$render_node .= '<nav><ul>';
 
 			$render_node .= '<li><a title="'. $c['comment_id'] .' '. TRANSLATIONS[ $ipl ]['edit'] .'" href="/comment/'. $c['comment_id'] .'/edit/">'. TRANSLATIONS[ $ipl ]['Edit'] .'</a></li>';
 
-			$render_node .= '</ul></nav></footer>';
+			$render_node .= '</ul></nav>';
 
 		}
+
+		$render_node .= '</footer>';
 
 		$render_node .= '</article>';
 

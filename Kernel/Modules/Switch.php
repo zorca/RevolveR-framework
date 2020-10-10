@@ -3,7 +3,7 @@
  /* 
   * RevolveR primary routing switch
   *
-  * v.1.9.4
+  * v.1.9.4.6
   *
   *
   *
@@ -203,6 +203,22 @@ if( defined('ROUTE') ) {
 			}
 
 			require_once('./Kernel/Nodes/WikiNodeCreate.php');
+
+			break;
+
+		case '#services-ru':
+
+			ob_start();
+
+			require_once('./Kernel/Nodes/NodeServicesRu.php');
+
+			break;
+
+		case '#services-en':
+
+			ob_start();
+
+			require_once('./Kernel/Nodes/NodeServicesEn.php');
 
 			break;
 
@@ -433,6 +449,15 @@ if( defined('ROUTE') ) {
 				require_once('./Kernel/Routes/RouteUserEdit.php');
 
 			}
+
+			break;
+
+		case '#rating-d':
+
+			ob_start('ob_gzhandler');
+
+			// Profile dispatch
+			require_once('./Kernel/Routes/RouteRating.php');
 
 			break;
 

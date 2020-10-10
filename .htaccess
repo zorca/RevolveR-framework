@@ -84,7 +84,7 @@ RewriteRule /favicon.ico$ /interface/RCMF\.svg [L]
 
 	Header set Referrer-Policy 'strict-origin'
 
-	Header set Feature-Policy "microphone 'none'; camera 'none';"
+	Header set Permissions-Policy "microphone=(); camera=();"
 
 </IfModule>
 
