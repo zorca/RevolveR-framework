@@ -95,6 +95,10 @@
 	--related-link-hover: #b00000;
 	--country-list-text-color: #7e0909;
 
+	--search-results-list: #333;
+	--search-results-description: #222b6fe0;
+	--search-results-title: #2b651d;
+
 }
 
 :-webkit-full-screen {
@@ -2512,8 +2516,8 @@ fieldset legend::before {
 			.revolver__article-contents .revolver__search_results ul {
 
 				font-stretch: ultra-condensed;
-				text-shadow: 0 0 .1vw #fff;
-				color: #333;
+				text-shadow: 0 0 .1vw var(--simple-shadow);
+				color: var(--search-results-list);
 
 			}
 
@@ -2534,7 +2538,7 @@ fieldset legend::before {
 				margin: .5vw .6vw;
 				font-size: 1.1vw;
 				display: block;
-				color: #2b651d;
+				color: var(--search-results-title);
 
 				font-size: calc(1.1vw * var(--scale-factor));
 
@@ -2591,7 +2595,7 @@ fieldset legend::before {
 				padding-bottom: .5vw;
 				position: relative;
 				padding-left: 1vw;
-				color: #222b6fe0;
+				color: var(--search-results-description);
 				top: .8vw;
 
 			}

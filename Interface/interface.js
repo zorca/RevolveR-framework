@@ -89,6 +89,9 @@ R.nightMode = () => {
 					   --notice-color: #000; \
 					   --related-link-hover: #fff; \
 					   --country-list-text-color: #fff; \
+					   --search-results-list: #fff; \
+					   --search-results-description: #d2bf37e0; \
+					   --search-results-title: #92d084e8; \
 					}',
 
 		attr: {
