@@ -3,7 +3,7 @@
  /*
   * RevolveR CMF Kernel
   *
-  * v.1.9.4.5
+  * v.1.9.4.7
   *
   *			          ^
   *			         | |
@@ -32,7 +32,7 @@
   */
 
 // Kernel version
-define('rr_version', '1.9.4.5');
+define('rr_version', '1.9.4.7');
 
 // X64 guest number
 define('BigNumericX64', 9223372036854775806);
@@ -117,7 +117,9 @@ if( in_array(session_status(), [ PHP_SESSION_DISABLED, PHP_SESSION_NONE ], true)
 	ini_set('session.use_strict_mode', 1);
 	ini_set('session.use_cookies', 1);
 	ini_set('session.use_only_cookies', 1);
-	ini_set('session.use_trans_sid', 1); 
+	ini_set('session.use_trans_sid', 1);
+
+	session_name('__RevolveR_sessid');
 
 	session_start();
 
@@ -733,7 +735,7 @@ if( defined('CONTENTS_FLAG') ) {
 }
 
 // URI template cache
-$TCache	= !(bool)Auth ? $resolve::getCacheFile( $uri_segment ) : 0; 
+$TCache	= !(bool)Auth ? $resolve::getCacheFile( $uri_segment ) : 0;
 
 if( !(bool)$TCache ) {
 

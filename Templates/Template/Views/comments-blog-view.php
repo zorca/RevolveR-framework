@@ -144,7 +144,20 @@ if( $comments ) {
 
 		$render_node .= '</figure>';
 
-		$render_node .= '<div class="revolver__comments-contents">'. $markup::Markup( 
+		if( in_array(ROLE, ['Admin', 'Writer']) || USER['name'] === $comment_user['nickname'] ) {
+
+				$quick_edit_attr = ' contenteditable="false"';
+				$quick_edit_data = ' data-node="'. $c['id'] .'" data-type="blog-comment" data-user="'. $comment_user['nickname'] .'"';
+
+		} 
+		else {
+
+			$quick_edit_attr = '';
+			$quick_edit_data = '';
+
+		}
+
+		$render_node .= '<div class="revolver__comments-contents"'. $quick_edit_attr . $quick_edit_data .'>'. $markup::Markup( 
 
 					htmlspecialchars_decode( 
 
@@ -161,7 +174,7 @@ if( $comments ) {
 
 		$tpe = 'blog-comment';
 
-		$render_node .= '<div itemscope itemtype="https://schema.org/AggregateRating" class="revolver-rating">';
+		$render_node .= '<div class="revolver-rating">';
 		$render_node .= '<ul class="rated-'. floor($crate) .'" data-node="'. $c['id'] .'" data-user="'. USER['id'] .'" data-type="'. $tpe .'">';
 
 			$render_node .= '<li data-rated="1">1</li>';
@@ -172,20 +185,16 @@ if( $comments ) {
 
 		$render_node .= '</ul>';
 
-		$render_node .= '<span itemprop="ratingValue">'. floor($crate) .'</span> / <span itemprop="bestRating">5</span> #<span class="closest" itemprop="ratingCount">'. count($crating) .'</span>';
-		$render_node .= '<meta itemprop="worstRating" content="1" />';
+		$render_node .= '<span>'. floor($crate) .'</span> / <span>5</span> #<span class="closest">'. count($crating) .'</span>';
 		$render_node .= '</div>';
 
-
-		if( $n['editor'] ) {
+		if( $comment_user['id'] === USER['id'] || in_array(ROLE, ['Admin', 'Writer']) ) {
 
 			$render_node .= '<nav><ul>';
 
-			if( $comment_user['id'] === USER['id'] || in_array(ROLE, ['Admin', 'Writer']) ) {
+			$render_node .= '<li class="revolver__quick-edit-handler" title="'. TRANSLATIONS[ $ipl ]['qedit'] .'">[ '. TRANSLATIONS[ $ipl ]['QEdit'] .' ]</li>';
 
-				$render_node .= '<li><a title="'. $c['id'] .' '. TRANSLATIONS[ $ipl ]['edit'] .'" href="'. RQST .'comment/'.  $c['id'] .'/edit/">'. TRANSLATIONS[ $ipl ]['Edit'] .'</a></li>';
-
-			}
+			$render_node .= '<li><a title="'. $c['id'] .' '. TRANSLATIONS[ $ipl ]['edit'] .'" href="'. RQST .'comment/'.  $c['id'] .'/edit/">'. TRANSLATIONS[ $ipl ]['Edit'] .'</a></li>';
 
 			$render_node .= '</ul></nav>';
 

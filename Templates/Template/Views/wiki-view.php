@@ -12,6 +12,12 @@
 
 		}
 
+		if( !isset($n['quedit']) ) {
+
+			$n['quedit'] = null;
+
+		}
+
 		if( !isset($n['language']['hreflang']) ) {
 
 			$n['language']['hreflang'] = $primary_language; 
@@ -49,7 +55,20 @@
 
 		$render_node .= '</header>';
 
-		$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
+		if( $n['quedit'] ) {
+
+			$quick_edit_attr = ' contenteditable="false"';
+			$quick_edit_data = ' data-node="'. $n['id'] .'" data-type="wiki"';
+
+		} 
+		else {
+
+			$quick_edit_attr = '';
+			$quick_edit_data = '';
+
+		}
+
+		$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents"'. $quick_edit_attr . $quick_edit_data .'>'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
 
 
 		if( $n['footer'] ) {
@@ -75,6 +94,12 @@
 			$render_node .= '<nav>';
 
 			$render_node .= '<ul>';
+
+			if( $n['quedit'] ) {
+
+				$render_node .= '<li class="revolver__quick-edit-handler" title="'. $n['title'] .' '. TRANSLATIONS[ $ipl ]['qedit'] .'">[ '. TRANSLATIONS[ $ipl ]['QEdit'] .' ]</li>';
+
+			}
 
 			if( $n['editor'] ) {
 

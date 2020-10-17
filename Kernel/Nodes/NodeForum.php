@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Forum 
   *
-  * v.1.9.4
+  * v.1.9.4.7
   *
   *
   *
@@ -652,13 +652,14 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			'title'		  => $room_title,
 			'description' => $room_description,
 			'contents'	  => $room_content,
-			'id'		  => 'forum-room-inner',
+			'id'		  => $room_id,
 			'route'		  => '/forum/'. $forum['id'] .'/'. $room_id .'/',
 			'time'		  => $room_time,
 			'teaser'	  => null,
 			'footer'	  => USER['name'] === $room_user || in_array(ROLE, ['Admin', 'Writer']) ? true : null,
 			'published'	  => 1,
 			'editor'	  => USER['name'] === $room_user || in_array(ROLE, ['Admin', 'Writer']) ? true : null,
+			'quedit'	  => USER['name'] === $room_user || in_array(ROLE, ['Admin', 'Writer']) ? true : null,
 			'author'	  => $room_user,
 			'editor_mode' => null,
 
@@ -724,7 +725,7 @@ if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) ) {
 			'title'		  => $room_title,
 			'description' => $room_description,
 			'contents'	  => $room_content,
-			'id'		  => 'forum-room-inner',
+			'id'		  => $room_id,
 			'route'		  => '/forum/'. $forum['id'] .'/'. $room_id .'/',
 			'time'		  => $room_time,
 			'forum'		  => $room_forum_id,

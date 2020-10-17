@@ -1,6 +1,6 @@
 
 <!-- RevolveR :: main -->
-<section class="revolver__main-contents <?php print $main_class; ?> <?php print $auth_class; ?>">
+<div class="revolver__main-contents <?php print $main_class; ?> <?php print $auth_class; ?>">
 
 <?php
 
@@ -275,21 +275,6 @@ if( !defined('ROUTE') ) {
 				/* Forum */
 				if( defined('ROUTE') ) {
 
-					if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) || is_numeric( PASS[ 3 ] ) ) {
-
-						if( PASS[ 3 ] !== 'edit' && empty( PASS[ 3 ] ) ) {
-
-							include('./Templates/'. TEMPLATE .'/Views/forum-view.php');
-
-						}
-
-					}
-
-				}
-
-				/* Forum */
-				if( defined('ROUTE') ) {
-
 					if( ROUTE['node'] === '#blog' ) {
 
 						if( PASS[ 1 ] === 'blog' && PASS[ 3 ] !== 'edit' ) {
@@ -387,4 +372,4 @@ if( $pages_count > 1 && pagination['allow'] ) {
 <?php require_once('Related.php'); ?>
 
 
-</section>
+</div>

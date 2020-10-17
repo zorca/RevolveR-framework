@@ -6,7 +6,7 @@
   *
   * make exit and frees resources
   *
-  * v.1.9.4
+  * v.1.9.4.7
   *
   *                   ^
   *                  | |
@@ -39,10 +39,6 @@ final class Conclude {
 
 	/* Get template cache for defined URI */
 	public static function getCacheFile( ?iterable $f ): string {
-
-		// ToDo :: fix cache collisions
-
-		return '0';
 
 		$c = '0';
 
@@ -181,6 +177,7 @@ final class Conclude {
 
 						if( !is_readable( $root . $dir . $resFile .'-'. $File) ) {
 
+							// Clean static interface files cache
 							foreach( scandir( $root . $dir ) as $cf) {
 
 								if( !in_array($cf, ['.', '..']) && !is_dir( $root . $dir . $cf ) ) {
@@ -190,6 +187,17 @@ final class Conclude {
 									unlink($root . $dir . $cf);
 
 								}
+
+							}
+
+							// Clean templates cache when static interface files changed 
+							foreach( array_diff(
+
+										scandir('./cache/tplcache/', 1), [ '..', '.' ]
+
+									) as $file ) {
+
+									unlink( './cache/tplcache/'. $file );
 
 							}
 
@@ -294,7 +302,7 @@ final class Conclude {
 	}
 
 	/* Decorate log lines */
-	public static function stringDecorator( iterable $s, string $symbol = '.', int $length = 55 ): string {
+	public static function stringDecorator( iterable $s, string $symbol = '.', int $length = 57 ): string {
 
 		$r = '';
 
@@ -446,17 +454,16 @@ final class Conclude {
 
 				'search', 
 				'secure', 
-				'setup', 
-				//'blog', 
-				//'wiki',
-				//'forum',
+				'setup',
 				'user', 
-				'user-d', 
+				'user-d',
+				'rating-d', 
 				'category-d', 
 				'contents-d', 
 				'comments-d', 
 				'forum-d', 
-				'forum-room-d', 
+				'forum-room-d',
+				'forum-comments-d', 
 				'blog-d', 
 				'blog-comments-d',
 				'wiki-d',
@@ -608,11 +615,13 @@ final class Conclude {
 			'contents-d', 
 			'comments-d', 
 			'forum-d', 
-			'forum-room-d', 
+			'forum-room-d',
+			'forum-comments-d',
 			'blog-d', 
 			'blog-comments-d',
 			'wiki-d',
-			'wiki-node-d'
+			'wiki-node-d',
+			'rating-d'
 
 		] ) ) {
 
@@ -736,7 +745,7 @@ final class Conclude {
 
 		exit(
 
-			$header . ob_get_clean() . $footer
+			ob_get_clean()
 
 		);
 

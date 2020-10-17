@@ -3,7 +3,7 @@
  /* 
   * RevolveR Node
   *
-  * v.1.9.4.6
+  * v.1.9.4.7
   *
   *
   *
@@ -212,6 +212,7 @@ if( CONTENTS_FLAG ) {
 
 					$CNODE['footer'] = true;
 					$CNODE['editor'] = true;
+					$CNODE['quedit'] = true;
 
 					if( PASS[ count(PASS) - 2 ] === 'edit' ) {
 
@@ -316,6 +317,8 @@ if( CONTENTS_FLAG ) {
 									'comment_user_avatar' => $v['avatar'],
 									'comment_published'   => $c['published'],
 									'rating'			  => floor( $crate ),
+									'quedit'			  => in_array(ROLE, ['Admin', 'Writer']) || USER['name'] === $c['user_name'] ? true : null,
+									'editor'			  => in_array(ROLE, ['Admin', 'Writer']) || USER['name'] === $c['user_name'] ? true : null, 
 									'rates'				  => count( $crating ),
 
 								];

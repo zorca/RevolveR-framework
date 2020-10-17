@@ -2,7 +2,7 @@
  /* 
   * RevolveR Front-end :: main interface
   *
-  * v.1.9.4.6
+  * v.1.9.4.7
   *
   *			          ^
   *			         | |
@@ -38,9 +38,71 @@ if( !self.run ) {
 
 	R.menuPosition  = 0;
 
+	R.night = null;
+
 }
 
 self.searchAction = null;
+
+/* Night */
+R.nightMode = () => {
+
+	RR.new('style', 'head', 'in', {
+
+		html: ':root { --body-bg: transparent repeating-linear-gradient(-45deg, transparent, transparent .01vw, #cccccca3 .01vw, #00000075 .5vw); \
+					   --article-bg-color: rgba(0, 0, 0, .6); \
+					   --article-text-shadow-color: 0 0 .1vw #000; \
+					   --article-text-color: #c7c7c7; \
+					   --article-header-bg: linear-gradient(to right, rgba(254, 255, 232, 0) 0%, rgb(62 57 57) 100%); \
+					   --article-footer-bg: linear-gradient(to left, rgba(254, 255, 232, 0) 0%, rgb(64 66 57) 100%); \
+					   --comments-article-header: linear-gradient(to right, rgba(254, 255, 232, 0), rgb(0 0 0)); \
+					   --comments-article-footer: linear-gradient(to left, rgba(254, 255, 232, 0), rgb(45 45 45) 99.58%); \
+					   --article-header-text-shadow: #000; \
+					   --article-header-text-color: #fdfdfd; \
+					   --article-header-hover-text-shadow-color: #000; \
+					   --simple-shadow: #000; \
+					   --forum-topic-list-bg: #000; \
+					   --article-list-item-color: #c7c7c7; \
+					   --related-list-box-shadow: inset .2vw .2vw .2vw #000; \
+					   --pagination-list-bg: linear-gradient(to bottom, rgba(255, 255, 255, .3) 0, rgb(0 0 0 / 50%) 100%); \
+					   --pagination-list-text-color: #fff; \
+					   --parallax-bg-color: #949494e3; \
+					   --parallax-1-bg: repeating-linear-gradient(45deg, transparent, transparent .1vw, #ffffff45 .1vw, #6b6b6b .25vw), linear-gradient(to bottom, #eeeeee5c, #bfbfbf1a); \
+					   --parallax-2-bg: repeating-linear-gradient(-45deg, transparent, transparent .1vw, #ffffff45 .1vw, #94949494 .25vw), linear-gradient(to top, #eeeeee5c, #bfbfbf1a); \
+					   --tabs-list-items-bg: #5f5b5b; \
+					   --tabs-list-items-text-shadow: #666; \
+					   --tabs-body-bg: #272727; \
+					   --tabs-list-items-hover-bg: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgb(47, 47, 47) 100%); \
+					   --form-fieldset-bg: linear-gradient(45deg, rgba(35, 35, 35, .7) 0, rgba(78, 78, 77, .4) 60%, rgba(252, 255, 244, .2) 100%); \
+					   --form-legend-bg: linear-gradient(45deg, rgba(45, 45, 45, .8) 0%, rgba(93, 95, 91, .6) 60%, rgba(252, 255, 244, .4) 100%); \
+					   --form-input-bg: linear-gradient(to bottom, #7d7e7d 0%,#0e0e0e 100%); \
+					   --form-input-text-color: #c5c1c1f2; \
+					   --form-editor-buttons-bg: repeating-linear-gradient(45deg, transparent, transparent .1vw, #ffffff45 .1vw, #15171594 .25vw), linear-gradient(to bottom, #eeeeee5c, #2727271a); \
+					   --form-editor-buttons-text-color: #fff; \
+					   --form-submit-bg: linear-gradient(45deg, rgb(23 23 23 / 70%) 0%, rgb(45 45 44 / 40%) 60%, rgba(252, 255, 244, .2) 100%); \
+					   --form-input-select-main-opened: repeating-linear-gradient(-45deg, transparent, transparent .1vw, #000 .1vw, #ffffff91 .25vw), linear-gradient(to top, #eeeeee9e, #00000042) !important; \
+					   --form-placeholder: #fff; \
+					   --form-select-main: linear-gradient(to bottom, #7d7e7d 0%, #0e0e0e 100%); \
+					   --form-select-list-active: linear-gradient(to bottom, #3c3c3ca8 0%, #848484 100%); \
+					   --article-user-list-header: linear-gradient(to left, rgba(228, 228, 228, 0.24) 0%, rgb(255 255 255 / 74%) 100%); \
+					   --terminal-text-color: #fff; \
+					   --notice-color: #000; \
+					   --related-link-hover: #fff; \
+					   --country-list-text-color: #fff; \
+					}',
+
+		attr: {
+
+			'media': 'all',
+			'class': 'revolver__night'
+
+		}
+
+	});
+
+	R.night = true;
+
+};
 
 R.logging = ( x, e = 'html' ) => {
 
@@ -223,6 +285,35 @@ R.cleanNotifications = (t) => {
 // Make interface
 R.fetchRoute = ( intro ) => {
 
+	let dateTime = new Date();
+
+	let hours = dateTime.getHours();
+
+	let nightStyle = R.sel('.revolver__night');
+
+	if( hours >= 20 || hours <= 8 ) {
+
+		if( !R.night ) {
+
+			R.nightMode();
+
+			console.log('Night come ...');
+
+		}
+
+	} 
+	else {
+
+		if( nightStyle ) {
+
+			R.rem(nightStyle);
+
+			console.log('Day come ...');
+
+		}
+
+	}
+
 	R.menuMove = null;
 
 	R.mainMenues = R.sel('.revolver__main-menu ul');
@@ -230,7 +321,6 @@ R.fetchRoute = ( intro ) => {
 	R.styleApply(R.mainMenues, ['left:'+ R.menuPosition + 'px']);
 
 	// Privacy policy
-
 	setTimeout(() => {
 
 		R.fetch('/secure/?policy=get', 'get', 'json', null, function() {
@@ -313,7 +403,7 @@ R.fetchRoute = ( intro ) => {
 			}
 
 			// Lazy load
-			setTimeout(()=>{
+			setTimeout(() => {
 
 				R.lazyLoad();
 
@@ -433,7 +523,11 @@ R.fetchRoute = ( intro ) => {
 				'transform:scale(.5,.5,.5):500:bouncePast', 
 				'transform:scale(1,1,1):1550:elastic'
 
-			]);
+			], () => {
+
+				R.hint();
+
+			});
 
 		});
 
@@ -471,7 +565,7 @@ R.fetchRoute = ( intro ) => {
 
 		if( menu ) {
 
-			R.styleApply('.revolver__site-description', ['top:7vw', 'z-index:500000']);
+			R.styleApply('.revolver__site-description', ['top:8.82vw', 'z-index:50000', 'opacity:1']);
 
 			for( let e of menu ) {
 
@@ -484,7 +578,7 @@ R.fetchRoute = ( intro ) => {
 
 						R.addClass([ e ], 'route-active');
 
-						R.styleApply('.revolver__site-description', ['top:7vw', 'z-index:500000']);
+						R.styleApply('.revolver__site-description', ['top:8.82vw', 'z-index:50000', 'opacity:1']);
 
 						R.reParallax('.revolver__main-menu ul');
 
@@ -552,11 +646,13 @@ R.fetchRoute = ( intro ) => {
 
 		if( !R.menuMove ) {
 
-			R.menuLeft = RR.curxy[0];
+			R.menuLeft = R.curxy[0];
 
 			R.MenuMoveObserver = R.event('body', 'mousemove', (e) => {
 
 				e.preventDefault();
+
+				R.styleApply(R.mainMenues, ['transition: all 0s ease']);
 
 				R.menuMove = true;
 
@@ -574,12 +670,21 @@ R.fetchRoute = ( intro ) => {
 
 					}
 
-					setTimeout(() => { 
+					void setTimeout(() => { 
 
 						R.menuMove = null;
 
-
 					}, 50);
+
+					void setTimeout(() => {
+
+						if( !R.menuMove ) {
+
+							R.styleApply(R.mainMenues, ['left: 0px', 'transition: all 2.5s cubic-bezier(.175, .885, .32, 1.275)']);
+
+						}
+
+					}, 2500);
 
 				});
 
@@ -607,9 +712,10 @@ R.fetchRoute = ( intro ) => {
 
 				if( R.isO(R.MenuMoveObserver) ) {
 
-					for( i of R.MenuMoveObserver ) {
+					for( i of RR.MenuMoveObserver ) {
 
-						R.detachEvent( i[ 2 ] );
+						RR.detachEvent( i[ 2 ] );
+
 
 					}
 
@@ -625,6 +731,16 @@ R.fetchRoute = ( intro ) => {
 
 				}
 
+				void setTimeout(() => {
+
+					if( !R.menuMove ) {
+
+						R.styleApply(R.mainMenues, ['left: 0px', 'transition: all 2.5s cubic-bezier(.175, .885, .32, 1.275)']);
+
+					}
+
+				}, 2500);
+
 			}
 
 		});
@@ -637,17 +753,125 @@ R.fetchRoute = ( intro ) => {
 
 				e.preventDefault();
 
+				R.styleApply(R.mainMenues, ['transition: all 0s ease']);
+
 				R.menuMove = true;
 
 				R.menuPosition = ( R.menuLeft - e.changedTouches[0].screenX ) *-1; 
 
 				R.styleApply(R.mainMenues, ['left:'+ R.menuPosition +'px']);
 
+					R.event('body', 'touchend', (e) => {
+
+						R.menuMove = null;
+
+					});
+
 			});
 
 		}
 
 	});
+
+	/* Quick edit handler */
+	setTimeout(() => {
+
+		R.event('.revolver__quick-edit-handler', 'click', (e) => {
+
+			let articleArea = e.target.closest('article');
+			let editorArea  = articleArea.querySelector('.revolver__article-contents, .revolver__comments-contents');
+
+			R.toggleClass([ editorArea ], 'quick-edit-enbaled');
+
+			if( R.isU(e.target.dataset.editing) || e.target.dataset.editing === 'null' ) {
+
+				//articleArea.requestFullscreen();
+
+				//R.reParallax();
+
+				R.attr(editorArea, { 
+
+					'contenteditable': true
+
+				});
+
+				R.attr(e.target, {
+
+					'data-editing': true
+
+				});
+
+				e.target.innerText = '[ Ok! ]';
+
+				console.log('Enter quick edit mode');
+
+			} 
+			else {
+
+				console.log('Exit quick edit mode :: saving ... ');
+
+				let figs = editorArea.querySelectorAll('figure img');
+
+				if( figs ) {
+
+					for( let i of figs ) {
+
+						i.removeAttribute('data-src');
+						i.removeAttribute('class');
+						i.removeAttribute('style');
+
+					}
+
+				}
+
+				setTimeout(() => {
+
+					R.attr(editorArea, { 
+
+						'contenteditable': false
+
+					});
+
+					R.attr(e.target, {
+
+						'data-editing': null
+
+					});
+
+					let data = new FormData();
+
+					data.append( btoa('revolver_quedit_user'), RR.utoa( editorArea.dataset.user +'~:::~text~:::~'+ -1) );
+					data.append( btoa('revolver_quedit_node'), RR.utoa( editorArea.dataset.node +'~:::~text~:::~'+ -1) );
+					data.append( btoa('revolver_quedit_data'), RR.utoa( editorArea.innerHTML +'~:::~text~:::~'+ -1) );
+					data.append( btoa('revolver_quedit_type'), RR.utoa( editorArea.dataset.type +'~:::~text~:::~'+ -1) );
+
+					R.FormData = data;
+
+					// Perform parameterized fetch request
+					R.fetch('/quedit-d/', 'POST', 'text', true, function() {
+
+						R.FormData = null;
+
+						//document.exitFullscreen();
+
+						R.fetchRoute(true);
+
+						console.log('Quick edit mode :: node saved ... ');
+
+
+					});
+
+					e.target.innerText = '[ Quick Edit ]';
+
+
+				}, 1500);
+
+			}
+
+
+		});
+
+	}, 3000);
 
 	setTimeout(() => {
 

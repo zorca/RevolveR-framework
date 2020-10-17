@@ -3,7 +3,7 @@
   *
   * RevolveR CMF interface :: ECMA Script 7
   *
-  * v.1.9.4.6
+  * v.1.9.4.7
   *
   * RevolveR ECMA Script is a fast, simple and
   *
@@ -142,7 +142,7 @@
 		get browser() {
 
 			// Interface application version
-			RR.appVer = '1.9.0';
+			RR.appVer = '1.9.4.7';
 
 			// Is mobile support available
 			RR.isM = /(Privacy|Android|BackBerry|phone|iPad|iPod|IEMobile|Nokia|Mobile)/.test(navigator.userAgent);
@@ -189,10 +189,9 @@
 
 						if( e.isTrusted ) {
 
-							RR.curxy = [ e.clientX, e.clientY, e ];
-							RR.curOffset =	[ self.scrollX, self.scrollY ];
-
-							RR.CXY = [ e.clientX, e.clientY, e ];
+							RR.curxy     = [ e.clientX, e.clientY, e ];
+							RR.curOffset = [ self.scrollX, self.scrollY ];
+							RR.CXY       = [ e.clientX, e.clientY, e ];
 
 						}
 
@@ -200,9 +199,22 @@
 
 					RR.events.push([RR.that.body, 'mousemove', () => {}, 'bodyMouseMove']);
 
+					if( RR.isM ) {
+
+						window.addEventListener('deviceorientation', (e) => {  
+
+							RR.XYZ = [e.alpha, e.beta, e.gamma];  
+
+						}, false);
+						
+						R.events.push([window, 'deviceorientation', () => {}, 'deviceOrientation']);
+
+					} 
+
+
 				}
 
-				RR.AxisEvent = true; 
+				RR.AxisEvent = true;
 
 			}, 500);
 
@@ -346,6 +358,8 @@
 
 					RR.event(self, 'resize:lock', () => {
 
+						R.reParallax();
+
 						setPosition();
 
 						RR.screenPositionDefined[1] = true;
@@ -371,15 +385,11 @@
 
  		syntax: function(code) {
 
-			let comments	= [];
-
-			let strings		= [];
-
-			let res			= [];
-
-			let all			= { 'C': comments, 'S': strings, 'R': res };
-
-			let safe		= { '<': '<', '>': '>', '&': '&' };
+			let comments = [];
+			let strings	 = [];
+			let res		 = [];
+			let all		 = { 'C': comments, 'S': strings, 'R': res };
+			let safe	 = { '<': '<', '>': '>', '&': '&' };
 
 			return code.replace(/[<>&]/g, function( m ) { 
 			
@@ -418,6 +428,57 @@
 					return '<span class="'+ t +'">'+ all[ t ][ i ] +'</span>'; 
 
 			}).replace(/\n/g, '<br/>').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+
+		},
+
+		hint: () => {
+
+			RR.event('[title]', 'mouseenter', function(e) {
+
+				console.log('Hint attached');
+
+				RR.new('div', 'body', 'before', {
+
+					html: '<span>'+ e.target.title +'</span>',
+					attr: {
+
+						style: 'position: fixed;',
+						class: 'hint'
+
+					}
+
+				});
+
+				let hSizeX = R.sel('.hint')[0].offsetWidth;
+				let overflowSizeX = hSizeX + R.curxy[0] + 20;
+
+				this.setAttribute('data-title', this.title); 
+				this.title = '';
+
+				RR.event([this], 'mousemove', (evt) => {
+
+					R.sel('.hint')[0].style.left = RR.currentSizes[0] < overflowSizeX ? ( R.curxy[0] - hSizeX - 20 ) +'px' : (R.curxy[0] + 20) +'px';
+					R.sel('.hint')[0].style.top = (R.curxy[1] - 50) +'px';
+
+				});
+
+				RR.event([this], 'mouseleave', (evt) => {
+
+					console.log('Hint detached');
+
+					let hint = R.sel('.hint');
+
+					this.setAttribute('title', this.getAttribute('data-title'));
+
+					if( hint ) {
+
+						RR.rem( hint );
+					
+					}
+
+				});
+
+			});
 
 		},
 
@@ -469,6 +530,7 @@
 							case 'touchend':
 							case 'touchenter':
 							case 'touchleave':
+							case 'deviceorientation':
 
 								var m = eMode;
 
@@ -506,7 +568,7 @@
 		},
 
 		// Fetch future
-		fetch: function(u = null, m = 'get', d = 'text', e = null , f = null) {
+		fetch: function(u = null, m = 'get', d = 'text', e = null , f = null, preview = null) {
 
 			let params = {
 
@@ -583,7 +645,11 @@
 
 				RR.FormData = null;
 
-				clearInterval( RR.preview );
+				if( !preview ) {
+
+					clearInterval( RR.preview );
+
+				}
 
 				setTimeout(() => {
 
@@ -804,13 +870,27 @@
 
 							RR.event( [ parallax ], 'mousemove', (e) => {
 
-								RR.styleApply('.parallax-1', ['left:'+ ( (e.screenX / 90) + (e.screenX / 92) ) *-1 +'px', 'top:'+ (e.screenY / 90) * -1 +'px'], () => {
+								RR.styleApply('.parallax-1', ['left:'+ ( (e.screenX / 90) + (e.screenX / 92) ) * -1 +'px', 'top:'+ (e.screenY / 90) * -1 +'px'], () => {
 
 									RR.styleApply('.parallax-2', ['left:'+ ( (e.screenX / 90) + (e.screenX / 92) ) +'px', 'top:'+ (e.screenY / 80) +'px']);
 
 								});
 
 							});
+
+							if( RR.isM ) {
+
+								window.addEventListener('deviceorientation', (e) => {
+
+									RR.styleApply('.parallax-1', ['left:'+ ( (e.gamma / 20) * -1 ) +'px', 'top:'+ (e.beta / 20) * -1 +'px'], () => {
+
+										RR.styleApply('.parallax-2', ['left:'+ ( (e.gamma / 20) + (e.gamma / 4) ) +'px', 'top:'+ (e.beta / 20) +'px']);
+
+									});
+
+								}, false);
+
+							}
 
 						});
 
@@ -832,7 +912,7 @@
 
 						RR.animate([ block ], ['height:0px:150:linear'], () => {
 
-							RR.animate([ block ], ['height:'+ plax.offsetHeight +'px:2000:elastic'] );
+							RR.animate([ block ], ['height:'+ plax.offsetHeight +'px:2000:elastic', 'width:'+ plax.offsetWidth +'px:2000:elastic']);
 
 						});
 
@@ -1218,7 +1298,9 @@
 
 			const textareas = RR.sel('textarea');
 
-			if( textareas ) {
+			const editorArea = RR.sel('revolver__editor-area');
+
+			if( textareas && !editorArea ) {
 
 				// Place editor buttons before textareas
 				for( let i of textareas ) {
@@ -1403,7 +1485,7 @@
 
 										locked = true;
 
-										tObserver = setTimeout(() => {
+										tObserver = void setTimeout(() => {
 
 											locked = null;
 
@@ -1421,7 +1503,7 @@
 
 										locked = true;
 
-										tObserver = setTimeout(() => {
+										tObserver = void setTimeout(() => {
 
 											locked = null;
 
@@ -1439,7 +1521,7 @@
 
 										locked = true;
 
-										tObserver = setTimeout(() => {
+										tObserver = void setTimeout(() => {
 
 											locked = null;
 
@@ -1467,6 +1549,8 @@
 									let eaction = null;
 
 									RR.preview = setInterval(() => {
+
+										console.log('Preview refresh locked :: '+ locked);
 
 										if( !locked ) {
 
@@ -1722,7 +1806,7 @@
 
 													});
 
-												});
+												}, true);
 
 												void setTimeout(() => {
 
@@ -1732,7 +1816,7 @@
 
 														RR.useCaptcha( this.key );
 
-													});
+													}, true);
 
 													diff_flag = first = null;
 

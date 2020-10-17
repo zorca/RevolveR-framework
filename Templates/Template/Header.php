@@ -30,18 +30,18 @@
 
 </header>
 
-<section class="revolver__nav-bar">
+<div class="revolver__nav-bar">
 
 	<?php require('Menu.php'); ?>
 
-</section>
+</div>
 
 <?php if( RQST !== '/' ): ?>
 
-<section class="revolver__breadcrumb">
+<div class="revolver__breadcrumb">
 
 	<?php require('Breadcrumb.php') ?>
 
-</section>
+</div>
 
 <?php endif;?>

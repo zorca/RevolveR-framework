@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Blog
   *
-  * v.1.9.4.6
+  * v.1.9.4.7
   *
   *
   *
@@ -511,7 +511,7 @@ if( $blog_items ) {
 
 	foreach( $blog_items as $bi ) {
 
-		$editor = USER['name'] === $bi['user'] || in_array( ROLE, ['Admin', 'Writer'] ) ? true : false;
+		$editor = USER['name'] === $bi['user'] || in_array( ROLE, ['Admin', 'Writer'] ) ? true : null;
 
 		if( PASS[ 1 ] === 'blog' && empty( PASS[ 2 ] ) ) {
 
@@ -606,6 +606,7 @@ if( $blog_items ) {
 					'teaser'      => false,
 					'footer'      => true,
 					'editor'      => $editor,
+					'quedit'      => $editor,
 					'editor_mode' => false,
 					'published'   => 1,
 
@@ -635,6 +636,7 @@ if( $blog_items ) {
 						'teaser'      => false,
 						'footer'      => true,
 						'editor'      => $editor,
+						'quedit'      => $editor,
 						'editor_mode' => false,
 						'published'   => 1,
 

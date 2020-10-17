@@ -1591,6 +1591,7 @@ final class DBX {
 						break;
 
 					case $prefix .'nodes':
+					case $prefix .'nodes_ratings':
 
 						$cacheFilesMask = 'homepage|contents|categories|aggregator|sitemap';
 
@@ -1612,15 +1613,16 @@ final class DBX {
 					case $prefix .'forum_rooms':
 					case $prefix .'froom_comments':
 
-						$cacheFilesMask = 'homepage|forum';
+						$cacheFilesMask = 'forum';
 
 						break;
 
 					case $prefix .'blog_nodes':
 					case $prefix .'blog_comments':
 					case $prefix .'blog_files':
+					case $prefix .'blog_ratings':
 
-						$cacheFilesMask = 'homepaage|blog';
+						$cacheFilesMask = 'homepage|blog';
 
 						break;
 
@@ -1629,12 +1631,6 @@ final class DBX {
 					case $prefix .'wiki_files':
 
 						$cacheFilesMask = 'wiki';
-
-						break;
-
-					case $prefix .'subscriptions':
-
-						$cacheFilesMask = 'contents';
 
 						break;
 

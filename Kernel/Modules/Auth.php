@@ -4,7 +4,7 @@
   * 
   * RevolveR Authentification
   *
-  * v.1.9.4
+  * v.1.9.4.7
   *
   *
   *
@@ -36,6 +36,8 @@
   *
   *
   */
+
+ //var_dump(SV['c']);
 
 final class Auth {
 
@@ -75,6 +77,8 @@ final class Auth {
         [ 'authorization', 1, time() + 86400, '/' ]
 
       ]);
+
+      session_name('__RevolveR_sessid');
 
       session_start();
 
@@ -128,7 +132,7 @@ final class Auth {
 
   private static function constructCookie( iterable $c ): string {
 
-    $s = 'Set-Cookie: '. $c[0] .'='. rawurlencode( $c[1] ) .'; Expires='. date('D, d M Y H:i:s', $c[2]) . 'GMT' .'; Path='. $c[3] .'; Domain='. $_SERVER['HTTP_HOST'] .';';
+    $s = 'Set-Cookie: __RevolveR_'. $c[0] .'='. rawurlencode( $c[1] ) .'; Expires='. date('D, d M Y H:i:s', $c[2]) . 'GMT' .'; Path='. $c[3] .'; Domain='. $_SERVER['HTTP_HOST'] .';';
 
     if( (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || (int)$_SERVER['SERVER_PORT'] === 443 ) {
 

@@ -1,7 +1,7 @@
 # 
-# RevolveR CMF Indexing Rules 
+# RevolveR CMF Crawling Rules 
 #
-# v.1.9.4
+# v.1.9.4.7
 #
 
 User-agent: *

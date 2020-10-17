@@ -3,7 +3,7 @@
  /* 
   * RevolveR CMF translations 
   *
-  * v.1.9.4
+  * v.1.9.4.7
   *
   *
   *
@@ -38,6 +38,10 @@
 define('TRANSLATIONS', [
 
 	'EN' => [
+
+		/* Quick edit */
+		'qedit'										=> 'quick edit',
+		'QEdit'										=> 'Quick Edit',
 
 		/* Services */
 		'Services'									=> 'Services',
@@ -607,6 +611,11 @@ define('TRANSLATIONS', [
 
 	'RU' => [
 
+		/* Быстрое редактирование */
+		'qedit'										=> 'правка',
+		'QEdit'										=> 'Правка',
+
+
 		/* Услуги */
 		'Services'									=> 'Услуги',
 		'Company services'							=> 'Услуги компании',
@@ -639,8 +648,8 @@ define('TRANSLATIONS', [
 		'Optimize Data Base tables'					=> 'Оптимизация таблиц базы данных',
 		'Refresh Data Base tables index'			=> 'Обновление индексов таблиц базы данных',
 		'Data Base service futures'					=> 'Обсулживание базы данных',
-		'Terminal'									=> 'Terminal',
-		'Terminal service'							=> 'Terminal service',
+		'Terminal'									=> 'Терминал',
+		'Terminal service'							=> 'Интерфейс терминала',
 		'session'									=> 'сессия',
 		'Command shell'								=> 'Command shell',
 		'Shell session'								=> 'Shell сессия',

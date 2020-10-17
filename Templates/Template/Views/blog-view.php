@@ -8,6 +8,12 @@
 
 	}
 
+	if( !isset($n['quedit']) ) {
+
+		$n['quedit'] = null;
+
+	}
+
 	if( !isset( $n['time'] ) ) {
 
 		$n['time'] = null;
@@ -51,14 +57,21 @@
 
 		if( isset($n['rating']) ) {
 
-			$render_node .= '<div itemscope itemtype="https://schema.org/AggregateRating" class="revolver-rating">';
-			$render_node .= '<ul class="rated-'. $n['rating'] .'" data-node="'. $n['id'] .'" data-user="'. USER['id'] .'" data-type="blog">';
+			$tpe = PASS[ 1 ] === 'blog' ? 'blog' : 'node';
+
+			$render_node .= '<div class="revolver-rating">';
+			$render_node .= '<ul class="rated-'. $n['rating'] .'" data-node="'. $n['id'] .'" data-user="'. USER['id'] .'" data-type="'. $tpe .'">';
 				$render_node .= '<li data-rated="1">1</li>';
 				$render_node .= '<li data-rated="2">2</li>';
 				$render_node .= '<li data-rated="3">3</li>';
 				$render_node .= '<li data-rated="4">4</li>';
 				$render_node .= '<li data-rated="5">5</li>';
 			$render_node .= '</ul>';
+
+			$render_node .= '<span>'. $n['rating'] .'</span> / <span>5</span> #<span class="closest">'. $n['rates'] .'</span>';
+			$render_node .= '</div>';
+
+		}
 
 			$render_node .= '<div itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
 			$render_node .= '<meta itemprop="height" content="435">';
@@ -74,10 +87,6 @@
 			$render_node .= '<span itemprop="name">'. $n['author'] .'</span>';
 
 			$render_node .= '</div>';
-
-		}
-
-		$render_node .= '<div itemprop="author publisher" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">'. $n['author'] .'</span></div>';
 
 		$render_node .= '<nav>';
 
@@ -95,7 +104,11 @@
 
 		}
 
-		$render_node .= '</ul></nav></footer>';
+		$render_node .= '</ul></nav>';
+
+		$render_node .= '<div itemprop="author publisher" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">'. $n['author'] .'</span></div>';
+
+		$render_node .= '</footer>';
 
 	}
 

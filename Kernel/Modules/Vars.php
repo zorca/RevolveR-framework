@@ -4,7 +4,7 @@
   * 
   * RevolveR Secure Variables Dispatch
   *
-  * v.1.9.4
+  * v.1.9.4.7
   *
   *
   *
@@ -35,10 +35,6 @@
   * License: Apache 2.0
   *
   */
-
-//var_dump($_SERVER['DOCUMENT_ROOT']);
-
-//'xxd '. $f[0] .' | head -1'
 
 final class SecureVariablesDispatcher {
 
@@ -162,7 +158,6 @@ final class SecureVariablesDispatcher {
 
 		],
 
-/*
 		'xls' => [
 
 			'mime'		=> 'application/vnd.ms-excel',
@@ -205,7 +200,7 @@ final class SecureVariablesDispatcher {
 			'description' => 'MS PowerPoint document'
 
 		],
-*/
+
 		'odt' => [
 
 			'mime'      => 'application/vnd.oasis.opendocument.text',
@@ -347,7 +342,7 @@ final class SecureVariablesDispatcher {
 
 			foreach( filter_input_array(INPUT_COOKIE, FILTER_SANITIZE_STRING | FILTER_SANITIZE_SPECIAL_CHARS | FILTER_SANITIZE_ENCODED, FILTER_REQUIRE_ARRAY) as $cn => $cv ) {
 
-				$vars['c'][ self::escape($cn) ] = self::escape($cv);
+				$vars['c'][ str_replace('__RevolveR_', '', self::escape($cn)) ] = self::escape($cv);
 
 			}
 
@@ -491,7 +486,7 @@ final class SecureVariablesDispatcher {
 
 	public static function setCookie(string $name, string $value, string $exp, string $path): void {
 
-		$cst = 'Set-Cookie: '. $name .'='. rawurlencode($value) .'; Expires='. date('D, d M Y H:i:s', $exp) . 'GMT' .'; Path='. $path .'; Domain='. ltrim('.', $_SERVER['HTTP_HOST']) .';';
+		$cst = 'Set-Cookie: __'. $name .'='. rawurlencode($value) .'; Expires='. date('D, d M Y H:i:s', $exp) . 'GMT' .'; Path='. $path .'; Domain='. ltrim('.', $_SERVER['HTTP_HOST']) .';';
 
 		header((((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || (int)$_SERVER['SERVER_PORT'] === 443) ? $cst . ' SameSite=Strict; Secure=true;' : $cst));
 

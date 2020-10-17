@@ -3,7 +3,7 @@
  /*
   * RevolveR Attendance Node
   *
-  * v.1.9.4
+  * v.1.9.4.7
   *
   *
   *
@@ -492,7 +492,7 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 		}
 
 		$contents .= '<dl class="revolver__stats-list"><dd>';
-		$contents .= '<ol>';
+		$contents .= '<ol class="revolver__referers-list">';
 
 		$list = 0;
 
@@ -500,7 +500,7 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 
 			if( strlen($r) > 3 ) {
 
-				$contents .= '<li><a href="//'. $r .'" title="'. $r .'">'. $r .'</a></li>';
+				$contents .= '<li><a target="_blank" href="//'. $r .'" title="'. $r .'">'. $r .'</a></li>';
 
 				$list++;
 

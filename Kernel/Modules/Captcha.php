@@ -4,7 +4,7 @@
   * 
   * RevolveR Captcha Class
   *
-  * v.1.9.4
+  * v.1.9.4.7
   *
   *
   *
@@ -117,7 +117,7 @@ final class Captcha {
 
   public static function setCookie(string $name, string $value, string $exp, string $path): void {
 
-    $cst = 'Set-Cookie: '. $name .'='. rawurlencode($value) .'; Expires='. date('D, d M Y H:i:s', $exp) . 'GMT' .'; Path='. $path .'; Domain='. $_SERVER['HTTP_HOST'] .';';
+    $cst = 'Set-Cookie: __RevolveR_'. $name .'='. rawurlencode($value) .'; Expires='. date('D, d M Y H:i:s', $exp) . 'GMT' .'; Path='. $path .'; Domain='. $_SERVER['HTTP_HOST'] .';';
 
     header( (((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || (int)$_SERVER['SERVER_PORT'] === 443) ? $cst . ' SameSite=Strict; Secure; httpOnly;' : $cst .' httpOnly;') );
 
@@ -166,7 +166,7 @@ final class Captcha {
 
   private static function confirm( string $val, string $id, string $hash, string $route ): ?bool {
 
-    if( !isset($_COOKIE['SecureHash']) || empty($hash) ) {
+    if( !isset($_COOKIE['__RevolveR_SecureHash']) || empty($hash) ) {
 
       self::$notify::set('notice', 'Security check not pass');
 
@@ -176,7 +176,7 @@ final class Captcha {
 
     $result = null;
 
-    if( $val === self::$patterns[$id] && base64_decode($hash) === $_COOKIE['SecureHash'] ) {
+    if( $val === self::$patterns[$id] && base64_decode($hash) === $_COOKIE['__RevolveR_SecureHash'] ) {
 
       $result = true;
 

@@ -24,6 +24,18 @@ if( ACCESS === 'none' ) {
 
 }
 
+if( !isset($c['quedit']) ) {
+
+	$c['quedit'] = null;
+
+}
+
+if( !isset($c['editor']) ) {
+
+	$c['editor'] = null;
+
+}
+
 // Render comments
 if( is_array( $node_comments ) ) {
 
@@ -91,7 +103,22 @@ if( is_array( $node_comments ) ) {
 
 		$render_node .= '</figure>';
 
-		$render_node .= '<div class="revolver__comments-contents">'. $markup::Markup( 
+		if( $n['quedit'] ) {
+
+			$quick_edit_attr = ' contenteditable="false"';
+
+			$quick_edit_data = ' data-node="'. $c['comment_id'] .'" data-type="node-comment" data-user="'. $c['comment_user_name'] .'"';
+
+		} 
+		else {
+
+			$quick_edit_attr = '';
+			$quick_edit_data = '';
+
+		}
+
+
+		$render_node .= '<div class="revolver__comments-contents"'. $quick_edit_attr . $quick_edit_data .'>'. $markup::Markup( 
 
 				htmlspecialchars_decode( 
 
@@ -111,7 +138,7 @@ if( is_array( $node_comments ) ) {
 
 			$tpe = PASS[ 1 ] === 'blog' ? 'blog-comment' : 'node-comment';
 
-			$render_node .= '<div itemscope itemtype="https://schema.org/AggregateRating" class="revolver-rating">';
+			$render_node .= '<div class="revolver-rating">';
 			$render_node .= '<ul class="rated-'. $c['rating'] .'" data-node="'. $c['comment_id']  .'" data-user="'. USER['id'] .'" data-type="'. $tpe .'">';
 
 				$render_node .= '<li data-rated="1">1</li>';
@@ -122,15 +149,20 @@ if( is_array( $node_comments ) ) {
 
 			$render_node .= '</ul>';
 
-			$render_node .= '<span itemprop="ratingValue">'. $c['rating'] .'</span> / <span itemprop="bestRating">5</span> #<span class="closest" itemprop="ratingCount">'. $c['rates'] .'</span>';
-			$render_node .= '<meta itemprop="worstRating" content="1" />';
+			$render_node .= '<span>'. $c['rating'] .'</span> / <span>5</span> #<span class="closest">'. $c['rates'] .'</span>';
 			$render_node .= '</div>';
 
 		}
 
-		if( $n['editor'] ) {
+		if( $c['editor'] ) {
 
 			$render_node .= '<nav><ul>';
+
+			if( $c['quedit'] ) {
+
+				$render_node .= '<li class="revolver__quick-edit-handler" title="'. TRANSLATIONS[ $ipl ]['qedit'] .'">[ '. TRANSLATIONS[ $ipl ]['QEdit'] .' ]</li>';
+
+			}
 
 			$render_node .= '<li><a title="'. $c['comment_id'] .' '. TRANSLATIONS[ $ipl ]['edit'] .'" href="/comment/'. $c['comment_id'] .'/edit/">'. TRANSLATIONS[ $ipl ]['Edit'] .'</a></li>';
 

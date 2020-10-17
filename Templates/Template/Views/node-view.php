@@ -8,6 +8,12 @@
 
 	}
 
+	if( !isset($n['quedit']) ) {
+
+		$n['quedit'] = null;
+
+	}
+
 	if( !isset($n['language']['hreflang']) ) {
 
 		$n['language']['hreflang'] = $primary_language;
@@ -50,7 +56,7 @@
 
 	if( RQST === '/' ) {
 
-		$render_node .= '<div itemprop="articleBody" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'length' => 2000, 'lazy' => 1 ] ) .'</div>';
+		$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'length' => 2000, 'lazy' => 1 ] ) .'</div>';
 
 	}
 	else {
@@ -90,12 +96,37 @@
 
 				$render_node .= '</figure>';
 
-				$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
+				$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents" data-node="'. $n['id'] .'" data-type="forum-node" data-user="'. $n['author'] .'">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
 
 			}
 			else {
 
-				$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents">'. $n['contents'] .'</div>';
+				if( $n['quedit'] ) {
+
+					$quick_edit_attr = ' contenteditable="false"';
+
+					if( PASS[ 1 ] === 'wiki' ) {
+
+						$quick_edit_data = ' data-node="'. $n['id'] .'" data-type="wiki" data-user="'. $n['author'] .'"';
+
+					} 
+
+					if( PASS[ 1 ] === 'blog' ) {
+
+						$quick_edit_data = ' data-node="'. $n['id'] .'" data-type="blog" data-user="'. $n['author'] .'"';
+
+
+					}
+
+				} 
+				else {
+
+					$quick_edit_attr = '';
+					$quick_edit_data = '';
+
+				}
+
+				$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents"'. $quick_edit_attr . $quick_edit_data .'>'. $n['contents'] .'</div>';
 
 			}
 
@@ -103,7 +134,20 @@
 		}
 		else {
 
-			$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents">'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
+			if( $n['quedit'] ) {
+
+				$quick_edit_attr = ' contenteditable="false"';
+				$quick_edit_data = ' data-node="'. $n['id'] .'" data-type="node" data-user="'. $n['author'] .'"';
+
+			} 
+			else {
+
+				$quick_edit_attr = '';
+				$quick_edit_data = '';
+
+			}
+
+			$render_node .= '<div itemprop="articleBody mainEntityOfPage" class="revolver__article-contents"'. $quick_edit_attr . $quick_edit_data .'>'. $markup::Markup( $n['contents'], [ 'lazy' => 1 ] ) .'</div>';
 
 		}
 
@@ -116,7 +160,7 @@
 
 		$tpe = PASS[ 1 ] === 'blog' ? 'blog' : 'node';
 
-		$render_node .= '<div itemscope itemtype="https://schema.org/AggregateRating" class="revolver-rating">';
+		$render_node .= '<div class="revolver-rating">';
 		$render_node .= '<ul class="rated-'. $n['rating'] .'" data-node="'. $n['id'] .'" data-user="'. USER['id'] .'" data-type="'. $tpe .'">';
 			$render_node .= '<li data-rated="1">1</li>';
 			$render_node .= '<li data-rated="2">2</li>';
@@ -125,36 +169,37 @@
 			$render_node .= '<li data-rated="5">5</li>';
 		$render_node .= '</ul>';
 
-		$render_node .= '<div class="meta" itemprop="itemReviewed" itemscope itemtype="http://schema.org/Article">';
-		$render_node .= '<meta itemprop="name" content="'. $n['title'] .'" />';
-		$render_node .= '</div>';
-
-		$render_node .= '<span itemprop="ratingValue">'. $n['rating'] .'</span> / <span itemprop="bestRating">5</span> #<span class="closest" itemprop="ratingCount">'. $n['rates'] .'</span>';
-		$render_node .= '<meta itemprop="worstRating" content="1" />';
+		$render_node .= '<span>'. $n['rating'] .'</span> / <span>5</span> #<span class="closest">'. $n['rates'] .'</span>';
 		$render_node .= '</div>';
 
 	}
 
-		$render_node .= '<div itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
-		$render_node .= '<meta itemprop="height" content="435">';
-		$render_node .= '<meta itemprop="width" content="432">';
-		$render_node .= '<meta itemprop="url" content="'. site_host .'/Interface/ArticlePostImage.png">';
-		$render_node .= '</div>';
+	$render_node .= '<div itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+	$render_node .= '<meta itemprop="height" content="435">';
+	$render_node .= '<meta itemprop="width" content="432">';
+	$render_node .= '<meta itemprop="url" content="'. site_host .'/Interface/ArticlePostImage.png">';
+	$render_node .= '</div>';
 
-		$render_node .= '<div class="meta" itemprop="author publisher" itemscope itemtype="http://schema.org/Organization">';
+	$render_node .= '<div class="meta" itemprop="author publisher" itemscope itemtype="http://schema.org/Organization">';
 
-		$render_node .= '<div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">';
-		$render_node .= '<meta itemprop="url" content="'. site_host .'/Interface/ArticlePostImage.png" />';
-		$render_node .= '</div>';
-		$render_node .= '<span itemprop="name">'. $n['author'] .'</span>';
+	$render_node .= '<div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">';
+	$render_node .= '<meta itemprop="url" content="'. site_host .'/Interface/ArticlePostImage.png" />';
+	$render_node .= '</div>';
+	$render_node .= '<span itemprop="name">'. $n['author'] .'</span>';
 
-		$render_node .= '</div>';
+	$render_node .= '</div>';
 
 	if( $n['footer'] ) {
 
 		$render_node .= '<nav>';
 
 		$render_node .= '<ul>';
+
+		if( $n['quedit'] ) {
+
+			$render_node .= '<li class="revolver__quick-edit-handler" title="'. $n['title'] .' '. TRANSLATIONS[ $ipl ]['qedit'] .'">[ '. TRANSLATIONS[ $ipl ]['QEdit'] .' ]</li>';
+
+		}
 
 		if( $n['editor'] ) {
 

@@ -91,7 +91,20 @@ if( $comments ) {
 
 		$render_node .= '</figure>';
 
-		$render_node .= '<div class="revolver__comments-contents">'. $markup::Markup( 
+		if( in_array(ROLE, ['Admin', 'Writer']) || USER['name'] === $comment_user['nickname'] ) {
+
+				$quick_edit_attr = ' contenteditable="false"';
+				$quick_edit_data = ' data-node="'. $c['id'] .'" data-type="forum-comment" data-user="'. $comment_user['nickname'] .'"';
+
+		} 
+		else {
+
+			$quick_edit_attr = '';
+			$quick_edit_data = '';
+
+		}
+
+		$render_node .= '<div class="revolver__comments-contents"'. $quick_edit_attr . $quick_edit_data .'>'. $markup::Markup( 
 
 				htmlspecialchars_decode( 
 
@@ -104,16 +117,11 @@ if( $comments ) {
 				), [ 'lazy' => 1 ] ) .'</div>';
 
 
-		if( $n['editor'] ) {
+		if( $comment_user['id'] === USER['id'] || in_array(ROLE, ['Admin', 'Writer']) ) {
 
 			$render_node .= '<footer class="revolver__comments-footer"><nav><ul>';
-
-			if( $comment_user['id'] === USER['id'] || in_array(ROLE, ['Admin', 'Writer']) ) {
-
-				$render_node .= '<li><a title="'. $c['id'] .' '. TRANSLATIONS[ $ipl ]['edit'] .'" href="/forum/'. PASS[ 2 ] .'/'. PASS[ 3 ] .'/comment/'.  $c['id'] .'/edit/">'. TRANSLATIONS[ $ipl ]['Edit'] .'</a></li>';
-
-			}
-
+			$render_node .= '<li class="revolver__quick-edit-handler" title="'. TRANSLATIONS[ $ipl ]['qedit'] .'">[ '. TRANSLATIONS[ $ipl ]['QEdit'] .' ]</li>';
+			$render_node .= '<li><a title="'. $c['id'] .' '. TRANSLATIONS[ $ipl ]['edit'] .'" href="/forum/'. PASS[ 2 ] .'/'. PASS[ 3 ] .'/comment/'.  $c['id'] .'/edit/">'. TRANSLATIONS[ $ipl ]['Edit'] .'</a></li>';
 			$render_node .= '</ul></nav></footer>';
 
 		}

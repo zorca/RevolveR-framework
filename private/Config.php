@@ -4,7 +4,7 @@
   * 
   * RevolveR Kernel configuration
   *
-  * v.1.9.4
+  * v.1.9.4.7
   *
   *
   *
@@ -337,8 +337,7 @@ define('main_nodes', array_merge([
 				'installed' => 1,
 				'isAdmin'	=> 1,
 				'auth'		=> 1,
-				'menu'		=> 0,
-				'hidden'	=> 1
+				'menu'		=> 1
 
 			],
 
@@ -796,6 +795,25 @@ define('main_nodes', array_merge([
 			'node'   => '#rating-d',
 			'type'	 => 'service',
 			'id'	 => 'rating-d',
+
+		],
+
+		// Quick edit dispatch
+		'quedit-d' => [
+
+			'title' => 'Contents quick edit dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/quedit-d/',
+			'node'   => '#quedit-d',
+			'type'	 => 'service',
+			'id'	 => 'quedit-d',
 
 		],
 

@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Wiki 
   *
-  * v.1.9.4
+  * v.1.9.4.7
   *
   *
   *
@@ -221,7 +221,8 @@ if( count(PASS) > 3 ) {
 			'footer'	  => true,
 			'time'		  => $wiki_node['time'],
 			'published'   => $wiki_node['published'],
-			'editor'      => in_array(ROLE, ['Admin', 'Writer']) ? true : null
+			'editor'      => in_array(ROLE, ['Admin', 'Writer']) ? true : null,
+			'quedit'      => in_array(ROLE, ['Admin', 'Writer']) ? true : null,
 
 		];
 

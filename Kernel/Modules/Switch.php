@@ -3,7 +3,7 @@
  /* 
   * RevolveR primary routing switch
   *
-  * v.1.9.4.6
+  * v.1.9.4.7
   *
   *
   *
@@ -456,8 +456,22 @@ if( defined('ROUTE') ) {
 
 			ob_start('ob_gzhandler');
 
-			// Profile dispatch
+			// Rating dispatch
 			require_once('./Kernel/Routes/RouteRating.php');
+
+			break;
+
+
+		case '#quedit-d':
+
+			ob_start('ob_gzhandler');
+
+			// Quick edit dispatch
+			if( Auth ) {
+
+				require_once('./Kernel/Routes/RouteQuickEdit.php');
+
+			}
 
 			break;
 
