@@ -47,7 +47,7 @@ self.searchAction = null;
 /* Night */
 R.nightMode = () => {
 
-	RR.new('style', 'head', 'in', {
+	R.new('style', 'head', 'in', {
 
 		html: ':root { --body-bg: transparent repeating-linear-gradient(-45deg, transparent, transparent .01vw, #cccccca3 .01vw, #00000075 .5vw); \
 					   --article-bg-color: rgba(0, 0, 0, .6); \
@@ -92,6 +92,7 @@ R.nightMode = () => {
 					   --search-results-list: #fff; \
 					   --search-results-description: #d2bf37e0; \
 					   --search-results-title: #92d084e8; \
+					   --modal-title-shadow: #000; \
 					}',
 
 		attr: {
@@ -528,7 +529,11 @@ R.fetchRoute = ( intro ) => {
 
 			], () => {
 
-				R.hint();
+				if( !R.isM ){
+
+					R.hint();
+
+				}
 
 			});
 
@@ -608,16 +613,16 @@ R.fetchRoute = ( intro ) => {
 
 			if( !R.storage('rate-'+ ratingType +'-'+ paramsBlock.dataset.node, 'get') ) {
 
-				RR.removeClass(paramsBlock.querySelectorAll('li'), 'point');
+				R.removeClass(paramsBlock.querySelectorAll('li'), 'point');
 
 				R.addClass([ e.target ], 'point');
 
 				let data = new FormData();
 
-				data.append( btoa('revolver_rating_node'), RR.utoa( paramsBlock.dataset.node +'~:::~text~:::~'+ -1) );
-				data.append( btoa('revolver_rating_user'), RR.utoa( paramsBlock.dataset.user +'~:::~text~:::~'+ -1) );
-				data.append( btoa('revolver_rating_value'), RR.utoa( rateValue +'~:::~text~:::~'+ -1) );
-				data.append( btoa('revolver_rating_type'), RR.utoa( paramsBlock.dataset.type +'~:::~text~:::~'+ -1) );
+				data.append( btoa('revolver_rating_node'), R.utoa( paramsBlock.dataset.node +'~:::~text~:::~'+ -1) );
+				data.append( btoa('revolver_rating_user'), R.utoa( paramsBlock.dataset.user +'~:::~text~:::~'+ -1) );
+				data.append( btoa('revolver_rating_value'), R.utoa( rateValue +'~:::~text~:::~'+ -1) );
+				data.append( btoa('revolver_rating_type'), R.utoa( paramsBlock.dataset.type +'~:::~text~:::~'+ -1) );
 
 				R.FormData = data;
 
@@ -659,7 +664,7 @@ R.fetchRoute = ( intro ) => {
 
 				R.menuMove = true;
 
-				R.menuPosition = ( R.menuLeft - RR.curxy[0] ) *-1;
+				R.menuPosition = ( R.menuLeft - R.curxy[0] ) *-1;
 
 				R.styleApply(R.mainMenues, ['left:'+ R.menuPosition +'px']);
 
@@ -715,9 +720,9 @@ R.fetchRoute = ( intro ) => {
 
 				if( R.isO(R.MenuMoveObserver) ) {
 
-					for( i of RR.MenuMoveObserver ) {
+					for( i of R.MenuMoveObserver ) {
 
-						RR.detachEvent( i[ 2 ] );
+						R.detachEvent( i[ 2 ] );
 
 
 					}
@@ -843,10 +848,10 @@ R.fetchRoute = ( intro ) => {
 
 					let data = new FormData();
 
-					data.append( btoa('revolver_quedit_user'), RR.utoa( editorArea.dataset.user +'~:::~text~:::~'+ -1) );
-					data.append( btoa('revolver_quedit_node'), RR.utoa( editorArea.dataset.node +'~:::~text~:::~'+ -1) );
-					data.append( btoa('revolver_quedit_data'), RR.utoa( editorArea.innerHTML +'~:::~text~:::~'+ -1) );
-					data.append( btoa('revolver_quedit_type'), RR.utoa( editorArea.dataset.type +'~:::~text~:::~'+ -1) );
+					data.append( btoa('revolver_quedit_user'), R.utoa( editorArea.dataset.user +'~:::~text~:::~'+ -1) );
+					data.append( btoa('revolver_quedit_node'), R.utoa( editorArea.dataset.node +'~:::~text~:::~'+ -1) );
+					data.append( btoa('revolver_quedit_data'), R.utoa( editorArea.innerHTML +'~:::~text~:::~'+ -1) );
+					data.append( btoa('revolver_quedit_type'), R.utoa( editorArea.dataset.type +'~:::~text~:::~'+ -1) );
 
 					R.FormData = data;
 
@@ -896,9 +901,9 @@ R.fetchRoute = ( intro ) => {
 		}
 
 		// Collapsible elements
-		if( R.sel('.collapse dd') ) {
+		if( R.sel('.collapse dd, .revolver__referers-list li pre') ) {
 
-			for( let i of R.sel('.collapse dd') ) {
+			for( let i of R.sel('.collapse dd, .revolver__referers-list dd') ) {
 
 				R.toggle( [ i ] );
 
@@ -906,13 +911,13 @@ R.fetchRoute = ( intro ) => {
 
 		}
 
-		R.event('.collapse dt', 'click', () => {
+		R.event('.collapse dt, .revolver__referers-list dt', 'click', () => {
 
 			R.reParallax();
 
 		});
 
-		R.expand('.collapse dt, .revolver__collapse-form-legend');
+		R.expand('.collapse dt, .revolver__collapse-form-legend, .revolver__referers-list dt');
 
 		R.event('input[type="submit"]', 'click', (e) => {
 
@@ -1076,7 +1081,7 @@ R.fetchRoute = ( intro ) => {
 			// Prevent search box fetching
 			if( !self.searchAction ) {
 
-				RR.new('li', '.revolver__terminal-session-store ul', 'after', {
+				R.new('li', '.revolver__terminal-session-store ul', 'after', {
 
 					html: '<span class="revolver__collapse-form-legend">'+ this.command +'</span><pre class="revolver__collapse-form-contents" style="overflow: hidden; width: 0; height: 0; line-height: 0; display: inline-block;">'+ this.output +'</pre>'
 

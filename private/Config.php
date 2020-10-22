@@ -4,7 +4,7 @@
   * 
   * RevolveR Kernel configuration
   *
-  * v.1.9.4.7
+  * v.1.9.4.8
   *
   *
   *
@@ -464,7 +464,6 @@ define('main_nodes', array_merge([
 			'id'   	=> 'services-en'
 
 		],
-		*/
 
 		// Services RU
 		'Услуги' => [
@@ -484,6 +483,7 @@ define('main_nodes', array_merge([
 			'id'   	=> 'services-ru'
 
 		],
+		*/
 
 		// Privacy notes
 		TRANSLATIONS[ $ipl ]['Privacy notes'] => [

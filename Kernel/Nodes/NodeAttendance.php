@@ -3,7 +3,7 @@
  /*
   * RevolveR Attendance Node
   *
-  * v.1.9.4.7
+  * v.1.9.4.8
   *
   *
   *
@@ -360,7 +360,178 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 
 	$key = '';
 
-	foreach( $complite_tracker_stack as $visitor => $v ) { 
+	/* Whois servers list */
+	define('wservers', file_get_contents( $_SERVER['DOCUMENT_ROOT'] .'/Kernel/Modules/Extra/whois/servers.txt') );
+
+	/* Whois server handler */
+	function getWHOISServers() {
+
+		$whoisservers = explode("\n", wservers);
+
+		foreach( $whoisservers as $value ) {
+
+			$value = explode('|', $value);
+
+			$whoisserver[trim(strip_tags($value[0]))] = trim(strip_tags($value[1]));
+
+		}
+
+		return $whoisserver;
+
+	}
+
+	/* Whois handler */
+	function lookupDomain($sld, $ext, $whois_server = 'whois.crsnic.net', $whois_line = 1) {
+
+		$data = '';
+
+		$whoisservers = explode("\n", wservers);
+
+		foreach( $whoisservers as $value ) {
+
+			$value = explode('|', $value);
+
+			$tld = trim(strip_tags($value[0]));
+
+			$whoisserver[$tld] = trim(strip_tags($value[1]));
+
+			$whoisvalue[$tld] = trim(strip_tags($value[2]));
+
+			$whoisreqprefix[$tld] = isset($value[3]) ? strip_tags($value[3]) : '';
+
+			continue;
+
+		}
+
+		$server = $whoisserver[$ext];
+
+		if( strlen($whois_server) > 10 ) {
+
+			$server = $whois_server;
+
+		}
+
+		$port = '43';
+
+		$return = $whoisvalue[$ext];
+
+		$reqprefix = $whoisreqprefix[$ext];
+
+		if( $server === '' ) {
+
+			$result['result'] = 'available';
+
+		}
+		else {
+
+			$domain = $sld . $ext;
+
+			$fulldomain = $domain;
+
+			if( substr($return, 0, 12) === 'HTTPREQUEST-' ) {
+
+				$ch = curl_init();
+
+				$url = $server . $domain;
+
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+				curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+				$data = curl_exec($ch);
+
+				$data2 = ' ---' . $data;
+
+				if(curl_error($ch)) {
+
+					$result['result'] = 'error';
+
+					if( $_SESSION['adminid'] ) {
+
+						$result['errordetail'] = 'Error: ' . curl_errno($ch) . " - " . curl_error($ch);
+
+					}
+
+				}
+				else {
+
+					if( !(bool)strpos($data2, substr($return, 12))) {
+
+						$result['whois'] = strip_tags($data);
+
+					}
+
+				}
+
+				curl_close($ch);
+
+			}
+			else {
+
+				if(strpos($server, ':')) {
+
+					$port = explode(':', $server, 2);
+					$server = $port[0];
+					$port = $port[1];
+
+				}
+
+				if(substr($return, 0, 6) === 'NOTLD-') {
+
+					$domain = $sld;
+					$return = substr($return, 6);
+
+				}
+
+				$fp = fsockopen($server, $port, $errno, $errstr, 10);
+
+				if($fp) {
+
+					fputs($fp, $reqprefix . $domain . "\r\n");
+
+					socket_set_timeout($fp, 10);
+
+					while(!feof($fp)) {
+
+						$data .= fread($fp, 4096);
+
+					}
+
+					fclose($fp);
+
+					$data2 = ' ---' . $data;
+
+					if(!(bool)strpos($data2, $return) == true) {
+
+						$result['whois'] = $data;
+
+					}
+
+				}
+				else {
+
+					$result['result'] = 'error';
+
+					if($_SESSION['adminid']) {
+
+						$result['errordetail'] = 'Error: ' . $errno . ' - ' . $errstr;
+
+					}
+
+				}
+
+			}
+
+		}
+
+		return $result;
+
+	}
+
+	foreach( $complite_tracker_stack as $visitor => $v ) {
 
 		$key = $v[ key($v) ];
 
@@ -492,15 +663,48 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 		}
 
 		$contents .= '<dl class="revolver__stats-list"><dd>';
-		$contents .= '<ol class="revolver__referers-list">';
+		$contents .= '<dl class="revolver__referers-list">';
 
 		$list = 0;
+
+		$wd  = '';
+		$ext = '';
 
 		foreach( $referers as $r ) {
 
 			if( strlen($r) > 3 ) {
 
-				$contents .= '<li><a target="_blank" href="//'. $r .'" title="'. $r .'">'. $r .'</a></li>';
+				/* Whois service futures */
+
+				$xn = html_entity_decode(explode('/', $r)[0]);
+
+				$xd = idn_to_utf8($xn);
+
+				$wd = explode('.', $xn);
+
+				$dc = count($wd);
+
+				if( (int)$dc === 2 ) {
+
+					$ext = '.'. $wd[1];
+
+				}
+				else if( (int)$dc === 3 ) {
+
+					$wd[0] = $wd[1];
+
+					$ext = '.'. $wd[2];
+
+				}
+
+				$wr = explode('>>>', strtolower(lookupDomain($wd[0], $ext, getWHOISServers()[ $ext ])['whois']))[0];
+
+				$r = rtrim($r, '/');
+
+				$contents .= '<dt>';
+				$contents .= '<a target="_blank" href="//'. $xd .'" title="'. $xd .'">'. $xd .'</a>';
+				$contents .= '</dt>';
+				$contents .= '<dd><pre class="whois-info">'. $wr .'</pre></dd>';
 
 				$list++;
 
@@ -508,7 +712,7 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 
 		}
 
-		$contents .= '</ol>';
+		$contents .= '</dl>';
 		$contents .= '</dd></dl>';
 
 		if( count($referers) >= 5 ) {

@@ -380,7 +380,7 @@ $STRUCT_FORUM_ROOMS = [
 	'field_content' => [
 
 		'type'   => 'text',   // varchar
-		'length' => 12000,
+		'length' => 9000,
 		'fill'   => true,
 
 		'index'	 => [
@@ -658,7 +658,7 @@ $STRUCT_NODES = [
 	'field_content' => [
 
 		'type'   => 'text',   // varchar
-		'length' => 12000,
+		'length' => 9000,
 		'fill'   => true
 
 	],
@@ -853,7 +853,7 @@ $STRUCT_WIKI_NODES = [
 	'field_content' => [
 
 		'type'   => 'text',   // varchar
-		'length' => 12000,
+		'length' => 9000,
 		'fill'   => true
 
 	],
@@ -955,7 +955,7 @@ $STRUCT_BLOG_NODES = [
 	'field_content' => [
 
 		'type'   => 'text',   // varchar
-		'length' => 12000,
+		'length' => 9000,
 		'fill'   => true
 
 	],
@@ -1062,7 +1062,7 @@ $STRUCT_COMMENTS = [
 	'field_content' => [
 
 		'type'   => 'text', // varchar
-		'length' => 12000,
+		'length' => 9000,
 		'fill'   => true
 
 	],
@@ -1125,7 +1125,7 @@ $STRUCT_BLOG_COMMENTS = [
 	'field_content' => [
 
 		'type'   => 'text', // varchar
-		'length' => 12000,
+		'length' => 9000,
 		'fill'   => true
 
 	],
@@ -1188,7 +1188,7 @@ $STRUCT_FORUM_COMMENTS = [
 	'field_content' => [
 
 		'type'   => 'text', // varchar
-		'length' => 12000,
+		'length' => 9000,
 		'fill'   => true
 
 	],

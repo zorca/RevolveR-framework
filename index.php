@@ -6,7 +6,7 @@
   *
   * Contents Management Framework
   *
-  * v.1.9.4.5
+  * v.1.9.4.8
   * 
   *
   *
@@ -219,14 +219,14 @@ define('KERNEL_CONFIG', [
 
       'Kernel Extra MMDB Decoder' => [
 
-        'directory' => './Kernel/Modules/Extra/',
+        'directory' => './Kernel/Modules/Extra/mmdb/',
         'file'    => 'MMDBDecoder',
 
       ],
 
       'Kernel Extra MMDB Reader' => [
 
-        'directory' => './Kernel/Modules/Extra/',
+        'directory' => './Kernel/Modules/Extra/mmdb/',
         'file'    => 'MMDBReader',
 
       ],

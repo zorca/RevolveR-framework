@@ -4050,6 +4050,30 @@
 
 		},
 
+		// Once
+		// let canOnlyFireOnce = R.once(function() {
+		// 	console.log('Fired!');
+		// })
+		once: (f, c = null) => { 
+
+			let r;
+
+			return function() { 
+
+				if( f ) {
+
+					r = f.apply(c || this, arguments);
+
+					f = null;
+
+				}
+
+				return r;
+
+			};
+
+		},
+
 		// MD5 support
 		md5: ( str ) => {
 
@@ -4353,6 +4377,27 @@
 
 		},
 
+		// Strip HTML elements from string
+		stripTags: (s) => {
+
+			let e = document.createElement('div');
+
+			e.innerHTML = s;
+
+			return e.textContent;
+
+		},
+
+		// Get URL with domain included
+		getAbsUrl: (url) => {
+
+			a = document.createElement('a');
+
+			a.href = url;
+
+			return a.href;
+
+		},
 
 		// Multilaguage support of BTOA
 		utoa: (s) => btoa(encodeURIComponent(s)),

@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Setup
   *
-  * v.1.9.4.6
+  * v.1.9.4.8
   *
   *
   *
@@ -499,7 +499,6 @@ if( !empty(SV['p']) ) {
 
 			// Create table files
 			$dbx::query('c', 'revolver__files', $STRUCT_FILES);
-
 
 			// Create table forum topics files
 			$dbx::query('c', 'revolver__froom_files', $STRUCT_FROOM_FILES);

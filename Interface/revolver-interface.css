@@ -99,6 +99,8 @@
 	--search-results-description: #222b6fe0;
 	--search-results-title: #2b651d;
 
+	--modal-title-shadow: #f4f4f4;
+
 }
 
 :-webkit-full-screen {
@@ -125,6 +127,25 @@ input::-moz-placeholder,
 textarea::-moz-placeholder {
 
 	color: var(--form-placeholder);;
+
+}
+
+#mBox,
+#mBox header {
+
+	background: var(--form-fieldset-bg);
+
+}
+
+#mBoxTitle {
+
+	text-shadow: -.1vw .1vw 0 var(--modal-title-shadow);
+
+}
+
+#mBoxContent input {
+
+	text-shadow: 0 0.1vw var(--simple-shadow);	
 
 }
 
@@ -156,6 +177,16 @@ html {
 	text-shadow: 0 0.1vw var(--simple-shadow) !important;
 
 }
+
+.whois-info {
+
+	overflow-x: hidden !important;
+	padding: 1vw .5vw !important;
+	line-height: 1.3vw;
+	color: #883379d6;
+
+}
+
 
 h1, h2,
 h1 a, h2 a {

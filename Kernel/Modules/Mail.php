@@ -4,7 +4,7 @@
   * 
   * RevolveR eMail class
   *
-  * v.1.9.4
+  * v.1.9.4.7
   *
   *               ^
   *              | |
@@ -139,13 +139,7 @@ final class eMail {
 
   protected static function stringifyLimiter( string $message ): string {
 
-    $chunks = '';
-
-    foreach( iterator_to_array(
-
-      self::$parse::extract( 
-
-        self::$escape::Markup( 
+    return self::$escape::Markup( 
 
           htmlspecialchars_decode( 
 
@@ -157,120 +151,26 @@ final class eMail {
 
           )
 
-        )
+        );
 
-      )
-
-    ) as $nx ) {
-
-      foreach( $nx['explode'] as $ex ) {
-
-        if( preg_match_all('/<([\w]+)([^>]*?)*>/mi', $ex, $m) ) {
-
-          $exp = iterator_to_array( self::$parse::extract($ex . '</'. $m[1][0] .'>') );
-
-          $chunks .= '<'. $exp[0]['tagname'] ."\n";
-
-          if( isset($exp[0]['attrs']) ) {
-
-            $segments = preg_replace('/"(.+?)"/', "\"$1$2\"\n", $exp[0]['attrs']);
-
-            foreach (explode("\n", $segments) as $sgm) {
-
-              $s = explode('url(', trim($sgm));
-
-              if( isset($s[1]) ) {
-
-                $s[0]  = $s[0] ."\nurl(";
-
-              }
-
-              foreach( $s as $sgx ) {
-
-                if( preg_match('/xhash/i', $sgx) ) {
-
-                  $chunks .= 'data-xhash=' ."\n". explode('data-xhash=', $sgx )[1] ."\n";
-
-                }
-                else {
-
-                  $chunk = str_split($sgx, 68);
-
-                  $delim = isset($s[1]) ? "\\\n" : "\n";
-
-                  $i = 0;
-
-                  foreach( $chunk as $c ) {
-
-                    if( ( count($chunk) - 1 !== $i ) ) {
-
-                      $chunks .= trim($c) . $delim;
-
-                    }
-                    else {
-
-                      $chunks .= trim($c) ."\n";
-
-                    }
-
-                    $i++;
-
-                  }
-
-                }
-
-              }
-
-            }
-
-          }
-
-          $chunks = rtrim(trim($chunks), '\\') . '>' ."\n";
-
-        }
-        else {
-
-          foreach( str_split($ex, 69) as $sx ) {
-
-            $chunks .= $sx ."\n"; 
-
-          }
-
-        }
-
-      }
-
-    }
-
-    return $chunks;
 
   }
 
   protected static function encode( string $s ): string {
 
-    $chunks = str_split( 
-
-      self::$escape::Markup( 
+    $result = self::$escape::Markup( 
 
           htmlspecialchars_decode( 
 
             html_entity_decode( 
 
-              ltrim($s, '.')
+              $s
 
             )
 
           ) 
   
-      ), 69);
-
-    $result = '';
-
-    foreach( $chunks as $c ) {
-
-      $result .= $c ."\n";
-
-    }
+      );
 
     return base64_encode( $result );
 
