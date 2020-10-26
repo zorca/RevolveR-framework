@@ -4,7 +4,7 @@
   * 
   * Sitemap Route :: Generate sitemap
   *
-  * v.1.9.4
+  * v.1.9.4.9
   *
   *
   *
@@ -37,6 +37,9 @@
   */
 
 $sitemap = '<?xml version="1.0" encoding="UTF-8" ?>'. "\n";
+
+$sitemap .= '<?xml-stylesheet type="text/xsl" href="'. site_host .'/Interface/sitemap.xsl" ?>'. "\n";
+
 $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'. "\n";
 
 foreach( iterator_to_array(

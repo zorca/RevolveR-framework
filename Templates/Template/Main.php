@@ -273,6 +273,23 @@ if( !defined('ROUTE') ) {
 				}
 
 				/* Forum */
+
+				if( defined('ROUTE') ) {
+
+					if( ROUTE['node'] === '#forum' && is_numeric( PASS[ 2 ] ) || is_numeric( PASS[ 3 ] ) ) {
+
+						if( PASS[ 3 ] !== 'edit' && empty( PASS[ 3 ] ) ) {
+
+							include('./Templates/'. TEMPLATE .'/Views/forum-view.php');
+
+						}
+
+					}
+
+				}
+
+				/* Blog */
+
 				if( defined('ROUTE') ) {
 
 					if( ROUTE['node'] === '#blog' ) {
