@@ -22,6 +22,24 @@ if( defined('ROUTE') ) {
 
 		}
 
+		// Store categories edit
+		if( ROUTE['node'] === '#store' && ROUTE['edit'] && PASS[ 2 ] === 'category' && is_numeric(PASS[ 3 ]) && PASS[ 4 ] === 'edit' ) {
+
+			require_once('./Templates/'. TEMPLATE .'/Forms/store-categories-edit.php');
+
+			$mainWrap = null;
+
+		}
+
+		// Store goods edit
+		if( ROUTE['node'] === '#store' && ROUTE['edit'] && PASS[ 2 ] === 'goods' && is_numeric(PASS[ 3 ]) && PASS[ 4 ] === 'edit' ) {
+
+			require_once('./Templates/'. TEMPLATE .'/Forms/store-goods-edit.php');
+
+			$mainWrap = null;
+
+		}
+
 		// Wiki category edit
 		if( ROUTE['node'] === '#wiki' && ROUTE['edit'] && PASS[ 3 ] === 'edit' ) {
 
@@ -85,14 +103,52 @@ if( defined('ROUTE') ) {
 
 		}
 
+		// Store comments edit
+		if( ROUTE['node'] === '#store' && (bool)ROUTE['edit'] && PASS[2] === 'goods' && is_numeric(PASS[ 3 ]) && PASS[ 4 ] === 'comment' && is_numeric(PASS[ 5 ]) ) {
+
+			require_once('./Templates/'. TEMPLATE .'/Forms/comments-store-edit.php');
+
+			$mainWrap = null;
+
+		}
+
 	} 
 	else {
 
+		// Wiki view
 		if( PASS[ 1 ] === 'wiki' && count(PASS) > 3 ) {
 
 			require_once('./Templates/'. TEMPLATE .'/Views/wiki-view.php');
 
 		}
+
+		// Store goods add
+		if( PASS[ 1 ] === 'store' && PASS[ 2 ] === 'goods' && PASS[ 3 ] === 'add' ) {
+
+			require_once('./Templates/'. TEMPLATE .'/Forms/store-goods-add.php');
+
+			$mainWrap = null;
+
+		}
+
+		// Store goods add
+		if( PASS[ 1 ] === 'store' && PASS[ 2 ] === 'goods' && is_numeric(PASS[ 3 ]) ) {
+
+			require_once('./Templates/'. TEMPLATE .'/Views/store-goods-view.php');
+
+			/* Comments views */
+			require_once('./Templates/'. TEMPLATE .'/Views/comments-store-view.php');
+
+			if( Auth ) {
+
+				require_once('./Templates/'. TEMPLATE .'/Forms/comments-store-add.php');
+
+			}
+
+			$mainWrap = null;
+
+		}
+
 
 	}
 
@@ -352,7 +408,7 @@ if( $pages_count > 1 && pagination['allow'] ) {
 
 	// Redirect broken or 404
 
-	if( !(bool)$nodeLoaded && PASS[ count(PASS) - 2 ] !== 'edit' &&  PASS[ 1 ] !== 'forum' ) {
+	if( !(bool)$nodeLoaded && PASS[ count(PASS) - 2 ] !== 'edit' &&  PASS[ 1 ] !== 'forum' && PASS[1] !== 'store' ) {
 
 
 		$render_node .= '<article class="revolver__article article-id-404">';

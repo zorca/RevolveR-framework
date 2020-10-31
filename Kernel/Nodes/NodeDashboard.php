@@ -3,7 +3,7 @@
  /*
   * RevolveR Dashboard Node
   *
-  * v.1.9.4.7
+  * v.1.9.4.9
   *
   *
   *
@@ -35,192 +35,6 @@
   *
   *
   */
-/*
-
-/* SVG to CSS
-$CSSStack = '
-
-.interface-icons {
-
-	background-repeat: no-repeat;
-	background-position: 0 0;
-
-}
-
-';
-
-foreach (scandir($_SERVER['DOCUMENT_ROOT'] . '/icons/') as $cf) {
-
-	if ( !in_array($cf, ['.', '..']) && !is_dir( $_SERVER['DOCUMENT_ROOT'] .'/icons/'. DIRECTORY_SEPARATOR . $cf ) ) {
-
-		$readSVG = file_get_contents($_SERVER['DOCUMENT_ROOT'] .'/icons/'. $cf);
-
-
-
-		$CSSStack .= '.'. str_replace('.svg', '', $cf) .' {
-
-			background: transparent url(\''. $markup::CleanSVG( $readSVG, [ 'b64' => 1 ]) .'\');
-
-		}
-		';
-
-		//$name = str_replace(' ', '-', $cf);
-
-		$name = explode('-', $cf);
-
-		$rename = '';
-
-		$t = 0;
-
-		foreach ($name as $n) {
-
-			if( $t > 0 ) {
-
-				$rename .= $n .'_';
-
-			}
-
-			$t++;
-
-		}
-
-		//rename($_SERVER['DOCUMENT_ROOT'] .'/icons/'. $cf, $_SERVER['DOCUMENT_ROOT'] .'/icons/'. $name);
-
-		//rename($_SERVER['DOCUMENT_ROOT'] .'/icons/'. $cf, $_SERVER['DOCUMENT_ROOT'] .'/icons/'. rtrim( strtolower($rename), '_'));
-
-	}
-
-}
-
-file_put_contents($_SERVER['DOCUMENT_ROOT'] .'/icons/'. 'interface-icons.css', $CSSStack);
-
-
-/* Models examples 
-
-print '<h1>Node category</h1>';
-
-print '<pre>'. print_r(
-
-	iterator_to_array(
-
-		$model::get('category->node', [
-
-			'criterion' => 'categories::id::*'
-
-		], null ), // true || null for output format of assemble || stack
-
-	), true
-
-) .'</pre>';
-
-print '<h1>Node comment without user</h1>';
-
-print '<pre>'. print_r(
-
-	iterator_to_array(
-
-		$model::get( 'node->comment', [
-
-			'criterion' => 'comments::id::1'
-
-		], null ), // true || null for output format of assemble || stack
-
-	), true
-
-) .'</pre>';
-
-print '<h1>Node comment</h1>';
-
-print '<pre>'. print_r(
-
-	iterator_to_array(
-
-		$model::get( 'node->comment->user', [
-
-			'criterion' => 'comments::id::1'
-
-		], null ), // true || null for output format of assemble || stack
-
-	), true
-
-) .'</pre>';
-
-print '<h1>Single Model</h1>';
-
-print '<pre>'. print_r(
-
-	iterator_to_array(
-
-		$model::get( 'nodes', [
-
-			'criterion' => 'user::CyberX',
-
-			'bound'		=> [
-
-				10,   // limit
-
-			],
-
-			'course'	=> 'backward', // backward
-			'sort' 		=> 'time',
-
-		], true ), // true || null for output format of assemble || stack
-
-	), true
-
-) .'</pre>';
-
-print '<h1>Node category</h1>';
-
-print '<pre>'. print_r(
-
-	iterator_to_array(
-
-		$model::get( 'category->node->user', [
-
-			'criterion' => 'categories::id::3'
-
-		], true )
-
-	), true
-
-) .'</pre>';
-
-
-print '<h1>User Role</h1>';
-
-print '<pre>'. print_r(
-
-	iterator_to_array(
-
-		$model::get( 'user->role', [
-
-			'criterion' => 'users::id::1'
-
-		], true ), // true || null for output format of assemble || stack
-
-	), true
-
-) .'</pre>';
-
-
-print '<h1>User subscription</h1>';
-
-print '<pre>'. print_r(
-
-	iterator_to_array(
-
-		$model::get( 'user->subscription', [
-
-			'criterion' => 'subscriptions::node_id::3'
-
-		], true ), // true || null for output format of assemble || stack
-
-	), true
-
-) .'</pre>';
-
-*/
 
 if( !empty( SV['p'] ) && ROLE === 'Admin' )  {
 
@@ -462,17 +276,29 @@ if( !empty( SV['p'] ) && ROLE === 'Admin' )  {
 							// Make modify of Data Base tables structure with schema diff
 							case 'alter':
 
-								$notify::set('notice', '<div>Data Base structure modified.</div>', null);
+								//$notify::set('notice', '<div>Data Base structure modified.</div>', null);
+
+								foreach( array_diff(
+
+											scandir('./cache/dbcache/', 1), [ '..', '.' ]
+
+										) as $file ) {
+
+										unlink( './cache/dbcache/'. $file );
+
+										$notify::set('inactive', '<p>Data Base cache erased :: ['. $file .'].</p>', null);
+
+								}
 
 								foreach( $DBX_KERNEL_SCHEMA as $tbl_n => $tbl_f ) {
 
-									$STRUCT = $DBX_KERNEL_SCHEMA[ $tbl_n ];
+									$dbx::query('alter', 'revolver__'. $tbl_n, $DBX_KERNEL_SCHEMA[ $tbl_n ]);
 
-									$dbx::query('alter', 'revolver__'. $tbl_n, $STRUCT);
-
-									$notify::set('active', '<p>Table revolver::['. $tbl_n .'] strucuture modified.</p>', null);
+									//$notify::set('active', '<p>Table revolver::['. $tbl_n .'] altered.</p>', null);
 
 								}
+
+								$notify::set('status', '<div>Data Base cache will be updated when using.</div>', null);
 
 								break;
 
@@ -483,9 +309,7 @@ if( !empty( SV['p'] ) && ROLE === 'Admin' )  {
 
 								foreach( $DBX_KERNEL_SCHEMA as $tbl_n => $tbl_f ) {
 
-									$STRUCT = $DBX_KERNEL_SCHEMA[ $tbl_n ];
-
-									$dbx::query('index', 'revolver__'. $tbl_n, $STRUCT);
+									$dbx::query('index', 'revolver__'. $tbl_n,  $DBX_KERNEL_SCHEMA[ $tbl_n ]);
 
 									$notify::set('active', '<p>Table revolver::['. $tbl_n .'] indexes refreshed.</p>', null);
 
@@ -500,11 +324,9 @@ if( !empty( SV['p'] ) && ROLE === 'Admin' )  {
 
 								foreach( $DBX_KERNEL_SCHEMA as $tbl_n => $tbl_f ) {
 
-									$STRUCT = $DBX_KERNEL_SCHEMA[ $tbl_n ];
-
 									$STRUCT['extra_select_sql'] = 'ALTER TABLE `revolver__'. $tbl_n .'` ENGINE="InnoDB";';
 
-									$dbx::query('p', 'revolver__'. $tbl_n, $STRUCT); // be carefull becuase this query unescaped
+									$dbx::query('p', 'revolver__'. $tbl_n, $DBX_KERNEL_SCHEMA[ $tbl_n ]); // be carefull becuase this query unescaped
 
 									$notify::set('inactive', '<p>Table revolver::['. $tbl_n .'] optimized.</p>', null);
 

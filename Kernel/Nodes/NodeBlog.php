@@ -4,7 +4,7 @@
   * 
   * RevolveR Node Blog
   *
-  * v.1.9.4.7
+  * v.1.9.4.9
   *
   *
   *
@@ -35,10 +35,6 @@
   * License: Apache 2.0
   *
   */
-
-			// Create blog comments ratings
-			$dbx::query('c', 'revolver__blog_comments_ratings', $STRUCT_COMMENTS_RATINGS);
-
 
 $contents = '';
 

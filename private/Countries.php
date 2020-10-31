@@ -50,8 +50,38 @@ define('country_list', [
 	
 		],
 	
-		'country_tail' => 'en-US'
+		'country_tail' => 'en-US',
+
+		'currency'	   => [
+
+			'code'	=> 'USD',
+			'symb'	=> '$',
+
+		],
 	
+	],
+
+	'Russia' => [
+
+		'country_name' => 'Russia',
+
+		'country_code' => [
+
+			'latin_2' => 'RU',
+			'latin_3' => 'RUS',
+			'cipher'  => '643'
+
+		],
+
+		'country_tail' => 'ru-RU',
+
+		'currency'	   => [
+
+			'code'	=> 'RUB',
+			'symb'	=> '₽',
+
+		],
+
 	],
 
 	/* A */
@@ -965,16 +995,6 @@ define('country_list', [
 			'cipher'  => '642'
 		],
 		'country_tail' => 'ro-RO'
-	],
-
-	'Russia' => [
-		'country_name' => 'Russia',
-		'country_code' => [
-			'latin_2' => 'RU',
-			'latin_3' => 'RUS',
-			'cipher'  => '643'
-		],
-		'country_tail' => 'ru-RU'
 	],
 
 	/* S */

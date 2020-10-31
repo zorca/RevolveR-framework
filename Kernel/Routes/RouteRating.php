@@ -110,6 +110,18 @@ if(!empty(SV['p'])) {
 
         break;
 
+      case 'store':
+
+        $model::set('goods_ratings', [
+
+          'node_id'     => $node,
+          'user_id'     => $user,
+          'rate'        => $value
+
+        ]);
+
+        break;
+
       case 'node-comment':
 
         $model::set('comments_ratings', [
@@ -133,6 +145,19 @@ if(!empty(SV['p'])) {
         ]);
 
         break;
+
+      case 'store-comment':
+
+        $model::set('store_comments_ratings', [
+
+          'comment_id'  => $node,
+          'user_id'     => $user,
+          'rate'        => $value
+
+        ]);
+
+        break;
+
 
     }
 

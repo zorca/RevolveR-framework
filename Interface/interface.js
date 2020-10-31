@@ -2,7 +2,7 @@
  /* 
   * RevolveR Front-end :: main interface
   *
-  * v.1.9.4.7
+  * v.1.9.4.9
   *
   *			          ^
   *			         | |
@@ -541,6 +541,14 @@ R.fetchRoute = ( intro ) => {
 
 	}
 
+	// Store goods covers slider
+	setTimeout(() => {
+
+		R.slide('.revolver__store-goods-cover figure img', 3000);
+
+	}, 2000);
+
+
 	// Parallax effects
 	const articleBlocks = R.sel('article');
 
@@ -793,10 +801,6 @@ R.fetchRoute = ( intro ) => {
 
 			if( R.isU(e.target.dataset.editing) || e.target.dataset.editing === 'null' ) {
 
-				//articleArea.requestFullscreen();
-
-				//R.reParallax();
-
 				R.attr(editorArea, { 
 
 					'contenteditable': true
@@ -860,8 +864,6 @@ R.fetchRoute = ( intro ) => {
 
 						R.FormData = null;
 
-						//document.exitFullscreen();
-
 						R.fetchRoute(true);
 
 						console.log('Quick edit mode :: node saved ... ');
@@ -878,6 +880,117 @@ R.fetchRoute = ( intro ) => {
 
 
 		});
+
+	}, 3000);
+
+
+	/* Quick edit handler */
+	setTimeout(() => {
+
+		let in_basket_i = document.querySelector('.basket_indicator');
+
+		let in_basket_h = document.querySelector('.revolver__in-basket-handler');
+
+		let goods_count = 0;
+
+		for( let dc of R.cookie('goods_in_basket', 'get').split('|') ) {
+
+			if( dc.length > 0 ) {
+
+				goods_count++;
+
+			}
+
+		};
+
+		R.event('.basket_handler', 'click', (e) => {
+
+			R.loadURI( '/basket/', e.target.title );
+
+		});
+
+		if( goods_count > 0 ) {
+
+			document.querySelector('.basket_handler').style.display = 'inline-block';
+
+			R.animate([ in_basket_i ], ['opacity:1:1000:wobble'], () => {
+
+				in_basket_i.innerText = goods_count;
+
+				document.querySelector('.basket_icon').style.display = 'inline-block';
+
+			});
+
+		}
+
+
+		if( in_basket_h ) {
+
+			for( let xc of R.cookie('goods_in_basket', 'get').split('|') ) {
+
+				if( in_basket_h.dataset.goods === xc) {
+
+					in_basket_h.classList.add('active');
+
+					in_basket_h.querySelector('span').innerText = '-';
+
+				}
+
+			};
+
+			R.event('.revolver__in-basket-handler', 'click', (e) => {
+
+				let wrapper = e.target.closest('li');
+
+				for( let xc in R.cookie('goods_in_basket', 'get').split('|') ) {
+
+					if( wrapper.dataset.goods == xc) {
+
+						wrapper.classList.add('active');
+
+					}
+
+				};
+
+				wrapper.classList.toggle('active');
+
+				if( wrapper.classList.contains('active') ) {
+
+					e.target.innerText = '-';
+
+					in_basket_i.innerText = (in_basket_i.innerText - 0) + 1;
+
+					R.cookie('goods_in_basket='+ R.cookie('goods_in_basket', 'get') + wrapper.dataset.goods +'|', 'set');
+
+					console.log('Goods added to basket');
+
+				} 
+				else {
+
+					e.target.innerText = '+';
+
+					in_basket_i.innerText = (in_basket_i.innerText - 0) - 1;
+
+					let goods_stack = '';
+
+					for( let c of R.cookie('goods_in_basket', 'get').split('|') ) {
+
+						if( wrapper.dataset.goods !== c) {
+
+							goods_stack += c +'|';
+						}
+
+					};
+
+					R.cookie('goods_in_basket='+ goods_stack, 'set');
+
+					console.log('Goods removed from basket');
+
+				}
+
+			});
+
+		}
 
 	}, 3000);
 

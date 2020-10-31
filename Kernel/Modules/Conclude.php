@@ -6,7 +6,7 @@
   *
   * make exit and frees resources
   *
-  * v.1.9.4.7
+  * v.1.9.4.9
   *
   *                   ^
   *                  | |
@@ -468,6 +468,8 @@ final class Conclude {
 				'blog-comments-d',
 				'wiki-d',
 				'wiki-node-d', 
+				'store-goods-d',
+				'store-goods-edit-d',
 				'terminal' 
 
 			] ) ) {
@@ -621,6 +623,8 @@ final class Conclude {
 			'blog-comments-d',
 			'wiki-d',
 			'wiki-node-d',
+			'store-goods-d',
+			'store-goods-edit-d',
 			'rating-d'
 
 		] ) ) {

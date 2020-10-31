@@ -109,7 +109,7 @@ foreach( iterator_to_array(
 		$sitemap .= '<lastmod>'. $datetime .'</lastmod>'. "\n";
 
 		$sitemap .= '<changefreq>monthly</changefreq>'. "\n";
-		$sitemap .= '<priority>.9</priority>'. "\n";
+		$sitemap .= '<priority>.7</priority>'. "\n";
 
 	$sitemap .= ' </url>'. "\n\n";
 
@@ -144,11 +144,43 @@ foreach( iterator_to_array(
 		$sitemap .= '<lastmod>'. $datetime .'</lastmod>'. "\n";
 
 		$sitemap .= '<changefreq>monthly</changefreq>'. "\n";
-		$sitemap .= '<priority>.9</priority>'. "\n";
+		$sitemap .= '<priority>.8</priority>'. "\n";
 
 	$sitemap .= ' </url>'. "\n\n";
 
 }
+
+foreach( iterator_to_array(
+
+		$model::get( 'store_goods', [
+
+			'criterion' => 'id::*',
+
+			'bound'		=> [
+
+				0,   // limit
+
+			],
+
+			'course'	=> 'backward', // backward
+			'sort' 		=> 'id',
+
+		]),
+
+	)['model::store_goods'] as $node => $n) {
+
+	$sitemap .= ' <url>'. "\n";
+
+		$sitemap .= '<loc>'. site_host . '/store/goods/'. $n['id'] .'/</loc>'. "\n";
+		$sitemap .= '<lastmod>'. date('Y-m-d') .'</lastmod>'. "\n";
+
+		$sitemap .= '<changefreq>monthly</changefreq>'. "\n";
+		$sitemap .= '<priority>1</priority>'. "\n";
+
+	$sitemap .= ' </url>'. "\n\n";
+
+}
+
 
 $sitemap .= '</urlset>';
 

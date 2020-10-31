@@ -4,7 +4,7 @@
   * 
   * MySQLi Data Base X Class
   * 
-  * v.2.9.4
+  * v.2.9.5
   *
   * `Strict` mode supported
   *
@@ -1598,6 +1598,8 @@ final class DBX {
 						break;
 
 					case $prefix .'comments':
+					case $prefix .'comments_ratings':
+					case $prefix .'subscriptions':
 
 						$cacheFilesMask = 'homepage|contents';
 
@@ -1621,10 +1623,24 @@ final class DBX {
 					case $prefix .'blog_comments':
 					case $prefix .'blog_files':
 					case $prefix .'blog_ratings':
+					case $prefix .'blog_comments_ratings':
+					case $prefix .'blog_subscriptions':
 
 						$cacheFilesMask = 'homepage|blog';
 
 						break;
+
+					case $prefix .'store_categories':
+					case $prefix .'store_goods_files':
+					case $prefix .'store_goods':
+					case $prefix .'goods_ratings':
+					case $prefix .'store_comments':
+					case $prefix .'store_comments_ratings':
+
+						$cacheFilesMask = 'store';
+
+						break;
+
 
 					case $prefix .'wiki_nodes':
 					case $prefix .'wiki_categories':

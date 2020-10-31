@@ -92,10 +92,12 @@ final class Statistics {
 				// Dispatch routes and Service nodes exceptions
 				$struct['route'], [
 
-					'/secure/', 
-					'/comments-d/', 
-					'/contents-d/', 
-					'/category-d/', 
+					'/secure/',
+					'/comments-d/',
+					'/contents-d/',
+					'/category-d/',
+					'/store-goods-d/',
+					'/store-goods-edit-d/',
 					'/user-d/',
 					'/forum-d/',
 					'/forum-room-d/',

@@ -20,6 +20,24 @@
 			<span>›</span>
 		</li>
 
+		<?php if( PASS[ 1 ] === 'store' && isset(PASS[3]) ): ?>
+
+		<li itemprop="itemListElement" itemtype="https://schema.org/ListItem" itemscope>
+
+			<a itemtype="https://schema.org/WebPage" itemprop="item" itemid="<?php print site_host .'/store/'; ?>" href="/store/" title="<?php print TRANSLATIONS[ $ipl ]['Store']; ?>" itemscope>
+				<b itemprop="name"><?php print TRANSLATIONS[ $ipl ]['Store']; ?></b>
+			</a>
+
+			<meta itemprop="position" content="2" />
+
+		</li>
+
+		<li>
+			<span>›</span>
+		</li>
+
+		<?php endif;?>
+
 		<?php if( PASS[ 1 ] === 'wiki' && isset(PASS[4]) ): ?>
 
 		<li itemprop="itemListElement" itemtype="https://schema.org/ListItem" itemscope>

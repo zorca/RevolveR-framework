@@ -4,7 +4,7 @@
   * 
   * RevolveR Authentification
   *
-  * v.1.9.4.7
+  * v.1.9.4.9
   *
   *
   *

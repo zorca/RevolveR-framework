@@ -4,7 +4,7 @@
   * 
   * RevolveR Create new node
   *
-  * v.1.9.4
+  * v.1.9.4.9
   *
   *
   *
@@ -37,7 +37,7 @@
   *
   */
 
-if( Auth ) { 
+if( Auth ) {
 
 	if( in_array(ROLE, ['Admin', 'Writer'], true) ) {
 

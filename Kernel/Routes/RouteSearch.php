@@ -4,7 +4,7 @@
   * 
   * Search Route
   *
-  * v.1.9.4
+  * v.1.9.4.9
   *
   *
   *
@@ -59,7 +59,7 @@ if( isset(SV['g']['query']) ) {
 
     }
 
-      $output = '<li><a href="'. $url .'" title="'. $v['description'] .'">'.  str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['title'] ) .'</a><em>'. $v['time'] .'</em><span>'. TRANSLATIONS[ 'EN' ][ $m ] .' › '.  str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['description'] ) .'</span>';
+      $output = '<li><a href="'. $url .'" title="'. $v['description'] .'">'.  str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['title'] ) .'</a><em>'. (isset($v['time']) ? $v['time'] : date('d-m-Y h:i')) .'</em><span>'. TRANSLATIONS[ 'EN' ][ $m ] .' › '.  str_ireplace( $qs, '<mark>'. $qs .'</mark>', $v['description'] ) .'</span>';
 
       $replace = trim(
 
@@ -152,6 +152,33 @@ if( isset(SV['g']['query']) ) {
 
   }
 
+  // Forum search
+  foreach( iterator_to_array(
+
+    $model::get( 'store_goods', [
+
+      'criterion' => 'id::*',
+
+      'bound'   => [
+
+        200,   // limit
+
+      ],
+
+      'course'  => 'backward', // backward
+      'sort'    => 'id',
+
+    ])
+
+  )['model::store_goods'] as $k => $v) {
+
+    if( preg_match('/'. $qs .'/i', $v['content']) ) {
+
+      $output .= search( $qs, $v, 'store' );
+
+    }
+
+  }
 
   // Blog search
   foreach( iterator_to_array(

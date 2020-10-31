@@ -2,7 +2,7 @@
 /* 
  * RevolveR CMF main interface
  *
- * v.1.9.4.7
+ * v.1.9.4.9
  *
  *
  *			          ^
@@ -152,6 +152,55 @@ textarea::-moz-placeholder {
 #RevolverRoot .revolver__scalable-main .revolver__form-wrapper form.revolver__messages-form-control fieldset label {
 
 	width: 80vw !important;
+
+}
+
+.basket_handler {
+
+	display: none;
+	width: 6vw;
+
+}
+
+.basket_icon:hover,
+.basket_indicator:hover {
+
+	cursor: pointer;
+
+}
+
+.basket_icon {
+
+	background: transparent url(/Interface/basket-icon.svg) 0% -5% no-repeat;
+	background-size: 265%;
+	position: relative;
+	line-height: 2vw;
+	display: none;
+	height: 2vw;
+	right: 1vw;
+	width: 2vw;
+	top: .6vw;
+
+}
+
+.basket_indicator {
+
+	box-shadow: inset 0 0 0.2vw #ffffff;
+	text-shadow: 0 0 0.1vw #000;
+	border: .1vw dashed #000;
+	font: bold 1.6vw Tahoma;
+	display: inline-block;
+	background: #b00000;
+	text-align: center;
+	position: relative;
+	border-radius: 2vw;
+	line-height: 2vw;
+	right: .65vw;
+	height: 2vw;
+	color: #fff;
+	opacity: 0;
+	width: 2vw;
+	top: .3vw;
 
 }
 
@@ -2357,6 +2406,235 @@ fieldset legend::before {
 			}
 
 
+	.revolver__scalable-main .revolver__store-goods {
+
+
+	}
+
+	.revolver__basket-items {
+
+		margin: 0 0 2.4vw;
+		padding: 0;
+
+	}
+
+		.revolver__basket-items dt {
+
+			color: var(--search-results-title);
+			border-top: .1vw dashed #888;
+			font: normal 1.6vw Tahoma;
+			padding: .8vw .6vw .8vw;
+			margin: 1vw 0 1vw;
+
+		}
+
+		.revolver__basket-goods_cover,
+		.revolver__basket-goods_summary {
+
+			display: table-cell;
+
+		}
+
+		.revolver__basket-items dd.revolver__basket-goods_cover {
+
+			height: 10vw;
+			width: 10vw;
+ 
+		}
+
+
+		.revolver__basket-items dd.revolver__basket-goods_cover figure {
+
+			transform: scale(.64);
+			top: -3.7vw;
+			left: -3vw;
+
+		}
+
+		.revolver__basket-items dd.revolver__basket-goods_summary {
+
+			color: var(--search-results-description);
+			box-shadow: inset .1vw 0vw .2vw #888;
+			border-bottom: .1vw dashed #888;
+			border-left: .1vw dashed #888;
+			border-top: .1vw dashed #888;
+			font: normal 1vw Tahoma;
+			padding: .4vw .5vw;
+			width: 84vw;
+			margin: 0;
+			
+		}
+
+			.revolver__basket-items dd.revolver__basket-goods_summary p {
+
+				color: var(--search-results-description);
+				margin: 1vw 1vw 1vw;
+
+			}
+
+			.revolver__basket-items dd.revolver__basket-goods_summary ul {
+
+				margin: 0 2vw 1.4vw;
+				list-style: none;
+
+			}
+
+				.revolver__basket-items dd.revolver__basket-goods_summary ul li {
+
+					color: var(--form-placeholder) !important;
+					border-bottom: .1vw dotted #888;
+					letter-spacing: .2vw;
+					margin: 0 0 .6vw;
+
+				}
+
+				.revolver__basket-items dd.revolver__basket-goods_summary ul li::before {
+
+					color: var(--notice-color);
+					display: inline-block;
+					margin-left: -1vw;
+					font-weight: bold; 
+					content: '◊'; 
+					width: 1vw;
+
+				}
+
+				.revolver__basket-items dd.revolver__basket-goods_summary ul li dfn {
+
+					text-shadow: 0 0 .1vw var(--terminal-text-color);
+					color: var(--related-link-hover);
+					font-weight: bold;
+					float: right;
+
+				}
+
+		.revolver__order-summary {
+
+			list-style: square;
+			margin: 1vw 1.6vw;
+			padding: 0;
+
+		}
+
+			.revolver__order-summary li {
+
+				color: var(--search-results-title) !important;
+				border-bottom: .1vw dashed #999;
+				margin: 0 0 .4vw;
+
+			}
+
+				.revolver__order-summary li span {
+
+					text-shadow: 0 0 .1vw var(--terminal-text-color);
+					color: var(--related-link-hover);
+					font-weight: bold;
+					float: right;
+
+				}
+
+	.revolver__scalable-main .revolver__store-goods-cover {
+
+		padding: 1vw 2vw 2vw 0;
+		display: inline-block;
+		text-align: center;
+		width: 18vw;
+		float: left;
+
+	}
+
+	.revolver__scalable-main .revolver__store-goods-cover .revolver__store_rebate-span {
+
+		font: bold 1.4vw Tahoma;
+		letter-spacing: 1vw;
+		margin: 1.6vw auto;
+		color: #99c796d4;
+		display: block;
+
+	}
+
+	.revolver__scalable-main .revolver__store-goods-cover .revolver__store_rebate {
+
+		text-shadow: 0.2vw 0.2vw 0.1vw #5875618f;
+		font: bold 4vw Tahoma;
+		margin: 1.6vw auto;
+		color: #78a978c2;
+
+	}
+
+	.revolver__scalable-main .revolver__store-good-description {
+
+		padding: 1vw 0 2vw 1vw;
+		display: inline-block;
+		width: 72vw;
+		float: right;
+
+	}
+
+
+		.revolver__scalable-main .revolver__store-good-description h4 {
+
+			border-bottom: .1vw dashed #ccb8b8;
+			border-right: .1vw dashed #ccb8b8;
+			padding-bottom: .2vw;
+			letter-spacing: .2vw;
+			font-weight: normal;
+			margin-right: 1vw;
+			margin-top: 2vw;
+			color: #98bdb8;
+
+		}
+
+			.revolver__scalable-main .revolver__store-good-description h4 span {
+
+				color: #dc8585e0;
+				float: right;
+
+			}
+
+
+		.revolver__scalable-main .revolver__store-goods-cover figure {
+
+			background: repeating-linear-gradient(45deg, transparent, transparent .1vw, #ffffff45 .1vw, #b7754594 .25vw), linear-gradient(to bottom, #eeeeee5c, #bfbfbf1a);
+			box-shadow: inset 0 0 1vw #000;
+			outline: .2vw solid #b1917fbd;
+			border: .1vw dashed #999;
+			display: inline-block;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+			margin: 0 auto;
+			width: 16vw;
+			height: 16vw;
+
+		}
+
+		.revolver__scalable-main .revolver__store-goods-cover figure img {
+
+			position: absolute;
+			width: 16vw;
+			height: 16vw;
+			opacity: .2;
+			left: 0;
+			top: 0;
+
+		}
+
+		.revolver__scalable-main .revolver__store-goods .revolver__article-header div {
+
+			padding: .5vw 1vw 0;
+			float: right;
+
+			color: var(--article-text-color);
+
+		}
+
+			.revolver__scalable-main .revolver__store-goods .revolver__article-header div s {
+
+				color: #b00000;
+
+			}
+
 	.revolver__scalable-main .revolver__article-preview {
 
     	border: .1vw dashed rgb(185, 127, 141);
@@ -2837,6 +3115,7 @@ fieldset legend::before {
 
 
 		.revolver__article-footer ul li.revolver__quick-edit-handler,
+		.revolver__article-footer ul li.revolver__in-basket-handler,
 		.revolver__comments-footer ul li.revolver__quick-edit-handler {
 
 			margin-right: 1vw;
@@ -2848,6 +3127,7 @@ fieldset legend::before {
 
 
 		.revolver__article-footer ul li.revolver__quick-edit-handler:hover,
+		.revolver__article-footer ul li.revolver__in-basket-handler:hover,
 		.revolver__comments-footer ul li.revolver__quick-edit-handler:hover {
 
 			text-decoration: underline;
@@ -2857,6 +3137,7 @@ fieldset legend::before {
 		}
 
 		.revolver__mobile-friendly .revolver__article-footer ul li.revolver__quick-edit-handler,
+		.revolver__mobile-friendly .revolver__article-footer ul li.revolver__in-basket-handler,
 		.revolver__mobile-friendly .revolver__comments-footer ul li.revolver__quick-edit-handler,
 		.revolver__mobile-friendly .revolver__article-footer ul li a {
 

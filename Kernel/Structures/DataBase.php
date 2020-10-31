@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Data Base schema
   *
-  * v.1.9.4.7
+  * v.1.9.4.9
   *
   *
   *
@@ -206,6 +206,36 @@ $STRUCT_FROOM_FILES = [
 	]
 
 ];
+
+$STRUCT_GOODS_FILES = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // bigint
+		'auto'	 => true,
+		'length' => 255,
+		'fill'   => true
+
+	],
+
+	'field_name' => [
+
+		'type'   => 'text', // varchar
+		'length' => 255,
+		'fill'   => true
+
+	],
+
+	'field_node' => [
+
+		'type'   => 'bignum', // varchar
+		'length' => 255,
+		'fill'   => true
+
+	]
+
+];
+
 
 $STRUCT_MESSAGES_FILES = [
 
@@ -733,6 +763,163 @@ $STRUCT_NODES = [
 
 ];
 
+$STRUCT_GOODS = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // big int
+		'auto'   => true,     // auto increment
+		'length' => 255
+
+	],
+
+	'field_title' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 150,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'full'
+
+		]
+
+	],
+
+	'field_description' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 5000,
+		'fill'   => true
+
+	],
+
+	'field_vendor' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 150,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'full'
+
+		]
+
+	],
+
+	'field_country' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 3,
+		'fill'   => true
+
+	],
+
+	'field_quantity' => [
+
+		'type'   => 'bignum',   // varchar
+		'length' => 255,
+		'fill'   => null
+
+	],
+
+	'field_price' => [
+
+		'type'   => 'num',   // varchar
+		'length' => 20,
+		'fill'   => true
+
+	],
+
+	'field_rebate' => [
+
+		'type'   => 'num',   // varchar
+		'length' => 3,
+		'fill'   => null
+
+	],
+
+	'field_tax' => [
+
+		'type'   => 'num',   // varchar
+		'length' => 3,
+		'fill'   => null
+
+	],
+
+	'field_delivery' => [
+
+		'type'   => 'minnum', // big int
+		'length' => 1,
+		'fill'	 => null
+
+	],
+
+	'field_pickup' => [
+
+		'type'   => 'minnum', // big int
+		'length' => 1,
+		'fill'	 => null
+
+	],
+
+	'field_service' => [
+
+		'type'   => 'minnum', // big int
+		'length' => 1,
+		'fill'	 => null
+
+	],
+
+	'field_content' => [
+
+		'type'   => 'text',   // varchar
+		'length' => 9000,
+		'fill'   => true
+
+	],
+
+	'field_user' => [
+
+		'type'   => 'text', // varchar
+		'length' => 50,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_category' => [
+
+		'type'	 => 'bignum', // big int
+		'length' => 255,
+		'fill'	 => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_published' => [
+
+		'type'   => 'num', // int
+		'length' => 1,
+		'fill'   => null
+
+	],
+
+
+];
+
 $STRUCT_NODES_RATINGS = [
 
 	'field_id' => [
@@ -814,7 +1001,6 @@ $STRUCT_COMMENTS_RATINGS = [
 		'fill'	 => true
 
 	]
-
 
 ];
 
@@ -1426,6 +1612,101 @@ $STRUCT_STATISTICS = [
 
 ];
 
+$STRUCT_STORE_ORDERS = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // bigint
+		'auto'	 => true,
+		'length' => 255,
+		'fill'   => true
+
+	],
+
+	'field_customer_name' => [
+
+		'type'   => 'text', // varchar
+		'length' => 255,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_customer_last_name' => [
+
+		'type'   => 'text', // varchar
+		'length' => 255,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_customer_email' => [
+
+		'type'   => 'text', // varchar
+		'length' => 60,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_customer_telephone' => [
+
+		'type'   => 'text', // varchar
+		'length' => 20,
+		'fill'   => true
+
+	],
+
+	'field_customer_address' => [
+
+		'type'   => 'text', // varchar
+		'length' => 1000,
+		'fill'   => true
+
+	],
+
+	'field_customer_comment' => [
+
+		'type'   => 'text', // varchar
+		'length' => 5000,
+		'fill'   => true,
+
+	],
+
+	'field_processed' => [
+
+		'type'   => 'minnum', // big int
+		'length' => 1,
+		'fill'	 => true
+
+	],
+
+	'field_paid' => [
+
+		'type'   => 'minnum', // big int
+		'length' => 1,
+		'fill'	 => true
+
+	]
+
+];
+
 $STRUCT_TEST = [
 
 	'field_id' => [
@@ -1486,6 +1767,14 @@ $DBX_KERNEL_SCHEMA = [
 	'wiki_categories'   	 => $STRUCT_CATEGORIES,
 	'wiki_nodes'	    	 => $STRUCT_WIKI_NODES,
 	'wiki_files'	    	 => $STRUCT_FILES,
+
+	'store_categories'		 => $STRUCT_CATEGORIES,
+	'store_goods_files'		 => $STRUCT_GOODS_FILES,
+	'store_goods'			 => $STRUCT_GOODS,
+	'goods_ratings'			 => $STRUCT_NODES_RATINGS,
+	'store_comments'		 => $STRUCT_BLOG_COMMENTS,
+	'store_comments_ratings' => $STRUCT_COMMENTS_RATINGS,
+	'store_orders' 			 => $STRUCT_STORE_ORDERS,
 
 	'users'			    	 => $STRUCT_USER,
 	'roles'			    	 => $STRUCT_ROLES,

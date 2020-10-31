@@ -4,7 +4,7 @@
   * 
   * RevolveR Countries Language
   *
-  * v.1.9.4
+  * v.1.9.4.9
   *
   *
   *
@@ -58,7 +58,9 @@ final class Language {
 					'code_length_3'  => $cn['country_code']['latin_3'],
 					'cipher'		     => $cn['country_code']['cipher'],
 					'name'			     => $cn['country_name'],
-					'hreflang'		   => $cn['country_tail']
+					'hreflang'		   => $cn['country_tail'],
+          'currency_code'  => $cn['currency']['code'],
+          'currency_symb'  => $cn['currency']['symb']
 
 				];
 
@@ -73,7 +75,9 @@ final class Language {
 					'code_length_3' => $cn['country_code']['latin_3'],
 					'cipher'		    => $cn['country_code']['cipher'],
 					'name'			    => $cn['country_name'],
-					'hreflang'		  => $cn['country_tail']
+					'hreflang'		  => $cn['country_tail'],
+          'currency_code' => $cn['currency']['code'],
+          'currency_symb' => $cn['currency']['symb']
 
 				];
 

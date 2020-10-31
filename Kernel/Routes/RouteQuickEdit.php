@@ -197,6 +197,20 @@ if(!empty(SV['p'])) {
 
           break;
 
+        case 'store-comment':
+
+          $model::set('store_comments', [
+
+            'id'          => $node,
+            'content'     => $data,
+            'time'        => date('d.m.Y h:i'),
+
+            'criterion'   => 'id'
+
+          ]);
+
+          break;
+
       }
 
     }

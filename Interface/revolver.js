@@ -3,7 +3,7 @@
   *
   * RevolveR CMF interface :: ECMA Script 7
   *
-  * v.1.9.4.7
+  * v.1.9.4.9
   *
   * RevolveR ECMA Script is a fast, simple and
   *
@@ -882,9 +882,9 @@
 
 								window.addEventListener('deviceorientation', (e) => {
 
-									RR.styleApply('.parallax-1', ['left:'+ ( (e.gamma / 20) * -1 ) +'px', 'top:'+ (e.beta / 20) * -1 +'px'], () => {
+									RR.styleApply('.parallax-1', ['left:'+ ( (e.gamma / 30) * -1 ) +'px', 'top:'+ (e.beta / 30) * -1 +'px'], () => {
 
-										RR.styleApply('.parallax-2', ['left:'+ ( (e.gamma / 20) + (e.gamma / 4) ) +'px', 'top:'+ (e.beta / 20) +'px']);
+										RR.styleApply('.parallax-2', ['left:'+ ( (e.gamma / 30) + (e.gamma / 4) ) +'px', 'top:'+ (e.beta / 30) +'px']);
 
 									});
 
@@ -2594,28 +2594,55 @@
 		slide: (e, t = 3000) => {
 
 			var e = RR.htmlObj(e);
-			let i = 0;
 
-			// Make window flag to get timerId access on fetch
-			self.rotate = void setInterval(
+			if( e ) {
 
-				() => {
+				let i = 0;
 
-					if(e) {
+				RR.allowSlide = true;
 
-						e[i].style.zIndex = 0; 
+				void setInterval(
 
-						i++;
+					() => {
 
-						i = (i - 0) === e.length ? 0 : i - 0;
+						if( e && RR.allowSlide ) {
 
-						e[i].style.zIndex = 1;
+							RR.animate([ e[ i ] ], ['opacity:0:800:lienar'], () => {
 
-					}
+								R.styleApply([e[ i ]], ['z-index:0']);
 
-				}, 
+								i++;
 
-			t); 
+								i = i === e.length ? 0 : i;
+
+								RR.animate([ e[ i ] ], ['opacity:.8:800:swingTo'], () => {
+
+									R.styleApply([e[ i ]], ['z-index:1']);
+
+
+								});
+
+							});
+
+						}
+
+					},
+
+				t);
+
+				RR.event(e, 'mouseenter', () => {
+
+					RR.allowSlide = null;
+
+					RR.event(e, 'mouseleave', () => {
+
+						RR.allowSlide = true;
+
+					});
+
+				});
+
+			}
 
 		},
 
@@ -3611,6 +3638,84 @@
 				break;
 
 			}
+
+		},
+
+		// Cookie API
+		cookie: function (p, m) {
+
+			let args = [];
+
+			switch( m ) {
+
+				case 'set':
+
+					if( RR.isS(p) ) {
+
+						args.push(RR.arguments(p, '='));
+
+					}
+
+					if( RR.isO(p) && p.length > 0 ) {
+
+						for( let i in p ) {
+
+							args[ i ] = RR.arguments(p[ i ], '=');
+
+						}
+
+					}
+
+					for( let i in args ) {
+
+						let d = new Date();
+
+						d.setTime( d.getTime() + (30 * 24 * 60 * 60 * 1000) );
+
+						document.cookie = '__RevolveR_'+ args[ i ][ 0 ].trim() + '=' +  args[ i ][1].trim() + '; ' + 'expires='+ d.toUTCString() + '; path=/; SameSite=Strict; Secure;';
+
+					};
+
+					break;
+
+				case 'get':
+
+					let name = '__RevolveR_'+ p.trim() +'=';
+
+					let decodedCookie = decodeURIComponent(document.cookie);
+
+					let ca = decodedCookie.split(';');
+
+					for( let i = 0; i < ca.length; i++ ) {
+
+						let c = ca[ i ];
+
+						while( c.charAt(0) === ' ' ) {
+
+							c = c.substring(1);
+
+						}
+
+						if( c.indexOf('__RevolveR_'+ p) === 0 ) {
+
+							return c.substring(name.length, c.length);
+
+						}
+
+					}
+
+					return '';
+
+					break;
+
+				case 'rem':
+
+					document.cookie = '__RevolveR_'+ p.trim() + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; SameSite=Strict; Secure;';
+
+					break;
+
+			}
+
 
 		},
 

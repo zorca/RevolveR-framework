@@ -3,7 +3,7 @@
  /* 
   * RevolveR primary routing switch
   *
-  * v.1.9.4.7
+  * v.1.9.4.9
   *
   *
   *
@@ -65,6 +65,51 @@ if( defined('ROUTE') ) {
 			else {
 
 				require_once('./Kernel/Nodes/Node.php');
+
+			}
+
+			break;
+
+		/* Store */
+		case '#store':
+
+			ob_start();
+
+			require_once('./Kernel/Nodes/NodeStore.php');
+
+			break;
+
+		/* Store basket */
+		case '#basket':
+
+			ob_start();
+
+			require_once('./Kernel/Nodes/NodeBasket.php');
+
+			break;
+
+		/* Store orders processing */
+		case '#orders':
+
+			ob_start();
+
+			if( Auth ) {
+
+				if( in_array(ROLE, ['Admin', 'Writer'], true) ) {
+
+					require_once('./Kernel/Nodes/NodeOrders.php');
+
+				}
+				else {
+
+					header( 'Location: '. site_host .'/' );
+
+				}
+
+			} 
+			else {
+
+				header( 'Location: '. site_host .'/' );
 
 			}
 
@@ -349,7 +394,6 @@ if( defined('ROUTE') ) {
 
 			break;
 
-
 		case '#blog-comments-d':
 
 			ob_start('ob_gzhandler');
@@ -359,6 +403,14 @@ if( defined('ROUTE') ) {
 
 			break;
 
+		case '#store-comments-d':
+
+			ob_start('ob_gzhandler');
+
+			// Comments dispatch
+			require_once('./Kernel/Routes/RouteStoreComments.php');
+
+			break;
 
 		case '#contents-d':
 
@@ -408,6 +460,45 @@ if( defined('ROUTE') ) {
 
 				// Category dispatch
 				require_once('./Kernel/Routes/RouteCategoriesEdit.php');
+
+			}
+
+			break;
+
+		case '#store-category-d':
+
+			ob_start('ob_gzhandler');
+
+			if( Auth ) {
+
+				// Store category dispatch
+				require_once('./Kernel/Routes/RouteStoreCategoriesEdit.php');
+
+			}
+
+			break;
+
+		case '#store-goods-d':
+
+			ob_start('ob_gzhandler');
+
+			if( Auth ) {
+
+				// Store good dispatch
+				require_once('./Kernel/Routes/RouteStoreGoods.php');
+
+			}
+
+			break;
+
+		case '#store-goods-edit-d':
+
+			ob_start('ob_gzhandler');
+
+			if( Auth ) {
+
+				// Store good edit dispatch
+				require_once('./Kernel/Routes/RouteStoreGoodsEdit.php');
 
 			}
 

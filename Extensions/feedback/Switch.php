@@ -44,7 +44,7 @@ if( defined('ROUTE') ) {
 
 									if( (bool)SV['p']['revolver_feedback_message_message']['valid'] ) {
 
-										$message = $markup::Markup( SV['p']['revolver_feedback_message_message']['value'], ['xhash' => 1] );
+										$message = $markup::Markup( SV['p']['revolver_feedback_message_message']['value'] );
 
 									}
 
@@ -539,7 +539,7 @@ if( defined('ROUTE') ) {
 									'message_hash'			=> $message_hash,
 									'message_title'			=> $message_title,
 									'message_time'			=> date('Y.m.d h:i'),
-									'message_text'			=> $markup::Markup( $message_text, ['xhash' => 0] ),
+									'message_text'			=> $markup::Markup( $message_text ),
 									'message_processed'		=> 0,
 									'criterion'				=> 'id'
 
@@ -1240,11 +1240,12 @@ if( defined('ROUTE') ) {
 
 							$contents_feedback .= '<h2>'. $f['message_title'] .'</h2>';
 
-							$contents_feedback .= $markup::markup(
+							$contents_feedback .= $markup::markup( 
 
-								$f['message_text'], [ 'xhash' => 1 ]
+									html_entity_decode( htmlspecialchars_decode($f['message_text'] )), [ 'lazy' => 1 ]
 
 							);
+
 
 							$contents_feedback .= '</div>';
 

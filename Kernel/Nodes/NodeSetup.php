@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Setup
   *
-  * v.1.9.4.8
+  * v.1.9.4.9
   *
   *
   *
@@ -500,6 +500,7 @@ if( !empty(SV['p']) ) {
 			// Create table files
 			$dbx::query('c', 'revolver__files', $STRUCT_FILES);
 
+
 			// Create table forum topics files
 			$dbx::query('c', 'revolver__froom_files', $STRUCT_FROOM_FILES);
 
@@ -553,7 +554,28 @@ if( !empty(SV['p']) ) {
 
 			]);
 
-			// Create table categories
+			// Create table store categories
+			$dbx::query('c', 'revolver__store_categories', $STRUCT_CATEGORIES);
+
+			// Create table store goods
+			$dbx::query('c', 'revolver__store_goods', $STRUCT_GOODS);
+
+			// Create table store goods ratings
+			$dbx::query('c', 'revolver__goods_ratings', $STRUCT_NODES_RATINGS);
+
+			// Create table store goods
+			$dbx::query('c', 'revolver__store_goods_files', $STRUCT_GOODS_FILES);
+
+			// Create table store goods
+			$dbx::query('c', 'revolver__store_comments', $STRUCT_BLOG_COMMENTS);
+
+			// Create store comments ratings
+			$dbx::query('c', 'revolver__store_comments_ratings', $STRUCT_COMMENTS_RATINGS);
+
+			// Create store orders
+			$dbx::query('c', 'revolver__store_orders', $STRUCT_STORE_ORDERS);
+
+			// Create table forums
 			$dbx::query('c', 'revolver__forums', $STRUCT_FORUMS);
 
 			// Create table forum rooms
@@ -601,7 +623,6 @@ if( !empty(SV['p']) ) {
 			// Create blog ratings
 			$dbx::query('c', 'revolver__blog_ratings', $STRUCT_NODES_RATINGS);
 
-
 			// Create blog comments ratings
 			$dbx::query('c', 'revolver__blog_comments_ratings', $STRUCT_COMMENTS_RATINGS);
 			
@@ -616,21 +637,21 @@ if( !empty(SV['p']) ) {
 
 			$model::set('roles', [
 
-				'access'	=> 'preferences|node|comment|messages|categories|profile|forum|topic|blog',
+				'access'	=> 'preferences|node|comment|messages|categories|profile|forum|topic|blog|buy',
 				'name'		=> 'Admin',
 
 			]);
 
 			$model::set('roles', [
 
-				'access'	=> 'comment|messages|profile|topic|blog',
+				'access'	=> 'comment|messages|profile|topic|blog|buy',
 				'name'		=> 'User'
 
 			]);
 
 			$model::set('roles', [
 
-				'access'	=> 'node|comment|messages|categories|profile|forum|topic|blog',
+				'access'	=> 'node|comment|messages|categories|profile|forum|topic|blog|buy',
 				'name'		=> 'Writer'
 
 			]);

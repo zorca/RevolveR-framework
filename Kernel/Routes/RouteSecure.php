@@ -4,7 +4,7 @@
   * 
   * Secure Route :: Generates Captcha
   * 
-  * v.1.9.4.7
+  * v.1.9.4.9
   *
   *
   *
@@ -57,6 +57,24 @@ if( isset( SV['g']['route'] ) ) {
       if( $psw[ 1 ] === 'comment' && is_numeric( $psw[ count($psw) - 3 ] ) ) {
 
         $dsp = '/comments-d/';
+
+      }
+
+      if( $psw[ 1 ] === 'store' && $psw[ count($psw) - 4 ] === 'category' && is_numeric( $psw[ count($psw) - 3 ] ) ) {
+
+        $dsp = '/store-category-d/';
+
+      }
+
+      if( $psw[ 1 ] === 'store' && $psw[ 2 ] === 'goods' && $psw[ 3 ] === 'add' ) {
+
+        $dsp = '/store-goods-d/';
+
+      }
+
+      if( $psw[ 1 ] === 'store' && $psw[ 2 ] === 'goods' && is_numeric($psw[ 3 ]) && $psw[ 4 ] === 'edit' ) {
+
+        $dsp = '/store-goods-edit-d/';
 
       }
 

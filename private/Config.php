@@ -4,7 +4,7 @@
   * 
   * RevolveR Kernel configuration
   *
-  * v.1.9.4.8
+  * v.1.9.4.9
   *
   *
   *
@@ -427,6 +427,66 @@ define('main_nodes', array_merge([
 
 		],
 
+		// Store
+		TRANSLATIONS[ $ipl ]['Store'] => [
+
+			'title' => TRANSLATIONS[ $ipl ]['Store'],
+			'descr'	=> 'Store',
+
+			'param_check' => [
+
+				'menu'      => 1,
+
+			],
+
+			'route'	=> '/store/',
+			'node' 	=> '#store',
+			'type'	=> 'node',
+			'id'   	=> 'store'
+
+		],
+
+		// Store basket
+		TRANSLATIONS[ $ipl ]['Basket'] => [
+
+			'title' => TRANSLATIONS[ $ipl ]['Basket'],
+			'descr'	=> 'Store basket',
+
+			'param_check' => [
+
+				'menu'      => 0,
+
+			],
+
+			'route'	=> '/basket/',
+			'node' 	=> '#basket',
+			'type'	=> 'node',
+			'id'   	=> 'basket'
+
+		],
+
+		// Store orders
+		TRANSLATIONS[ $ipl ]['Orders'] => [
+
+			'title' => TRANSLATIONS[ $ipl ]['Orders'],
+			'descr'	=> 'Store basket',
+
+			'param_check' => [
+
+				'auth'     => 1,
+				'menu'     => 1,
+				'isAdmin'  => 1,
+				'isWriter' => 1
+
+			],
+
+			'route'	=> '/orders/',
+			'node' 	=> '#orders',
+			'type'	=> 'node',
+			'id'   	=> 'orders'
+
+		],
+
 		// Forum
 		TRANSLATIONS[ $ipl ]['Forum'] => [
 
@@ -607,6 +667,45 @@ define('main_nodes', array_merge([
 
 		],
 
+		// Comments store dispatch
+		'store-comments-d' => [
+
+			'title' => 'Store comment dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/store-comments-d/',
+			'node'   => '#store-comments-d',
+			'type'	 => 'service',
+			'id'	 => 'store-comments-d',
+
+		],
+
+		// Comments store edit dispatch
+		'store-comments-edit-d' => [
+
+			'title' => 'Store comment edit dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/store-comments-edit-d/',
+			'node'   => '#store-comments-edit-d',
+			'type'	 => 'service',
+			'id'	 => 'store-comments-edit-d',
+
+		],
+
+
 		// Contents dispatch
 		'contents-d' => [
 
@@ -680,6 +779,63 @@ define('main_nodes', array_merge([
 			'node'   => '#category-d',
 			'type'	 => 'service',
 			'id'	 => 'category-d',
+
+		],
+
+		// Store category dispatch
+		'store-category-d' => [
+
+			'title' => 'Store category dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/store-category-d/',
+			'node'   => '#store-category-d',
+			'type'	 => 'service',
+			'id'	 => 'store-category-d',
+
+		],
+
+		// Store goods dispatch
+		'store-goods-d' => [
+
+			'title' => 'Store goods dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/store-goods-d/',
+			'node'   => '#store-goods-d',
+			'type'	 => 'service',
+			'id'	 => 'store-goods-d',
+
+		],
+
+		// Store goods edit dispatch
+		'store-goods-edit-d' => [
+
+			'title' => 'Store goods dispatch service',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden'	=> 1
+
+			],
+
+			'route'  => '/store-goods-edit-d/',
+			'node'   => '#store-goods-edit-d',
+			'type'	 => 'service',
+			'id'	 => 'store-goods-edit-d',
 
 		],
 

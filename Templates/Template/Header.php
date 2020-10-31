@@ -18,6 +18,11 @@
 
 		<form action="/search/" method="GET">
 
+			<dfn class="basket_handler">
+				<dfn class="basket_icon" title="<?php print TRANSLATIONS[ $ipl ]['Basket'] ?>"><i></i></dfn>
+				<dfn class="basket_indicator" title="<?php print TRANSLATIONS[ $ipl ]['Basket'] ?>"><i></i></dfn>
+			</dfn>
+
 			<input type="search" name="query" placeholder="<?php print TRANSLATIONS[ $ipl ]['Type keywords here'] ?>" required <?php if(!INSTALLED): ?>disabled="disabled"<?php endif; ?> />
 			<input type="submit" name="revolver-search-submit" value="<?php print TRANSLATIONS[ $ipl ]['Search'] ?>" />
 

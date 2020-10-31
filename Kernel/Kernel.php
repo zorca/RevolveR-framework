@@ -3,7 +3,7 @@
  /*
   * RevolveR CMF Kernel
   *
-  * v.1.9.4.8
+  * v.1.9.4.9
   *
   *			          ^
   *			         | |
@@ -32,7 +32,7 @@
   */
 
 // Kernel version
-define('rr_version', '1.9.4.8');
+define('rr_version', '1.9.4.9');
 
 // X64 guest number
 define('BigNumericX64', 9223372036854775806);
@@ -440,6 +440,7 @@ if( (bool)strlen( $db_config ) ) {
 				'register'	=> 1,
 				'recovery'	=> 1,
 				'comment'	=> 1,
+				'buy'		=> 1,
 				'auth'		=> 1
 
 			],
@@ -1029,6 +1030,22 @@ if( !defined('ROUTE') ) {
 
 	}
 
+	/* Store routes */
+	if( PASS[ 1 ] === 'store' ) {
+
+		define('ROUTE', [
+
+			'route' => '/store/',
+			'node'	=> '#store',
+			'type'	=> 'node',
+			'ext'	=> null
+
+		]);
+
+		$not_found = null;
+
+	}
+
 }
 
 // 404
@@ -1131,7 +1148,7 @@ if( !(bool)$TCache ) {
 	} 
 	else if( PASS[1] === 'blog' && !empty(PASS[ 2 ]) ) {
 
-		$title = iterator_to_array(
+		$bi = iterator_to_array(
 
 			$model::get( 'blog_nodes', [
 
@@ -1148,7 +1165,38 @@ if( !(bool)$TCache ) {
 
 			])
 
-		)['model::blog_nodes'][0]['title'];
+		)['model::blog_nodes'][0];
+
+		$title = $bi['title'];
+
+		$descr = $bi['description'];
+
+
+	} 
+	else if( PASS[ 1 ] === 'store' && PASS[ 2 ] === 'goods' && is_numeric(PASS[ 3 ]) ) {
+
+		$si = iterator_to_array(
+
+			$model::get( 'store_goods', [
+
+				'criterion' => 'id::'. (int)PASS[ 3 ],
+
+				'bound'		=> [
+
+					1
+
+				],
+
+				'course'	=> 'backward',
+				'sort' 		=> 'id'
+
+			])
+
+		)['model::store_goods'][0];
+
+		$title = $si['title'];
+
+		$descr = $si['description'];
 
 
 	}
