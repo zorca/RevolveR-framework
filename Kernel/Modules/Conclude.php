@@ -453,7 +453,8 @@ final class Conclude {
 			if( in_array( ltrim( ROUTE['node'], '#' ), [ 
 
 				'search', 
-				'secure', 
+				'secure',
+				'basket',
 				'setup',
 				'user', 
 				'user-d',
