@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Setup
   *
-  * v.1.9.4.9
+  * v.1.9.5
   *
   *
   *
@@ -490,6 +490,9 @@ if( !empty(SV['p']) ) {
 
 			// Models
 			$model = new Model( $dbx, $DBX_KERNEL_SCHEMA );
+
+			// Create table index
+			$dbx::query('c', 'revolver__index', $STRUCT_INDEX);
 
 			// Create table staistics :: compressed
 			$dbx::query('c', 'revolver__statistics', $STRUCT_STATISTICS);

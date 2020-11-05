@@ -453,8 +453,7 @@ final class Conclude {
 			if( in_array( ltrim( ROUTE['node'], '#' ), [ 
 
 				'search', 
-				'secure',
-				'basket',
+				'secure', 
 				'setup',
 				'user', 
 				'user-d',
@@ -471,7 +470,10 @@ final class Conclude {
 				'wiki-node-d', 
 				'store-goods-d',
 				'store-goods-edit-d',
-				'terminal' 
+				'basket',
+				'terminal',
+				'pick',
+				'picker',
 
 			] ) ) {
 
@@ -626,7 +628,8 @@ final class Conclude {
 			'wiki-node-d',
 			'store-goods-d',
 			'store-goods-edit-d',
-			'rating-d'
+			'rating-d',
+			'picker'
 
 		] ) ) {
 

@@ -585,6 +585,24 @@ if( defined('ROUTE') ) {
 
 			break;
 
+		case '#pick':
+
+			ob_start('ob_gzhandler');
+
+			// Search
+			require_once('./Kernel/Nodes/NodePick.php');
+
+			break;
+
+		case '#picker':
+
+			ob_start('ob_gzhandler');
+
+			// Search
+			require_once('./Kernel/Routes/RoutePicker.php');
+
+			break;
+
 		case '#preview':
 
 				ob_start('ob_gzhandler');

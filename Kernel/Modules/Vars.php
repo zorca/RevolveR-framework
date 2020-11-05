@@ -4,7 +4,7 @@
   * 
   * RevolveR Secure Variables Dispatch
   *
-  * v.1.9.4.7
+  * v.1.9.4.9
   *
   *
   *
@@ -635,7 +635,7 @@ final class SecureVariablesDispatcher {
 
 			case 'url':
 
-				if( filter_var($v, FILTER_VALIDATE_URL)  && (bool)strlen($v) ) {
+				if( filter_var($v, FILTER_VALIDATE_URL) && (bool)strlen($v) ) {
 
 					$flag = 1;
 

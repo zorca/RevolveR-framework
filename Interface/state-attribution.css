@@ -54,6 +54,20 @@
 
 }
 
+.revolver__store .state-attribution {
+
+	margin-left: 11.4vw;
+	top: -.8vw;
+
+}
+
+.revolver__mobile-friendly .revolver__scalable-main .state-attribution {
+
+	margin-left: 18.4vw;
+	top: -.2vw;
+
+}
+
 .revolver__register-form #fieldset_2 .state-attribution {
 
 	margin-left: -1.6vw;

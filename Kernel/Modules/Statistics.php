@@ -3,7 +3,7 @@
  /* 
   * RevolveR Statistics Class
   *
-  * v.1.9.4
+  * v.1.9.4.9
   *
   *
   *
@@ -73,7 +73,10 @@ final class Statistics {
 			}
 			else {
 
-				$struct['referer'] = parse_url( $_SERVER['HTTP_REFERER'] )['host'] . parse_url( $_SERVER['HTTP_REFERER'] )['path'];
+				$struct['referer'] = parse_url( $_SERVER['HTTP_REFERER'] )['host'] . parse_url( $_SERVER['HTTP_REFERER'] )['path'] . parse_url( $_SERVER['HTTP_REFERER'] )['query'];
+
+				//struct['referer'] = $_SERVER['HTTP_REFERER'];
+
 
 			}
 

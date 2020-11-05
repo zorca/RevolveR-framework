@@ -1,12 +1,13 @@
 # 
 # RevolveR CMF Indexing Rules 
 #
-# v.1.9.4
+# v.1.9.5
 #
 
 User-agent: *
 
 # Main nodes
+Disallow: /pick/
 Disallow: /user/
 Disallow: /setup/
 

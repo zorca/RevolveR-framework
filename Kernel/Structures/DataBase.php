@@ -4,7 +4,7 @@
   * 
   * RevolveR CMF Data Base schema
   *
-  * v.1.9.4.9
+  * v.1.9.5
   *
   *
   *
@@ -1707,6 +1707,91 @@ $STRUCT_STORE_ORDERS = [
 
 ];
 
+$STRUCT_INDEX = [
+
+	'field_id' => [
+
+		'type'   => 'bignum', // bigint
+		'auto'	 => true,
+		'length' => 255,
+		'fill'   => true
+
+	],
+
+	'field_uri' => [
+
+		'type'   => 'text', // varchar
+		'length' => 1000,
+		'fill'   => true
+
+	],
+
+	'field_host' => [
+
+		'type'   => 'text', // varchar
+		'length' => 50,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'simple'
+
+		]
+
+	],
+
+	'field_date' => [
+
+		'type'   => 'text', // varchar
+		'length' => 10,
+		'fill'   => true
+
+	],
+
+	'field_title' => [
+
+		'type'   => 'text', // varchar
+		'length' => 600,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'full'
+
+		]
+
+	],
+
+	'field_description' => [
+
+		'type'   => 'text', // varchar
+		'length' => 250,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'full'
+
+		]
+
+	],
+
+	'field_content' => [
+
+		'type'   => 'text', // varchar
+		'length' => 9000,
+		'fill'   => true,
+
+		'index'	 => [
+
+			'type' => 'full'
+
+		]
+
+	]
+
+];
+
 $STRUCT_TEST = [
 
 	'field_id' => [
@@ -1781,6 +1866,9 @@ $DBX_KERNEL_SCHEMA = [
 
 	'messages'		    	 => $STRUCT_MESSAGES,
 	'messages_files'    	 => $STRUCT_MESSAGES_FILES,
+
+	// Pick index
+	'index'					 => $STRUCT_INDEX,
 
 	'test'			    	 => $STRUCT_TEST
 

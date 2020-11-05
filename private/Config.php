@@ -506,6 +506,24 @@ define('main_nodes', array_merge([
 
 		],
 
+		// search engine service
+		TRANSLATIONS[ $ipl ]['Pick'] => [
+
+			'title' => TRANSLATIONS[ $ipl ]['Pick'],
+
+			'param_check' => [
+
+				'menu'		=> 1
+
+			],
+
+			'route'  => '/pick/',
+			'node'   => '#pick',
+			'type'	 => 'node',
+			'id'	 => 'pick',
+
+		],
+
 		/* Services notes
 		TRANSLATIONS[ $ipl ]['Services'] => [
 
@@ -524,6 +542,7 @@ define('main_nodes', array_merge([
 			'id'   	=> 'services-en'
 
 		],
+		*/
 
 		// Services RU
 		'Услуги' => [
@@ -543,7 +562,6 @@ define('main_nodes', array_merge([
 			'id'   	=> 'services-ru'
 
 		],
-		*/
 
 		// Privacy notes
 		TRANSLATIONS[ $ipl ]['Privacy notes'] => [
@@ -1013,6 +1031,24 @@ define('main_nodes', array_merge([
 
 		],
 
+		// serarch engine crawler
+		'picker' => [
+
+			'title' => 'Search engine crawler',
+
+			'param_check' => [
+
+				'menu'		=> 0,
+				'hidden' 	=> 1
+
+			],
+
+			'route'  => '/picker/',
+			'node'   => '#picker',
+			'type'	 => 'service',
+			'id'	 => 'picker',
+
+		],
 
 		// preview service
 		'preview' => [

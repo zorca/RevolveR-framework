@@ -947,9 +947,13 @@
 
 					for( let l of R.lazyList ) {
 
+						//console.log(l);
+
 						if( l[1] === 0 ) {
 
-							if( l[0].offsetTop < ( self.innerHeight + self.pageYOffset + 450 ) ) {
+							//onsole.log( l[0].offsetTop, self.innerHeight + self.pageYOffset + 450 );
+
+							if( (l[0].offsetTop + l[0].offsetHeight) < ( self.pageYOffset + 250 ) ) {
 
 								l[0].src = l[0].dataset.src;
 

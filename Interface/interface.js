@@ -548,6 +548,51 @@ R.fetchRoute = ( intro ) => {
 
 	}, 2000);
 
+	// Auto pagination
+	setTimeout(() => {
+
+		//R.allowAddLoad = true;
+
+		R.allowAddLoad = setInterval(() => {
+
+			let PageLoadhandler = R.sel('.revolver__pagination');
+
+			if( PageLoadhandler ) {
+
+				if( (PageLoadhandler[0].offsetTop + PageLoadhandler[0].offsetHeight) < (self.pageYOffset + 250) ) {
+
+					console.log( 'Pagination available :: Next page loaded autocatically' );
+
+					clearInterval( R.allowAddLoad );
+
+					let current = R.sel('.pagination_current')[0].innerText - 0;
+
+					let links = R.sel('.pagination_link');
+
+					if( (links[ links.length - 1 ].dataset.number - 0) !== current ) {
+
+						setTimeout(() => {
+
+							R.loadURI(document.location.pathname +'?page='+ (current + 1), 'next page');
+
+						}, 5500);
+
+					} 
+					else {
+
+						console.log('Pagination unavailable: end of pages achieved')
+
+					}
+
+				}
+
+			}
+
+
+		}, 1000);
+
+
+	}, 4000);
 
 	// Parallax effects
 	const articleBlocks = R.sel('article');

@@ -54,7 +54,7 @@ for( $i = 1; $i <= $pages_count; $i++ ) {
 
 	if( (int)pagination['curent'] === $i ) {
 
-		$render_node_links .= '<li><span><i>'. $i .'</i></span></li>';
+		$render_node_links .= '<li class="pagination_current pagination_link" data-number="'. $i .'"><span><i>'. $i .'</i></span></li>';
 
 	}
 	else {
@@ -63,7 +63,7 @@ for( $i = 1; $i <= $pages_count; $i++ ) {
 
 			if( $i <= $limit ) {
 
-				$render_node_links .= !(bool)pagination['curent'] && $i === 1 ? '<li><span><i>'. $i .'</i></span></li>' : '<li><a href="'. $link .'"><span>'. $i .'</span></a></li>';
+				$render_node_links .= !(bool)pagination['curent'] && $i === 1 ? '<li class="pagination_current pagination_link" data-number="'. $i .'"><span><i>'. $i .'</i></span></li>' : '<li class="pagination_link" data-number="'. $i .'"><a href="'. $link .'"><span>'. $i .'</span></a></li>';
 
 			}
 
@@ -76,7 +76,7 @@ for( $i = 1; $i <= $pages_count; $i++ ) {
 		}
 		else if( $i == $pages_count ) {
 
-			$render_node_links .= !(bool)pagination['curent'] && $i === 1 ? '<li><span><i>'. $i .'</i></span></li>' : '<li><a href="'. $link .'"><span>'. $i .'</span></a></li>';
+			$render_node_links .= !(bool)pagination['curent'] && $i === 1 ? '<li class="pagination_current pagination_link" data-number="'. $i .'"><span><i>'. $i .'</i></span></li>' : '<li class="pagination_link" data-number="'. $i .'"><a href="'. $link .'"><span>'. $i .'</span></a></li>';
 
 		}
 

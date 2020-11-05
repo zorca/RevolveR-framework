@@ -3,7 +3,7 @@
  /*
   * RevolveR Attendance Node
   *
-  * v.1.9.4.8
+  * v.1.9.4.9
   *
   *
   *
@@ -451,7 +451,7 @@ if( in_array(ROLE, ['Admin', 'Writer'], true) )  {
 
 					if( $_SESSION['adminid'] ) {
 
-						$result['errordetail'] = 'Error: ' . curl_errno($ch) . " - " . curl_error($ch);
+						$result['errordetail'] = 'Error: ' . curl_errno($ch) . ' - ' . curl_error($ch);
 
 					}
 

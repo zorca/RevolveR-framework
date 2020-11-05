@@ -4,7 +4,7 @@
   * 
   * RevolveR Markup Parser
   *
-  * v.1.9.4
+  * v.1.9.4.9
   *
   *
   *
@@ -39,10 +39,6 @@
 
 final class Parse {
 
-  protected function __clone() {
-
-  }
-
   public static function extract( ?string $common = null ): iterable {
 
     if( $common ) {
@@ -51,7 +47,7 @@ final class Parse {
 
       $i = 0;
 
-      foreach ($matches[0] as $key => $match) {
+      foreach( $matches[0] as $key => $match ) {
 
         $child_nodes = null;
 

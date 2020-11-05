@@ -6,7 +6,7 @@
   *
   * Contents Management Framework
   *
-  * v.1.9.4.8
+  * v.1.9.5
   * 
   *
   *

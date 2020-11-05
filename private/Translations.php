@@ -214,6 +214,13 @@ define('TRANSLATIONS', [
 		'Paid'										=> 'Paid',
 		'Manage'									=> 'Manage',
 
+		// Pick
+		'Pick'										=> 'Pick',
+		'Welcome Pick networks'						=> 'Welcome Pick networks',
+		'Pick query box'							=> 'Pick query box',
+		'Query phrase'								=> 'Query phrase',
+		'Pick it'									=> 'Pick it',		
+
 		// Forum*
 		'Forum'										=> 'Forum',
 		'Forum manage'								=> 'Forum manage',
@@ -849,6 +856,13 @@ define('TRANSLATIONS', [
 		'Processed'									=> 'Обработано',
 		'Paid'										=> 'Оплачено',
 		'Manage'									=> 'Обработка',
+
+		// Pick
+		'Pick'										=> 'Pick',
+		'Welcome Pick networks'						=> 'Добро пожаловать в сеть Pick',
+		'Pick query box'							=> 'Строка запроса Pick',
+		'Query phrase'								=> 'Фраза для поиска',
+		'Pick it'									=> 'Pick it',
 
 		// Forum*
 		'Forum'										=> 'Форум',

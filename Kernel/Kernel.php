@@ -3,7 +3,7 @@
  /*
   * RevolveR CMF Kernel
   *
-  * v.1.9.4.9
+  * v.1.9.5
   *
   *			          ^
   *			         | |
@@ -32,7 +32,7 @@
   */
 
 // Kernel version
-define('rr_version', '1.9.4.9');
+define('rr_version', '1.9.5');
 
 // X64 guest number
 define('BigNumericX64', 9223372036854775806);
